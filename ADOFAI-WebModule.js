@@ -83,6 +83,13 @@ class ADOFAI {
 
     var stg = "";
     Object.keys(this.settings).forEach((k, i) => {
+      var multiply = [
+        "volume",
+        "pitch",
+        "hitsoundVolume",
+        "unscaledSize",
+        "zoom",
+      ].includes(k);
       var v = this.settings[k];
       switch (typeof v) {
         case "object":
@@ -107,7 +114,7 @@ class ADOFAI {
           break;
         case "number":
         case "string":
-          v = JSON.stringify(v);
+          v = JSON.stringify(multiply ? v * 100 : v);
           break;
         case "boolean":
           v = `"${v ? "Enabled" : "Disabled"}"`;

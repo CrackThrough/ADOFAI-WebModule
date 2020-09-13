@@ -37,10 +37,16 @@ class MapEvent_SetSpeed extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "speedType": "${
-      this.isSpeedTypeBPM ? "Bpm" : "Multiplier"
-    }", "beatsPerMinute": ${this.BPM}, "bpmMultiplier": ${this.BPM_Multiplier}`;
+  asJsonPart(...params) {
+    return `, "speedType": ${JSON.stringify(
+      (params[0] == null ? this.isSpeedTypeBPM : params[0])
+        ? "Bpm"
+        : "Multiplier"
+    )}, "beatsPerMinute": ${JSON.stringify(
+      params[1] == null ? this.BPM : params[1]
+    )}, "bpmMultiplier": ${JSON.stringify(
+      params[2] == null ? this.BPM_Multiplier : params[2]
+    )}`;
   }
 }
 

@@ -83,16 +83,26 @@ class MapEvent_AddDecoration extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "decorationImage": "${this.decorationImage}", "position": [${
-      this.position[0]
-    }, ${this.position[1]}], "relativeTo": "${
-      this.relativeTo
-    }", "pivotOffset": [${this.pivotOffset[0]}, ${
-      this.pivotOffset[1]
-    }], "rotation": ${this.rotation}, "scale": ${this.scale * 100}, "depth": ${
-      this.depth
-    }, "tag": "${this.tag}"`;
+  asJsonPart(...params) {
+    return `, "decorationImage": ${JSON.stringify(
+      params[0] == null ? this.decorationImage : params[0]
+    )}, "position": [${JSON.stringify(
+      (params[1] == null ? this.position : params[1])[0]
+    )}, ${JSON.stringify(
+      (params[1] == null ? this.position : params[1])[1]
+    )}], "relativeTo": ${JSON.stringify(
+      params[2] == null ? this.relativeTo : params[2]
+    )}, "pivotOffset": [${JSON.stringify(
+      (params[3] == null ? this.pivotOffset : params[3])[0]
+    )}, ${JSON.stringify(
+      (params[3] == null ? this.pivotOffset : params[3])[1]
+    )}], "rotation": ${JSON.stringify(
+      params[4] == null ? this.rotation : params[4]
+    )}, "scale": ${JSON.stringify(
+      (params[5] == null ? this.scale : params[5]) * 100
+    )}, "depth": ${JSON.stringify(
+      params[6] == null ? this.depth : params[6]
+    )}, "tag": ${JSON.stringify(params[6] == null ? this.tag : params[6])}`;
   }
 }
 

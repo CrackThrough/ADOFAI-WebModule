@@ -49,8 +49,18 @@ class MapEvent_SetConditionalEvents extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "perfectTag": "${this.perfectTag}", "hitTag": "${this.hitTag}", "barelyTag": "${this.lossTag}", "missTag": "${this.missTag}", "lossTag": "${this.lossTag}"`;
+  asJsonPart(...params) {
+    return `, "perfectTag": ${JSON.stringify(
+      params[0] == null ? this.perfectTag : params[0]
+    )}, "hitTag": ${JSON.stringify(
+      params[1] == null ? this.hitTag : params[1]
+    )}, "barelyTag": ${JSON.stringify(
+      params[2] == null ? this.barelyTag : params[2]
+    )}, "missTag": ${JSON.stringify(
+      params[3] == null ? this.missTag : params[3]
+    )}, "lossTag": ${JSON.stringify(
+      params[4] == null ? this.lossTag : params[4]
+    )}`;
   }
 }
 

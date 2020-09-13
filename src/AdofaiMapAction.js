@@ -40,12 +40,15 @@ class AdofaiMapAction {
   constructor(floor, eventType, eventValue = null) {
     this.floor = floor;
     this.eventType = eventType;
-    this.eventValue = eventValue;
 
-    var ThisClass = AdofaiMapAction.ACTIONS_LIST[eventType];
+    if (eventValue == null) {
+      var ThisClass = AdofaiMapAction.ACTIONS_LIST[eventType];
 
-    if (["function", "object"].includes(typeof ThisClass)) {
-      this.eventValue = new ThisClass();
+      if (["function", "object"].includes(typeof ThisClass)) {
+        this.eventValue = new ThisClass();
+      }
+    } else {
+      this.eventValue = eventValue;
     }
   }
 

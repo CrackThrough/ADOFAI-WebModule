@@ -83,14 +83,24 @@ class MapEvent_Flash extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "duration": ${this.duration}, "plane": "${
-      this.plane
-    }", "startColor": "${this.startColor.toString()}", "startOpacity": ${
-      this.startOpacity * 100
-    }, "endColor": "${this.endColor.toString()}", "endOpacity": ${
-      this.endOpacity * 100
-    }, "angleOffset": ${this.angleOffset}, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "duration": ${JSON.stringify(
+      params[0] == null ? this.duration : params[0]
+    )}, "plane": ${JSON.stringify(
+      params[1] == null ? this.plane : params[1]
+    )}, "startColor": ${JSON.stringify(
+      (params[2] == null ? this.startColor : params[2]).toString()
+    )}, "startOpacity": ${JSON.stringify(
+      (params[3] == null ? this.startOpacity : params[3]) * 100
+    )}, "endColor": ${JSON.stringify(
+      (params[4] == null ? this.endColor : params[4]).toString()
+    )}, "endOpacity": ${JSON.stringify(
+      (params[5] == null ? this.endOpacity : params[5]) * 100
+    )}, "angleOffset": ${JSON.stringify(
+      params[6] == null ? this.angleOffset : params[6]
+    )}, "eventTag": ${JSON.stringify(
+      params[7] == null ? this.eventTag : params[7]
+    )}`;
   }
 }
 

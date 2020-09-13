@@ -32,8 +32,12 @@ class MapEvent_SetHitsound extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "hitsound": "${this.hitsound}", "hitsoundVolume": ${this.hitsoundVolume}`;
+  asJsonPart(...params) {
+    return `, "hitsound": ${JSON.stringify(
+      params[0] == null ? this.hitsound : params[0]
+    )}, "hitsoundVolume": ${JSON.stringify(
+      (params[1] == null ? this.hitsoundVolume : params[1]) * 100
+    )}`;
   }
 }
 

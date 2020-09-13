@@ -31,8 +31,12 @@ class MapEvent_SetPlanetRotation extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "ease": "${this.ease}", "easeParts": ${this.easeParts}`;
+  asJsonPart(...params) {
+    return `, "ease": ${JSON.stringify(
+      params[0] == null ? this.ease : params[0]
+    )}, "easeParts": ${JSON.stringify(
+      params[1] == null ? this.easeParts : params[1]
+    )}`;
   }
 }
 

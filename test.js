@@ -7,9 +7,15 @@ const ready = () => {
 
   m.pathData.push(new ADOFAI.PathData("L")); // create a tile with code 'L'.
   m.settings.levelDesc = "Hello world!"; // change the setting of a level.
-  m.actions.push(new ADOFAI.Action(0, "AddDecoration")); // create a action and push it.
+  m.actions.push(
+    new ADOFAI.Action(
+      4,
+      "SetSpeed",
+      new ADOFAI.Action.ACTIONS_LIST.SetSpeed(true, 200, 1)
+    )
+  ); // create a action and push it.
 
-  return console.log(m.actions);
+  return console.log(m.Export());
 };
 
 if (

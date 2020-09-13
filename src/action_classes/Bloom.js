@@ -57,14 +57,20 @@ class MapEvent_Bloom extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "enabled": "${
-      this.enabled ? "Enabled" : "Disabled"
-    }", "threshold": ${this.threshold * 100}, "intensity": ${
-      this.intensity * 100
-    }, "color": "${this.color.toString()}", "angleOffset": ${
-      this.angleOffset
-    }, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "enabled": ${JSON.stringify(
+      (params[0] == null ? this.enabled : params[0]) ? "Enabled" : "Disabled"
+    )}, "threshold": ${JSON.stringify(
+      (params[1] == null ? this.threshold : params[1]) * 100
+    )}, "intensity": ${JSON.stringify(
+      (params[2] == null ? this.intensity : params[2]) * 100
+    )}, "color": ${JSON.stringify(
+      params[3] == null ? this.color.toString() : params[3].toString()
+    )}, "angleOffset": ${JSON.stringify(
+      params[4] == null ? this.angleOffset : params[4]
+    )}, "eventTag": ${JSON.stringify(
+      params[5] == null ? this.eventTag : params[5]
+    )}`;
   }
 }
 

@@ -55,8 +55,16 @@ class MapEvent_AnimateTrack extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "trackAnimation": "${this.trackAnimation}", "beatsAhead": ${this.beatsAhead}, "trackDisappearAnimation": "${this.trackDisappearAnimation}", "beatsBehind": ${this.beatsBehind}`;
+  asJsonPart(...params) {
+    return `, "trackAnimation": ${JSON.stringify(
+      params[0] == null ? this.trackAnimation : params[0]
+    )}, "beatsAhead": ${JSON.stringify(
+      params[1] == null ? this.beatsAhead : params[1]
+    )}, "trackDisappearAnimation": ${JSON.stringify(
+      params[2] == null ? this.trackDisappearAnimation : params[2]
+    )}, "beatsBehind": ${JSON.stringify(
+      params[3] == null ? this.beatsBehind : params[3]
+    )}`;
   }
 }
 

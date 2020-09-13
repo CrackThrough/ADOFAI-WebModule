@@ -317,7 +317,7 @@ var obj = {
    *
    * Allows decimals.
    */
-  zoom: 160,
+  zoom: 1.6,
 
   /**
    * Location of an video file relative to map file's directory.

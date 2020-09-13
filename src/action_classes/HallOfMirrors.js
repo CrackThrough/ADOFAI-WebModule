@@ -34,10 +34,14 @@ class MapEvent_HallOfMirrors extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "enabled": "${
-      this.enabled ? "Enabled" : "Disabled"
-    }", "angleOffset": ${this.angleOffset}, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "enabled": ${JSON.stringify(
+      (params[0] == null ? this.enabled : params[0]) ? "Enabled" : "Disabled"
+    )}, "angleOffset": ${JSON.stringify(
+      params[1] == null ? this.angleOffset : params[1]
+    )}, "eventTag": ${JSON.stringify(
+      params[2] == null ? this.eventTag : params[2]
+    )}`;
   }
 }
 

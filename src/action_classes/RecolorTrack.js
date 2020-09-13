@@ -123,20 +123,34 @@ class MapEvent_RecolorTrack extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "startTile": [${this.startTile[0]}, "${
-      this.startTile[1]
-    }"], "endTile": [${this.endTile[0]}, "${
-      this.endTile[1]
-    }"], "trackColorType": "${
-      this.trackColorType
-    }", "trackColor": "${this.trackColor.toString()}", "secondaryColor": "${this.secondaryTrackColor.toString()}", "trackColorAnimDuration": ${
-      this.trackColorAnimDuration
-    }, "trackColorPulse": "${this.trackColorPulse}", "trackPulseLength": ${
-      this.trackPulseLength
-    }, "trackStyle": "${this.trackStyle}", "angleOffset": ${
-      this.angleOffset
-    }, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "startTile": [${JSON.stringify(
+      (params[0] == null ? this.startTile : params[0])[0]
+    )}, ${JSON.stringify(
+      (params[0] == null ? this.startTile : params[0])[1]
+    )}], "endTile": [${JSON.stringify(
+      (params[1] == null ? this.endTile : params[1])[0]
+    )}, ${JSON.stringify(
+      (params[1] == null ? this.endTile : params[1])[1]
+    )}], "trackColorType": ${JSON.stringify(
+      params[2] == null ? this.trackColorType : params[2]
+    )}, "trackColor": ${JSON.stringify(
+      (params[3] == null ? this.trackColor : params[3]).toString()
+    )}, "secondaryColor": ${JSON.stringify(
+      (params[4] == null ? this.secondaryTrackColor : params[4]).toString()
+    )}, "trackColorAnimDuration": ${JSON.stringify(
+      params[5] == null ? this.trackColorAnimDuration : params[5]
+    )}, "trackColorPulse": ${JSON.stringify(
+      params[6] == null ? this.trackColorPulse : params[6]
+    )}, "trackPulseLength": ${JSON.stringify(
+      params[7] == null ? this.trackPulseLength : params[7]
+    )}, "trackStyle": ${JSON.stringify(
+      params[8] == null ? this.trackStyle : params[8]
+    )}, "angleOffset": ${JSON.stringify(
+      params[9] == null ? this.angleOffset : params[9]
+    )}, "eventTag": ${JSON.stringify(
+      params[10] == null ? this.eventTag : params[10]
+    )}`;
   }
 }
 

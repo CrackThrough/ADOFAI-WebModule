@@ -105,18 +105,34 @@ class MapEvent_MoveTrack extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "startTile": [${this.startTile[0]}, "${
-      this.startTile[1]
-    }"], "endTile": [${this.endTile[0]}, "${this.endTile[1]}"], "duration": ${
-      this.duration
-    }, "positionOffset": [${this.positionOffset[0]}, ${
-      this.positionOffset[1]
-    }], "rotationOffset": ${this.rotationOffset}, "scale": ${
-      this.scale * 100
-    }, "opacity": ${this.opacity * 100}, "angleOffset": ${
-      this.angleOfffset
-    }, "ease": "${this.ease}", "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "startTile": [${JSON.stringify(
+      (params[0] == null ? this.startTile : params[0])[0]
+    )}, ${JSON.stringify(
+      (params[0] == null ? this.startTile : params[0])[1]
+    )}], "endTile": [${JSON.stringify(
+      (params[1] == null ? this.endTile : params[1])[0]
+    )}, ${JSON.stringify(
+      (params[1] == null ? this.endTile : params[1])[1]
+    )}], "duration": ${JSON.stringify(
+      params[2] == null ? this.duration : params[2]
+    )}, "positionOffset": [${JSON.stringify(
+      (params[3] == null ? this.positionOffset : params[3])[0]
+    )}, ${JSON.stringify(
+      (params[3] == null ? this.positionOffset : params[3])[1]
+    )}], "rotationOffset": ${JSON.stringify(
+      params[4] == null ? this.rotationOffset : params[4]
+    )}, "scale": ${JSON.stringify(
+      (params[5] == null ? this.scale : params[5]) * 100
+    )}, "opacity": ${JSON.stringify(
+      (params[6] == null ? this.opacity : params[6]) * 100
+    )}, "angleOffset": ${JSON.stringify(
+      params[7] == null ? this.angleOffset : params[7]
+    )}, "ease": ${JSON.stringify(
+      params[8] == null ? this.ease : params[8]
+    )}, "eventTag": ${JSON.stringify(
+      params[9] == null ? this.eventTag : params[9]
+    )}`;
   }
 }
 

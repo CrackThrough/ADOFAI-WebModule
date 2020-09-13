@@ -84,8 +84,26 @@ class MapEvent_MoveDecoration extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "duration": ${this.duration}, "tag": "${this.tag}", "positionOffset": [${this.positionOffset[0]}, ${this.positionOffset[1]}], "rotationOffset": ${this.rotationOffset}, "scale": ${this.scale}, "angleOffset": ${this.angleOffset}, "ease": "${this.ease}", "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "duration": ${JSON.stringify(
+      params[0] == null ? this.duration : params[0]
+    )}, "tag": ${JSON.stringify(
+      params[1] == null ? this.tag : params[1]
+    )}, "positionOffset": [${JSON.stringify(
+      (params[2] == null ? this.positionOffset : params[2])[0]
+    )}, ${JSON.stringify(
+      (params[2] == null ? this.positionOffset : params[2])[1]
+    )}], "rotationOffset": ${JSON.stringify(
+      params[3] == null ? this.rotationOffset : params[3]
+    )}, "scale": ${JSON.stringify(
+      params[4] == null ? this.scale : params[4]
+    )}, "angleOffset": ${JSON.stringify(
+      params[5] == null ? this.scale : params[5]
+    )}, "ease": ${JSON.stringify(
+      params[6] == null ? this.ease : params[6]
+    )}, "eventTag": ${JSON.stringify(
+      params[7] == null ? this.eventTag : params[7]
+    )}`;
   }
 }
 

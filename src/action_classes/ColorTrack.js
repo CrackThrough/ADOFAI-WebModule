@@ -86,14 +86,22 @@ class MapEvent_ColorTrack extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "trackColorType": "${
-      this.trackColorType
-    }", "trackColor": "${this.trackColor.toString()}", "secondaryTrackColor": "${this.secondaryTrackColor.toString()}", "trackColorAnimDuration": ${
-      this.trackColorAnimDuration
-    }, "trackColorPulse": "${this.trackColorPulse}", "trackPulseLength": ${
-      this.trackPulseLength
-    }, "trackStyle": "${this.trackStyle}"`;
+  asJsonPart(...params) {
+    return `, "trackColorType": ${JSON.stringify(
+      params[0] == null ? this.trackColorType : params[0]
+    )}, "trackColor": ${JSON.stringify(
+      (params[1] == null ? this.trackColor : params[1]).toString()
+    )}, "secondaryTrackColor": ${JSON.stringify(
+      (params[2] == null ? this.secondaryTrackColor : params[2]).toString()
+    )}, "trackColorAnimDuration": ${JSON.stringify(
+      params[3] == null ? this.trackColorAnimDuration : params[3]
+    )}, "trackColorPulse": ${JSON.stringify(
+      params[4] == null ? this.trackColorPulse : params[4]
+    )}, "trackPulseLength": ${JSON.stringify(
+      params[5] == null ? this.trackPulseLength : params[5]
+    )}, "trackStyle": ${JSON.stringify(
+      params[6] == null ? this.trackStyle : params[6]
+    )}`;
   }
 }
 

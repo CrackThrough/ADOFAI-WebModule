@@ -29,10 +29,14 @@ class MapEvent_PositionTrack extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "positionOffset": [${this.positionOffset[0]}, ${
-      this.positionOffset[1]
-    }], "editorOnly": "${this.editorOnly ? "Enabled" : "Disabled"}"`;
+  asJsonPart(...params) {
+    return `, "positionOffset": [${JSON.stringify(
+      (params[0] == null ? this.positionOffset : params[0])[0]
+    )}, ${JSON.stringify(
+      (params[0] == null ? this.positionOffset : params[0])[1]
+    )}], "editorOnly": ${JSON.stringify(
+      (params[1] == null ? this.editorOnly : params[1]) ? "Enabled" : "Disabled"
+    )}`;
   }
 }
 

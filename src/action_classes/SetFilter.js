@@ -67,12 +67,22 @@ class MapEvent_SetFilter extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "filter": "${this.filter}", "enabled": "${
-      this.enabled ? "Enabled" : "Disabled"
-    }", "intensity": ${this.intensity * 100}, "disableOthers": "${
-      this.disableOthers ? "Enabled" : "Disabled"
-    }", "angleOffset": ${this.angleOffset}, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "filter": ${JSON.stringify(
+      params[0] == null ? this.filter : params[0]
+    )}, "enabled": ${JSON.stringify(
+      (params[1] == null ? this.enabled : params[1]) ? "Enabled" : "Disabled"
+    )}, "intensity": ${JSON.stringify(
+      (params[2] == null ? this.intensity : params[2]) * 100
+    )}, "disableOthers": ${JSON.stringify(
+      (params[3] == null ? this.disableOthers : params[3])
+        ? "Enabled"
+        : "Disabled"
+    )}, "angleOffset": ${JSON.stringify(
+      params[4] == null ? this.angleOffset : params[4]
+    )}, "eventTag": ${JSON.stringify(
+      params[5] == null ? this.eventTag : params[5]
+    )}`;
   }
 }
 

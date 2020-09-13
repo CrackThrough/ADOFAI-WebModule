@@ -100,18 +100,30 @@ class MapEvent_CustomBackground extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "color": "${this.color.toString()}", "bgImage": "${
-      this.bgImage
-    }", "imageColor": "${this.imageColor.toString()}", "parallax": [${
-      this.parallax[0]
-    }, ${this.parallax[1]}], "bgDisplayMode": "${
-      this.bgDisplayMode
-    }", "lockRot": "${this.lockRot ? "Enabled" : "Disabled"}", "loopBG": "${
-      this.loopBG ? "Enabled" : "Disabled"
-    }", "unscaledSize": ${this.unscaledSize * 100}, "angleOffset": ${
-      this.angleOffset
-    }, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "color": ${JSON.stringify(
+      (params[0] == null ? this.color : params[0]).toString()
+    )}, "bgImage": ${JSON.stringify(
+      params[1] == null ? this.bgImage : params[1]
+    )}, "imageColor": ${JSON.stringify(
+      (params[2] == null ? this.imageColor : params[2]).toString()
+    )}, "parallax": [${JSON.stringify(
+      (params[3] == null ? this.parallax : params[3])[0]
+    )}, ${JSON.stringify(
+      (params[3] == null ? this.parallax : params[3])[1]
+    )}], "bgDisplayMode": ${JSON.stringify(
+      params[4] == null ? this.bgDisplayMode : params[4]
+    )}, "lockRot": ${JSON.stringify(
+      this.lockRot ? "Enabled" : "Disabled"
+    )}, "loopBG": ${JSON.stringify(
+      (params[5] == null ? this.loopBG : params[5]) ? "Enabled" : "Disabled"
+    )}, "unscaledSize": ${JSON.stringify(
+      (params[6] == null ? this.unscaledSize : params[6]) * 100
+    )}, "angleOffset": ${JSON.stringify(
+      params[7] == null ? this.angleOffset : params[7]
+    )}, "eventTag": ${JSON.stringify(
+      params[8] == null ? this.eventTag : params[8]
+    )}`;
   }
 }
 

@@ -35,8 +35,12 @@ class MapEvent_RepeatEvents extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "repetitions": ${this.repetitions}, "interval": ${this.interval}, "tag": "${this.tag}"`;
+  asJsonPart(...params) {
+    return `, "repetitions": ${JSON.stringify(
+      params[0] == null ? this.repetitions : params[0]
+    )}, "interval": ${JSON.stringify(
+      params[1] == null ? this.interval : params[1]
+    )}, "tag": ${JSON.stringify(params[2] == null ? this.tag : params[2])}`;
   }
 }
 

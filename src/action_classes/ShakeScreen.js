@@ -56,12 +56,20 @@ class MapEvent_ShakeScreen extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "duration": ${this.duration}, "strength": ${
-      this.strength * 100
-    }, "intensity": ${this.intensity * 100}, "fadeOut": "${
-      this.fadeOut ? "Enabled" : "Disabled"
-    }", "angleOffset": ${this.angleOffset}, "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "duration": ${JSON.stringify(
+      params[0] == null ? this.duration : params[0]
+    )}, "strength": ${JSON.stringify(
+      (params[1] == null ? this.strength : params[1]) * 100
+    )}, "intensity": ${JSON.stringify(
+      (params[2] == null ? this.intensity : params[2]) * 100
+    )}, "fadeOut": ${JSON.stringify(
+      (params[3] == null ? this.fadeOut : params[3]) ? "Enabled" : "Disabled"
+    )}, "angleOffset": ${JSON.stringify(
+      params[4] == null ? this.angleOffset : params[4]
+    )}, "eventTag": ${JSON.stringify(
+      params[5] == null ? this.eventTag : params[5]
+    )}`;
   }
 }
 

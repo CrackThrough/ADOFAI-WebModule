@@ -83,14 +83,26 @@ class MapEvent_MoveCamera extends ActionEventType {
   /**
    * Returns a json part of this event.
    */
-  asJsonPart() {
-    return `, "duration": ${this.duration}, "relativeTo": "${
-      this.relativeTo
-    }", "position": [${this.position[0]}, ${this.position[1]}], "rotation": ${
-      this.rotation
-    }, "zoom": ${this.zoom * 100}, "angleOffset": ${
-      this.angleOffset
-    }, "ease": "${this.ease}", "eventTag": "${this.eventTag}"`;
+  asJsonPart(...params) {
+    return `, "duration": ${JSON.stringify(
+      params[0] == null ? this.duration : params[0]
+    )}, "relativeTo": ${JSON.stringify(
+      params[1] == null ? this.relativeTo : params[1]
+    )}, "position": [${JSON.stringify(
+      (params[2] == null ? this.position : params[2])[0]
+    )}, ${JSON.stringify(
+      (params[2] == null ? this.position : params[2])[1]
+    )}], "rotation": ${JSON.stringify(
+      params[3] == null ? this.rotation : params[3]
+    )}, "zoom": ${JSON.stringify(
+      (params[4] == null ? this.zoom : params[4]) * 100
+    )}, "angleOffset": ${JSON.stringify(
+      params[5] == null ? this.angleOffset : params[5]
+    )}, "ease": ${JSON.stringify(
+      params[6] == null ? this.ease : params[6]
+    )}, "eventTag": ${JSON.stringify(
+      params[7] == null ? this.eventTag : params[7]
+    )}`;
   }
 }
 
