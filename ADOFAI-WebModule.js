@@ -1,5 +1,5 @@
 /**
- * This API uses MIT License 2.0.
+ * This API uses MIT License.
  *
  * Copyright ⓒ CrackThrough 2020.
  * All rights reserved.
