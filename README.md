@@ -34,5 +34,9 @@ $(function() {
 })
 ```
 
+If you still do not understand, you can look at test.html and test.js file I included.
+
+**I only tested this in chrome browser**, so please let me know if you use other browser and found any problem, or simply I made a mistake.
+
 ### Documentation
 [Click here](https://github.com/CrackThrough/ADOFAI-WebModule/wiki) or copy the link: https://github.com/CrackThrough/ADOFAI-WebModule/wiki
