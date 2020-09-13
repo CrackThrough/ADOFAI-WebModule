@@ -8,13 +8,17 @@ If you do not know what ADOFAI is, it is a indie rythm game including a custom m
 You can check the game on Steam.
 
 ### How do I implement it?
-You can only implement this in javascript file.
+`git clone` this repository, and move ALL files and folders to the directory you want.
+
+**Do not change the name of file or move all files in directory to one folder.**
+
+You can only implement this in the javascript file, not HTML.
 
 HTML file should look like:
 ```html
 <!DOCTYPE HTML>
 <head>
-	<script src="./YourJsFile.js" type="module"></script>
+	<script src="./YourJsFile_NotTheFileYouCloned.js" type="module"></script>
 </head>
 ```
 
