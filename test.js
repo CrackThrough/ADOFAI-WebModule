@@ -5,16 +5,15 @@ window.tempClass = ADOFAI;
 const ready = () => {
   var m = new ADOFAI(); // create a level instance.
 
-  // m = ADOFAI.Import(''); // import from a string
+  // m = ADOFAI.Import(``); // you can also import from a string
 
   let arr = [];
 
-  m.actions.forEach(a => {
+  m.actions.forEach((a) => {
     if (["SetSpeed", "Twirl"].includes(a.eventType)) {
       arr.push(a);
     }
-  })
-
+  });
   m.actions = arr;
 
   return console.log(m.Export());

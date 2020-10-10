@@ -149,7 +149,7 @@ class AdofaiMapPathData {
     "6",
     "7",
     "8",
-    "!"
+    "!",
   ];
 
   /**
@@ -178,12 +178,20 @@ class AdofaiMapPathData {
     252,
     900 / 7,
     1620 / 7,
-    0
+    0,
   ];
 
   /**
-   * Calculate the Angle between tiles.
-   * @param {AdofaiMapPathData | String} ThisTile First tile to be a base for B. (Input String when calculating all of 5, 6, 7, 8.)
+   * Calculate the Angle between tiles. THIS IS NOT FOR ! TILES.
+   * ! Tile can be calculated differently rather than getting relative angle.
+   * For example, String `RD!R`'s R.A is 180, 270, (0, ) 270.
+   * You can do `360 - TileD.absoluteAngle` and use its angle to create and use a temporary tile to calculate angle between `D!` and `R`.
+   *
+   * Correct Usage:
+   * GetRelativeAngle(tileA, tileB, false);
+   * GetRelativeAngle(tileA.code + "5768888755786", tileB, true);
+   *
+   * @param {AdofaiMapPathData | String} ThisTile First tile to be a base for B. (Input String when calculating all of 5, 6, 7, 8. They should be calculated at once)
    * @param {AdofaiMapPathData} NextTile Second tile to base on A.
    * @param {Boolean} Twirled Whether the planet is twirled or not.
    */
@@ -209,7 +217,7 @@ class AdofaiMapPathData {
         }
         t = angle;
         break;
-      case "AdofaiMapPathData":
+      default:
         t = ThisTile.absoluteAngle;
         break;
     }

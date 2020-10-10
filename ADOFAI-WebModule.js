@@ -203,43 +203,47 @@ class ADOFAI {
           break;
         case "stg":
           if (f) {
-            if (line.includes(":") && line.includes("\t\t")) {
-              if (line.includes(","))
-                line = line.substr(0, line.lastIndexOf(","));
-              var i = line.indexOf(":");
-              var s = [line.substr(0, i), line.substr(i + 1, Infinity)];
-              i = s[0].indexOf('"');
-              var k = s[0].substr(i + 1, s[0].lastIndexOf('"') - i - 1);
-              try {
-                var v = new Function(`return ${s[1].trim()};`);
-                res.settings[k] =
-                  [
-                    "separateCountdownTime",
-                    "seizureWarning",
-                    "lockRot",
-                    "loopBG",
-                    "loopVideo",
-                    "floorIconOutlines",
-                    "stickToFloors",
-                  ].includes(k) && ["Enabled", "Disabled"].includes(v())
-                    ? v() == "Enabled"
-                    : typeof v() == "string"
-                    ? [
-                        "previewIconColor",
-                        "trackColor",
-                        "secondaryTrackColor",
-                        "backgroundColor",
-                        "bgImageColor",
-                      ].includes(k)
-                      ? new Color(v())
-                      : v()
-                    : v();
-              } catch (err) {
-                throw new Error(
-                  `An error occurred in line ${index} while parsing the value:\n\n${err.message}`
-                );
+            if (line.includes(":") && line.includes('"')) {
+              if (line.replace(/[ \t]/g, "").endsWith("},")) {
+                location = "ats";
+              } else {
+                if (line.includes(","))
+                  line = line.substr(0, line.lastIndexOf(","));
+                var i = line.indexOf(":");
+                var s = [line.substr(0, i), line.substr(i + 1, Infinity)];
+                i = s[0].indexOf('"');
+                var k = s[0].substr(i + 1, s[0].lastIndexOf('"') - i - 1);
+                try {
+                  var v = new Function(`return ${s[1].trim()};`);
+                  res.settings[k] =
+                    [
+                      "separateCountdownTime",
+                      "seizureWarning",
+                      "lockRot",
+                      "loopBG",
+                      "loopVideo",
+                      "floorIconOutlines",
+                      "stickToFloors",
+                    ].includes(k) && ["Enabled", "Disabled"].includes(v())
+                      ? v() == "Enabled"
+                      : typeof v() == "string"
+                      ? [
+                          "previewIconColor",
+                          "trackColor",
+                          "secondaryTrackColor",
+                          "backgroundColor",
+                          "bgImageColor",
+                        ].includes(k)
+                        ? new Color(v())
+                        : v()
+                      : v();
+                } catch (err) {
+                  throw new Error(
+                    `An error occurred in line ${index} while parsing the value:\n\n${err.message}`
+                  );
+                }
               }
-            } else if (line.includes("actions")) location = "ats";
+            }
           } else {
             if (line.includes("settings")) f = true;
           }
@@ -262,7 +266,10 @@ class ADOFAI {
             if (Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(eType)) {
               var action = new AdofaiMapAction(floor, eType);
               var value = line
-                .substr(_i + 1, Math.max(line.lastIndexOf("}"), line.lastIndexOf('"')) - i - 1)
+                .substr(
+                  _i + 1,
+                  Math.max(line.lastIndexOf("}"), line.lastIndexOf('"')) - i - 1
+                )
                 .split(",");
               // console.log(`Init value`, value)
               for (var ind = 0; ind < value.length; ind++) {
@@ -292,17 +299,8 @@ class ADOFAI {
               // console.log(`value filtered`, value)
 
               var values = [];
-              value.forEach((va) => {/*
-                console.log(
-                  `Original value: ${va}\n    └ StartIndex: ${
-                    va.indexOf(":") + 1
-                  }\n    └ EndIndex: Infinity`
-                );*/
-                va = va.substr(va.indexOf(":") + 1, Infinity).trim();/*
-                console.log(`Edited value: ${va}`);
-                console.log(
-                  `Line ${index} // Creating a new function: function() { return ${va}; };`
-                );*/
+              value.forEach((va) => {
+                va = va.substr(va.indexOf(":") + 1, Infinity).trim();
                 try {
                   values.push(new Function(`return ${va};`)());
                 } catch (err) {
@@ -313,11 +311,9 @@ class ADOFAI {
               });
 
               var ev = AdofaiMapAction.ACTIONS_LIST[eType];
-
-              var evalue = new ev(...values)
+              var evalue = new ev(...values);
 
               action.eventValue = evalue;
-
               res.actions.push(action);
             } else
               throw new Error(
