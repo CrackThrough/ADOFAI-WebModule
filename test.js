@@ -5,15 +5,17 @@ window.tempClass = ADOFAI;
 const ready = () => {
   var m = new ADOFAI(); // create a level instance.
 
-  m.pathData.push(new ADOFAI.PathData("L")); // create a tile with code 'L'.
-  m.settings.levelDesc = "Hello world!"; // change the setting of a level.
-  m.actions.push(
-    new ADOFAI.Action(
-      4,
-      "SetSpeed",
-      new ADOFAI.Action.ACTIONS_LIST.SetSpeed(true, 200, 1)
-    )
-  ); // create a action and push it.
+  // m = ADOFAI.Import(''); // import from a string
+
+  let arr = [];
+
+  m.actions.forEach(a => {
+    if (["SetSpeed", "Twirl"].includes(a.eventType)) {
+      arr.push(a);
+    }
+  })
+
+  m.actions = arr;
 
   return console.log(m.Export());
 };

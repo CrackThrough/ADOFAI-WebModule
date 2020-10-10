@@ -42,21 +42,8 @@ class AdofaiMapPathData {
   ) {
     if (!settings || Object.keys(settings || {}).length != 3)
       settings = {
-        /**
-         * Whether to try to find the most closest angle when the given angle does not exist
-         */
         findNearestTileByAngle: false,
-
-        /**
-         * Whether to use the tile with higher or smaller angle when difference of nearest angle is both the same.
-         */
         useSmallerAngleOnOverlapping: true,
-
-        /**
-         * Use this to return a specific tile as a "fallback tile" instead of empty class.
-         *
-         * You should input a tile code here.
-         */
         fallback: null,
       };
 
@@ -162,6 +149,7 @@ class AdofaiMapPathData {
     "6",
     "7",
     "8",
+    "!"
   ];
 
   /**
@@ -190,6 +178,7 @@ class AdofaiMapPathData {
     252,
     900 / 7,
     1620 / 7,
+    0
   ];
 
   /**

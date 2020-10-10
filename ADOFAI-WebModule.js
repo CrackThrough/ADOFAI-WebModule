@@ -257,12 +257,14 @@ class ADOFAI {
             var floor = Number(sfloor);
             i = line.indexOf(":", i + 1);
             var _i = line.indexOf(",", i + 1);
+            if (_i < 0) _i = line.lastIndexOf('"'); // this should fix the problem on Twirl and other events
             var eType = line.substr(i + 1, _i - i - 1).replace(/[ \"]/g, "");
             if (Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(eType)) {
               var action = new AdofaiMapAction(floor, eType);
               var value = line
-                .substr(_i + 1, line.lastIndexOf("}") - i - 1)
+                .substr(_i + 1, Math.max(line.lastIndexOf("}"), line.lastIndexOf('"')) - i - 1)
                 .split(",");
+              // console.log(`Init value`, value)
               for (var ind = 0; ind < value.length; ind++) {
                 if (
                   (value[ind]
@@ -286,20 +288,21 @@ class ADOFAI {
                   ind++;
                 }
               }
-              value = value.filter((_v) => _v);
+              value = value.filter((_v) => _v != null);
+              // console.log(`value filtered`, value)
 
               var values = [];
-              value.forEach((va) => {
+              value.forEach((va) => {/*
                 console.log(
                   `Original value: ${va}\n    └ StartIndex: ${
                     va.indexOf(":") + 1
                   }\n    └ EndIndex: Infinity`
-                );
-                va = va.substr(va.indexOf(":") + 1, Infinity).trim();
+                );*/
+                va = va.substr(va.indexOf(":") + 1, Infinity).trim();/*
                 console.log(`Edited value: ${va}`);
                 console.log(
                   `Line ${index} // Creating a new function: function() { return ${va}; };`
-                );
+                );*/
                 try {
                   values.push(new Function(`return ${va};`)());
                 } catch (err) {
@@ -311,7 +314,8 @@ class ADOFAI {
 
               var ev = AdofaiMapAction.ACTIONS_LIST[eType];
 
-              var evalue = new ev(...values);
+              var evalue = new ev(...values)
+
               action.eventValue = evalue;
 
               res.actions.push(action);
