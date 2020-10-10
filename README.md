@@ -30,7 +30,7 @@ $(function() {
 
 	map.pathData.push(new ADOFAI.PathData("L")); // create a tile with code 'L'.
 	map.settings.levelDesc = "Hello world!"; // change the setting of a level.
-	map.actions.push(new ADOFAI.Action(0, "AddDecoration")); // create a action and push it.
+	map.actions.push(new ADOFAI.Action(3, "AddDecoration")); // create a action and push it.
 })
 ```
 
