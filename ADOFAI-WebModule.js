@@ -21,14 +21,10 @@ import AdofaiMapAction from "./src/AdofaiMapAction.js";
 import Enums from "./src/data_types/_init.js";
 import Color from "./src/data_types/color.js";
 
-function nthIndexOf(str, s, n) {
-  return str.split(s, n).join(s).length;
-}
-
 /**
  * A class holding the entire ADOFAI map data.
  */
-class ADOFAI {
+const ADOFAI = class {
   /**
    * Create a map data by using a constructor.
    * @param {AdofaiMapPathData[]} pathData An array of pathData.
@@ -367,6 +363,6 @@ class ADOFAI {
    * AdofaiEventType is in `AdofaiEventType.js`.
    */
   static Action = AdofaiMapAction;
-}
+};
 
 export default ADOFAI;
