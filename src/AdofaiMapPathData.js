@@ -55,7 +55,7 @@ class AdofaiMapPathData {
 
     switch (typeof val) {
       case "string":
-        var tilecode = val.toUpperCase()[0];
+        var tilecode = val[0];
 
         if (AdofaiMapPathData.PATH_LIST.includes(tilecode)) {
           this.code = tilecode;
@@ -145,17 +145,23 @@ class AdofaiMapPathData {
     "B",
     "F",
     "N",
+    "!",
     "5",
     "6",
     "7",
     "8",
-    "!",
+    "q",
+    "W",
+    "x",
+    "V",
+    "Y",
+    "A",
+    "p",
+    "o",
   ];
 
   /**
-   * List of the path's absolute angle as Number.
-   *
-   * In most cases, you do not need this one.
+   * List of the path's absolute angle as Number. (Use same index with PATH_LIST to get the path key)
    */
   static ABSOLUTE_ANGLE_LIST = [
     90,
@@ -174,11 +180,19 @@ class AdofaiMapPathData {
     240,
     300,
     330,
+    0,
     108,
     252,
     900 / 7,
     1620 / 7,
-    0,
+    75,
+    15,
+    345,
+    285,
+    255,
+    195,
+    165,
+    105,
   ];
 
   /**
