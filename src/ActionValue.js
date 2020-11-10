@@ -1,11 +1,11 @@
 /**
- * Class for making instance of the specific events.
+ * Class for making instance of the specific event value.
  *
- * In most cases, you won't need to use this class. It's actually empty class.
+ * In most cases, you won't need to use this class. It's actually an empty class.
  *
  * However, when you are making a new class for an event or need to get all of the types in one class, this is what you are looking for.
  */
-class ActionEventType {
+class AdofaiActionValue {
   /**
    * Returns a json part of this event.
    */
@@ -14,4 +14,4 @@ class ActionEventType {
   }
 }
 
-export default ActionEventType;
+export default AdofaiActionValue;

@@ -1,9 +1,9 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * A checkpoint event.
  */
-class MapEvent_Checkpoint extends ActionEventType {
+class MapEvent_Checkpoint extends ActionValue {
   /**
    * Returns a json part of this event.
    */

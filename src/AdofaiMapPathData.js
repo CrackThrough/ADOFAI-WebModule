@@ -28,7 +28,7 @@ class AdofaiMapPathData {
       findNearestTileByAngle: false,
 
       /**
-       * Whether to use the tile with higher (<-- false) or smaller (<-- true) angle when difference of nearest angle is both the same.
+       * Whether to use the tile with a higher (<-- false) or smaller (<-- true) angle when difference of nearest angle is both the same.
        */
       useSmallerAngleOnOverlapping: true,
 
@@ -244,8 +244,9 @@ class AdofaiMapPathData {
     }
 
     var r = (n - t + 540) % 360;
-    if (r == 0 && n != 0) r = 360;
-    if (twirled) r = 360 - r;
+    0 == r && 0 != n && (r = 360),
+      twirled && (r = 360 - r),
+      0 == r && (r = 360);
     return r;
   }
 

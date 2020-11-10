@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import Color from "../data_types/color.js";
 import TRACK_COLOR_TYPE from "../data_types/trackcolortype.js";
 import TRACK_COLOR_PULSE from "../data_types/trackcolorpulse.js";
@@ -9,7 +9,7 @@ import TRACK_STYLE from "../data_types/trackstyle.js";
  *
  * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PARAMETER.
  */
-class MapEvent_ColorTrack extends ActionEventType {
+class MapEvent_ColorTrack extends ActionValue {
   /**
    * Create a ColorTrack event using these parameters.
    * @param {String} trackColorType Please use enum instead of manually typing the string. Enum's filename is `trackcolortype.js`.

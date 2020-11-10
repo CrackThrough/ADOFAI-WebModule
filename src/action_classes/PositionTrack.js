@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of PositionTrack action.
  */
-class MapEvent_PositionTrack extends ActionEventType {
+class MapEvent_PositionTrack extends ActionValue {
   /**
    * Create a PositionTrack event using these parameters.
    * @param {[Number, Number]} positionOffset Offset of the tile's position.

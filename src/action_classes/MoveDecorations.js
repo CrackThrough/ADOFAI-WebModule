@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import EASE from "../data_types/ease.js";
 
 /**
@@ -6,7 +6,7 @@ import EASE from "../data_types/ease.js";
  *
  * DO NOT MANUALLY USE STRING IN `ease` PARAMETER.
  */
-class MapEvent_MoveDecoration extends ActionEventType {
+class MapEvent_MoveDecoration extends ActionValue {
   /**
    * Create a MoveDecoration event using these parameters.
    * @param {Number} duration Duration of decoration movement.

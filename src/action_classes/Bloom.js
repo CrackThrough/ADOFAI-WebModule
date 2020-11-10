@@ -1,10 +1,10 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import Color from "../data_types/color.js";
 
 /**
  * Class for storing values of Bloom action.
  */
-class MapEvent_Bloom extends ActionEventType {
+class MapEvent_Bloom extends ActionValue {
   /**
    * Create a Bloom event using these parameters.
    * @param {Boolean} enabled Enabled / Disabled status of the event.

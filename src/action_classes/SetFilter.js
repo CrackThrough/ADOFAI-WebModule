@@ -1,4 +1,4 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import FILTER from "../data_types/filter.js";
 
 /**
@@ -6,7 +6,7 @@ import FILTER from "../data_types/filter.js";
  *
  * DO NOT MANUALLY USE STRING IN `filter` PARAMETER.
  */
-class MapEvent_SetFilter extends ActionEventType {
+class MapEvent_SetFilter extends ActionValue {
   /**
    * Create a SetFilter event using these parameters.
    * @param {String} filter Type of filter. Please use enum instead of manually typing the string. Enum is saved at `filter.js`.

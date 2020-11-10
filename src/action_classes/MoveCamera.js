@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import EASE from "../data_types/ease.js";
 import RELATIVE_TO from "../data_types/relativeto.js";
 
@@ -7,7 +7,7 @@ import RELATIVE_TO from "../data_types/relativeto.js";
  *
  * DO NOT MANUALLY USE STRING IN `relativeTo`, `ease` PARAMETER.
  */
-class MapEvent_MoveCamera extends ActionEventType {
+class MapEvent_MoveCamera extends ActionValue {
   /**
    * Create a MoveCamera event using these parameters.
    * @param {Number} duration Duration of the camera movement.

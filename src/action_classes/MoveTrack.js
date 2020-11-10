@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import TILE_RANGE from "../data_types/tilerange.js";
 import EASE from "../data_types/ease.js";
 
@@ -7,7 +7,7 @@ import EASE from "../data_types/ease.js";
  *
  * DO NOT MANUALLY USE STRING IN `startTile`, `endTile`, `ease` PARAMETER.
  */
-class MapEvent_MoveTrack extends ActionEventType {
+class MapEvent_MoveTrack extends ActionValue {
   /**
    * Create a MoveTrack event using these parameters.
    * @param {[Number, String]} startTile Unlike offset-related parameters, this one uses 1st item for offsetting tile and 2nd item for tile range.

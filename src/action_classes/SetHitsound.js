@@ -1,4 +1,4 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import HITSOUNDS from "../data_types/hitsound.js";
 
 /**
@@ -6,7 +6,7 @@ import HITSOUNDS from "../data_types/hitsound.js";
  *
  * DO NOT MANUALLY USE STRING IN `hitsound` PARAMETER.
  */
-class MapEvent_SetHitsound extends ActionEventType {
+class MapEvent_SetHitsound extends ActionValue {
   /**
    * Create a SetHitsound event using these parameters.
    * @param {String} hitsound Type of hitsound. Please use enum instead of manually typing the string. Enum is saved at `hitsound.js`.

@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import Color from "../data_types/color.js";
 import BG_DISPLAY_MODE from "../data_types/bgdisplaymode.js";
 
@@ -7,7 +7,7 @@ import BG_DISPLAY_MODE from "../data_types/bgdisplaymode.js";
  *
  * DO NOT MANUALLY USE STRING IN `bgDisplayMode` PARAMETER.
  */
-class MapEvent_CustomBackground extends ActionEventType {
+class MapEvent_CustomBackground extends ActionValue {
   /**
    * Create a CustomBackground event using these parameters.
    * @param {Color} color Color of the background (without image). The Color class is in `color.js`.

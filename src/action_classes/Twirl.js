@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of Twirl action.
  */
-class MapEvent_Twirl extends ActionEventType {
+class MapEvent_Twirl extends ActionValue {
   /**
    * Create a Twirl event using these parameters.
    * @param {Boolean} DoubleTwirled Whether to twirl it twice so planet does not actually get twirled but the tile has twirl icon.

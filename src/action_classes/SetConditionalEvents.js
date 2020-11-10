@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of SetConditionalEvents action.
  */
-class MapEvent_SetConditionalEvents extends ActionEventType {
+class MapEvent_SetConditionalEvents extends ActionValue {
   /**
    * Create a SetConditionalEvents event using these parameters.
    * @param {String} perfectTag Event to execute with certain tag when input judgement is "Perfect".

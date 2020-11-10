@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import Color from "../data_types/color.js";
 import PLANE from "../data_types/plane.js";
 
@@ -7,7 +7,7 @@ import PLANE from "../data_types/plane.js";
  *
  * DO NOT MANUALLY USE STRING IN `plane` PARAMETER.
  */
-class MapEvent_Flash extends ActionEventType {
+class MapEvent_Flash extends ActionValue {
   /**
    * Create a Flash event using these parameters.
    * @param {Number} duration Duration of flash effect.

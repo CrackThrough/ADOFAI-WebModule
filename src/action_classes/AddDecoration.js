@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import DECO_RELATIVE_TO from "../data_types/deco_relativeto.js";
 
 /**
@@ -6,7 +6,7 @@ import DECO_RELATIVE_TO from "../data_types/deco_relativeto.js";
  *
  * DO NOT MANUALLY USE STRING IN `relativeTo` PARAMETER.
  */
-class MapEvent_AddDecoration extends ActionEventType {
+class MapEvent_AddDecoration extends ActionValue {
   /**
    * Create a AddDecoration event using these parameters.
    * @param {String} decorationImage Image file location relative to map file.

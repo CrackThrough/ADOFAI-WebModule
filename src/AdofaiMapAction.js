@@ -1,4 +1,4 @@
-import AdofaiEventType from "./ActionEventType.js";
+import AdofaiActionValue from "./ActionValue.js";
 import AddDecoration from "./action_classes/AddDecoration.js";
 import AnimateTrack from "./action_classes/AnimateTrack.js";
 import Bloom from "./action_classes/Bloom.js";
@@ -28,14 +28,14 @@ import Twirl from "./action_classes/Twirl.js";
  *
  * Contains every actions. Do `AdofaiMapAction.ACTIONS_LIST` to get all list of classes.
  *
- * AdofaiEventType is in `AdofaiEventType.js`.
+ * AdofaiActionValue is in `ActionValue.js`.
  */
 class AdofaiMapAction {
   /**
    * Create an event (action) using a constructor.
    * @param {Number} floor Integer deciding the event should occur in which tile.
    * @param {String} eventType Type of event which will decide the eventValue.
-   * @param {AdofaiEventType} eventValue AdofaiEventType is in `AdofaiEventType.js`. This parameter is used when manually inputting the value.
+   * @param {AdofaiActionValue} eventValue AdofaiActionValue is in `ActionValue.js`. This parameter is used when manually inputting the value.
    */
   constructor(floor, eventType, eventValue = null) {
     this.floor = floor;
@@ -51,6 +51,11 @@ class AdofaiMapAction {
       this.eventValue = eventValue;
     }
   }
+
+  /**
+   * This is an superclass for custom action values depending on the type of action.
+   */
+  static EmptyActionValue = AdofaiActionValue;
 
   /**
    * This contains every actions as class.
@@ -199,9 +204,11 @@ class AdofaiMapAction {
   eventType = new String();
 
   /**
-   * AdofaiEventType is in `AdofaiEventType.js`. This value stores lagacy value generated in the constructor.
+   * This value stores lagacy value generated in the constructor.
+   *
+   * AdofaiActionValue is in `ActionValue.js`.
    */
-  eventValue = new AdofaiEventType();
+  eventValue = new AdofaiActionValue();
 }
 
 export default AdofaiMapAction;

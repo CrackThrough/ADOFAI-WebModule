@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import APPEAR_ANIM from "../data_types/trackappearanim.js";
 import DISAPPEAR_ANIM from "../data_types/trackdisappearanim.js";
 
@@ -7,7 +7,7 @@ import DISAPPEAR_ANIM from "../data_types/trackdisappearanim.js";
  *
  * DO NOT MANUALLY USE STRING IN `trackAnimation`, `trackDisappearAnimation` PARAMETER.
  */
-class MapEvent_AnimateTrack extends ActionEventType {
+class MapEvent_AnimateTrack extends ActionValue {
   /**
    * Create a AnimateTrack event using these parameters.
    * @param {String} trackAnimation Please use enum instead of manually typing the string. Enum's filename is `trackappearanim.js`.

@@ -54,9 +54,14 @@ class Color {
    * Returns a value converted to HEX string. DOES NOT INCLUDE #.
    */
   toString() {
-    var _r = this.R.toString(16);
-    var _g = this.G.toString(16);
-    var _b = this.B.toString(16);
+    let arr = Object.keys(this).filter((x) => x.length == 1);
+    for (var i = 0; i < 3; i++) {
+      if (this[arr[i]] < 0) this[arr[i]] = 0;
+      if (this[arr[i]] > 255) this[arr[i]] = 255;
+    }
+    var _r = Math.floor(this.R).toString(16);
+    var _g = Math.floor(this.G).toString(16);
+    var _b = Math.floor(this.B).toString(16);
     if (_r.length != 2)
       _r = _r.length > 2 ? _r.substr(0, 2) : "0".repeat(2 - _r.length) + _r;
     if (_g.length != 2)

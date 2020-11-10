@@ -1,8 +1,8 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 /**
  * Class for storing values of HallOfMirrors action.
  */
-class MapEvent_HallOfMirrors extends ActionEventType {
+class MapEvent_HallOfMirrors extends ActionValue {
   /**
    * Create a HallOfMirrors event using these parameters.
    * @param {Boolean} enabled Enabled / Disabled status of the event.

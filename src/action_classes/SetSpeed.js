@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of SetSpeed action.
  */
-class MapEvent_SetSpeed extends ActionEventType {
+class MapEvent_SetSpeed extends ActionValue {
   /**
    * Create a SetSpeed event using these parameters.
    * @param {Boolean | String} isSpeedTypeBPM Whether to use speed type as BPM or BPM Multiplication.
@@ -13,7 +13,11 @@ class MapEvent_SetSpeed extends ActionEventType {
   constructor(isSpeedTypeBPM, BPM, BPM_Multiplier) {
     super();
     this.isSpeedTypeBPM =
-      isSpeedTypeBPM == null ? this.isSpeedTypeBPM : (typeof isSpeedTypeBPM == 'string' ? (isSpeedTypeBPM == 'Bpm') : isSpeedTypeBPM);
+      isSpeedTypeBPM == null
+        ? this.isSpeedTypeBPM
+        : typeof isSpeedTypeBPM == "string"
+        ? isSpeedTypeBPM == "Bpm"
+        : isSpeedTypeBPM;
     this.BPM = BPM == null ? this.BPM : BPM;
     this.BPM_Multiplier =
       BPM_Multiplier == null ? this.BPM_Multiplier : BPM_Multiplier;

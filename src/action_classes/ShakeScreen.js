@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of ShakeScreen action.
  */
-class MapEvent_ShakeScreen extends ActionEventType {
+class MapEvent_ShakeScreen extends ActionValue {
   /**
    * Create a ShakeScreen event using these parameters.
    * @param {Number} duration Duration of this action.

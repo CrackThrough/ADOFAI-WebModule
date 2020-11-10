@@ -1,9 +1,9 @@
-import ActionEventType from "./../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 
 /**
  * Class for storing values of RepeatEvents action.
  */
-class MapEvent_RepeatEvents extends ActionEventType {
+class MapEvent_RepeatEvents extends ActionValue {
   /**
    * Create a RepeatEvents event using these parameters.
    * @param {Number} repetitions Repetitions (Repeating count) of the events.

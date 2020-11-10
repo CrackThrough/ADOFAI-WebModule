@@ -1,4 +1,4 @@
-import ActionEventType from "../ActionEventType.js";
+import ActionValue from "../ActionValue.js";
 import EASE from "../data_types/ease.js";
 
 /**
@@ -6,7 +6,7 @@ import EASE from "../data_types/ease.js";
  *
  * DO NOT MANUALLY USE STRING IN `ease` PARAMETER.
  */
-class MapEvent_SetPlanetRotation extends ActionEventType {
+class MapEvent_SetPlanetRotation extends ActionValue {
   /**
    * Create a SetPlanetRotation event using these parameters.
    * @param {String} ease Please use enum instead of manually typing the string. Enum is saved at `ease.js`.
