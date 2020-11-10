@@ -167,11 +167,12 @@ const ADOFAI = class {
    */
   static Import(str) {
     var res = new ADOFAI([], {}, []); // init new level to return
-    var lines = str.split("\n");
+    var lines = str.replace(/[\r]/g, "").split("\n");
     var location = "path"; // divide by location and fill each import functions
     var f = false; // flag for finding settings
     lines.forEach((line, index) => {
       index++; // using index as line count, so i added 1
+      // line = line.replace(/(\t+(?=[^\t\n]))+/g, "");
       switch (location) {
         case "path": // on path
           if (line.includes("pathData")) {
