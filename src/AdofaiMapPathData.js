@@ -17,7 +17,7 @@ class AdofaiMapPathData {
    *
    * Inputting number might return instance with empty values when no corresponding tile is found.
    *
-   * @param {Object} settings Customizable settings to generate a tile.
+   * @param {{findNearestTileByAngle: boolean, useSmallerAngleOnOverlapping: boolean, fallback: String | null}} settings Customizable settings to generate a tile.
    */
   constructor(
     val,

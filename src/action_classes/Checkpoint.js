@@ -10,6 +10,14 @@ class MapEvent_Checkpoint extends ActionValue {
   asJsonPart() {
     return ``;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    return new this();
+  }
 }
 
 export default MapEvent_Checkpoint;

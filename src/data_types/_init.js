@@ -7,6 +7,7 @@ import HITSOUNDS from "./hitsound.js";
 import PLANE from "./plane.js";
 import RELATIVETO from "./relativeto.js";
 import SPECIAL_ARTIST_TYPE from "./special_artist_type.js";
+import SPEEDTYPE from "./speedtype.js";
 import TILE_RANGE from "./tilerange.js";
 import APPEAR_ANIM from "./trackappearanim.js";
 import DISAPPEAR_ANIM from "./trackdisappearanim.js";
@@ -60,6 +61,12 @@ Object.defineProperty(obj, "RELATIVETO", {
 });
 Object.defineProperty(obj, "SPECIAL_ARTIST_TYPE", {
   value: SPECIAL_ARTIST_TYPE,
+  writable: false,
+  enumerable: true,
+  configurable: false,
+});
+Object.defineProperty(obj, "SPEEDTYPE", {
+  value: SPEEDTYPE,
   writable: false,
   enumerable: true,
   configurable: false,

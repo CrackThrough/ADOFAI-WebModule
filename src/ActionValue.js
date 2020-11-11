@@ -12,6 +12,14 @@ class AdofaiActionValue {
   asJsonPart() {
     return ``;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  fromObject(obj) {
+    return new this();
+  }
 }
 
 export default AdofaiActionValue;

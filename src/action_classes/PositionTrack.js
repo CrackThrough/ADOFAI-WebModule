@@ -38,6 +38,18 @@ class MapEvent_PositionTrack extends ActionValue {
       (params[1] == null ? this.editorOnly : params[1]) ? "Enabled" : "Disabled"
     )}`;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
+  }
 }
 
 export default MapEvent_PositionTrack;

@@ -42,6 +42,18 @@ class MapEvent_RepeatEvents extends ActionValue {
       params[1] == null ? this.interval : params[1]
     )}, "tag": ${JSON.stringify(params[2] == null ? this.tag : params[2])}`;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
+  }
 }
 
 export default MapEvent_RepeatEvents;

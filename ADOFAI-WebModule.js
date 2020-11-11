@@ -20,6 +20,7 @@ import AdofaiMapSettings from "./src/AdofaiMapSettings.js";
 import AdofaiMapAction from "./src/AdofaiMapAction.js";
 import Enums from "./src/data_types/_init.js";
 import Color from "./src/data_types/color.js";
+import AdofaiActionValue from "./src/ActionValue.js";
 
 /**
  * A class holding the entire ADOFAI map data.
@@ -157,6 +158,35 @@ const ADOFAI = class {
   }
 
   /**
+   * Sorts action[] by floor number and action name
+   * @param {Boolean} dontSortByName Whether not to sort events by name at all, and just sort by floor numbers. (default: false)
+   */
+  SortActions(dontSortByName = false) {
+    this.actions = this.actions.sort((a, b) => a.floor - b.floor);
+    if (!dontSortByName)
+      for (var i = 0; i < this.actions.length; i++) {
+        var filtered = this.actions.filter(
+          (x) => x.floor == this.actions[i].floor
+        );
+        var temp = [];
+        for (var j = 0; j < filtered.length; j++) {
+          var nameIndex = Object.keys(ADOFAI.Action.ACTIONS_LIST).indexOf(
+            this.actions[i].eventType
+          );
+          temp.push(nameIndex);
+        }
+        var tmp = temp;
+        temp = temp.sort((a, b) => a - b);
+        tmp.forEach((e) => {
+          var k = temp.indexOf(e);
+          this.actions[i + k] = temp[k];
+        });
+        i += filtered.length;
+      }
+    return this;
+  }
+
+  /**
    * Converts a map value from String and returns instance of this class.
    *
    * Might throw an Error trying to parse. Use this in trycatch or tryfinally block.
@@ -171,6 +201,7 @@ const ADOFAI = class {
     var location = "path"; // divide by location and fill each import functions
     var f = false; // flag for finding settings
     lines.forEach((line, index) => {
+      var pureline = line;
       index++; // using index as line count, so i added 1
       // line = line.replace(/(\t+(?=[^\t\n]))+/g, "");
       switch (location) {
@@ -255,74 +286,53 @@ const ADOFAI = class {
           break;
         case "ats":
           if (line.includes("{")) {
-            if (line.includes("}"))
-              line = line.substr(0, line.lastIndexOf("}"));
-            i = line.indexOf(":");
-            var sfloor = line.substr(i + 1, line.indexOf(",") - i - 1);
-            if (sfloor.replace(/\D+/g, "") == "")
+            line = line.trim();
+            var indexobj = {
+              comma: line.lastIndexOf(","),
+              closeb: line.lastIndexOf("}"),
+              endstr: line.lastIndexOf('"'),
+            };
+            if (indexobj.comma > indexobj.closeb) {
+              line = line.substr(0, indexobj.closeb + 1);
+              indexobj.comma = line.lastIndexOf(",");
+            }
+            if (
+              indexobj.comma > indexobj.endstr &&
+              indexobj.closeb > indexobj.comma
+            ) {
+              line = line.substr(0, indexobj.comma) + "}";
+            }
+
+            var actionraw = {};
+            try {
+              actionraw = JSON.parse(line);
+            } catch (err) {
               throw new Error(
-                `Expected a number in line ${index} on 'floor' property, but found something else or nothing.`
+                `An error occurred in line ${index} while parsing the value:\n\n${err.message}\n\nactionraw string: '${line}'.`
               );
-            var floor = Number(sfloor);
-            i = line.indexOf(":", i + 1);
-            var _i = line.indexOf(",", i + 1);
-            if (_i < 0) _i = line.lastIndexOf('"'); // this should fix the "not reading further" problem on Twirl and other events: ["":"", },]
-            var eType = line.substr(i + 1, _i - i - 1).replace(/[ \"]/g, "");
-            if (Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(eType)) {
-              var action = new AdofaiMapAction(floor, eType);
-              var value = line
-                .substr(
-                  _i + 1,
-                  Math.max(line.lastIndexOf("}"), line.lastIndexOf('"')) - i - 1
-                )
-                .split(",");
-              for (var ind = 0; ind < value.length; ind++) {
-                if (
-                  (value[ind]
-                    .replace(/[^\\\"]/g, "")
-                    .replace(/(\\\\)/g, "\\")
-                    .replace(/(\\\")/g, "").length %
-                    2 !=
-                    0 ||
-                    (value[ind].replace(/[^\[]/g, "").length !=
-                      value[ind].replace(/[^\]]/g, "").length &&
-                      value[ind]
-                        .replace(/[^\\\"]/g, "")
-                        .replace(/(\\\\)/g, "\\")
-                        .replace(/(\\\")/g, "").length %
-                        2 ==
-                        0)) &&
-                  value.length - 1 != i
-                ) {
-                  value[ind] += "," + value[ind + 1];
-                  value[ind + 1] = null;
-                  ind++;
-                }
-              }
-              value = value.filter((_v) => _v != null);
+            }
 
-              var values = [];
-              value.forEach((va) => {
-                va = va.substr(va.indexOf(":") + 1, Infinity).trim();
-                try {
-                  values.push(new Function(`return ${va};`)());
-                } catch (err) {
-                  throw new Error(
-                    `An error occurred in line ${index} while parsing the value:\n\n${err.message}`
-                  );
-                }
-              });
-
-              var ev = AdofaiMapAction.ACTIONS_LIST[eType];
-              var evalue = new ev(...values);
-
-              action.eventValue = evalue;
-              res.actions.push(action);
-            } else
+            var actionrawFiltered = Object.assign({}, actionraw);
+            delete actionrawFiltered.floor;
+            delete actionrawFiltered.eventType;
+            var valid = Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(
+              actionraw.eventType
+            );
+            if (!valid)
               throw new Error(
-                `Invalid action type '${eType}' in line ${index}.`
+                `Unknown action '${actionraw.eventType}' in line ${index}.\n\nFull line: '${line}'.`
               );
+            var action = new AdofaiMapAction(
+              actionraw.floor || 0,
+              actionraw.eventType,
+              AdofaiMapAction.ACTIONS_LIST[actionraw.eventType].fromObject(
+                actionrawFiltered
+              )
+            );
+
+            res.actions.push(action);
           }
+
           break;
       }
     });

@@ -7,7 +7,7 @@ import TRACK_STYLE from "../data_types/trackstyle.js";
 /**
  * Class for storing values of ColorTrack action.
  *
- * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PROPERTY.
  */
 class MapEvent_ColorTrack extends ActionValue {
   /**
@@ -102,6 +102,18 @@ class MapEvent_ColorTrack extends ActionValue {
     )}, "trackStyle": ${JSON.stringify(
       params[6] == null ? this.trackStyle : params[6]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

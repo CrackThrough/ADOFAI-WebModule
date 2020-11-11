@@ -4,7 +4,7 @@ import EASE from "../data_types/ease.js";
 /**
  * Class for storing values of SetPlanetRotation action.
  *
- * DO NOT MANUALLY USE STRING IN `ease` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `ease` PROPERTY.
  */
 class MapEvent_SetPlanetRotation extends ActionValue {
   /**
@@ -37,6 +37,18 @@ class MapEvent_SetPlanetRotation extends ActionValue {
     )}, "easeParts": ${JSON.stringify(
       params[1] == null ? this.easeParts : params[1]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

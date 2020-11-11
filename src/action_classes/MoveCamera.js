@@ -5,7 +5,7 @@ import RELATIVE_TO from "../data_types/relativeto.js";
 /**
  * Class for storing values of MoveCamera action.
  *
- * DO NOT MANUALLY USE STRING IN `relativeTo`, `ease` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `relativeTo`, `ease` PROPERTY.
  */
 class MapEvent_MoveCamera extends ActionValue {
   /**
@@ -63,7 +63,7 @@ class MapEvent_MoveCamera extends ActionValue {
   /**
    * Zoom of the camera's destination.
    */
-  zoom = 1;
+  zoom = 160;
 
   /**
    * Angle offset of the event.
@@ -95,7 +95,7 @@ class MapEvent_MoveCamera extends ActionValue {
     )}], "rotation": ${JSON.stringify(
       params[3] == null ? this.rotation : params[3]
     )}, "zoom": ${JSON.stringify(
-      (params[4] == null ? this.zoom : params[4]) * 100
+      params[4] == null ? this.zoom : params[4]
     )}, "angleOffset": ${JSON.stringify(
       params[5] == null ? this.angleOffset : params[5]
     )}, "ease": ${JSON.stringify(
@@ -103,6 +103,18 @@ class MapEvent_MoveCamera extends ActionValue {
     )}, "eventTag": ${JSON.stringify(
       params[7] == null ? this.eventTag : params[7]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

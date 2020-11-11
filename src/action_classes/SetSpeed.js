@@ -1,32 +1,30 @@
 import ActionValue from "../ActionValue.js";
+import SPEEDTYPE from "../data_types/speedtype.js";
 
 /**
  * Class for storing values of SetSpeed action.
+ *
+ * DO NOT MANUALLY USE STRING IN `speedType` PROPERTY.
  */
 class MapEvent_SetSpeed extends ActionValue {
   /**
    * Create a SetSpeed event using these parameters.
-   * @param {Boolean | String} isSpeedTypeBPM Whether to use speed type as BPM or BPM Multiplication.
+   * @param {String} speedType Please use enum instead of manually typing the string. Enum is saved at `speedtype.js`.
    * @param {Number} BPM BPM to change as.
    * @param {Number} BPM_Multiplier BPM to multiply with previous BPM (Not BPM in this class).
    */
-  constructor(isSpeedTypeBPM, BPM, BPM_Multiplier) {
+  constructor(speedType, BPM, BPM_Multiplier) {
     super();
-    this.isSpeedTypeBPM =
-      isSpeedTypeBPM == null
-        ? this.isSpeedTypeBPM
-        : typeof isSpeedTypeBPM == "string"
-        ? isSpeedTypeBPM == "Bpm"
-        : isSpeedTypeBPM;
+    this.speedType = speedType == null ? this.speedType : speedType;
     this.BPM = BPM == null ? this.BPM : BPM;
     this.BPM_Multiplier =
       BPM_Multiplier == null ? this.BPM_Multiplier : BPM_Multiplier;
   }
 
   /**
-   * Whether to use speed type as BPM or BPM Multiplication. (Always boolean)
+   * Please use enum instead of manually typing the string. Enum is saved at `speedtype.js`.
    */
-  isSpeedTypeBPM = true;
+  speedType = SPEEDTYPE.BPM;
 
   /**
    * BPM to change as.
@@ -51,6 +49,18 @@ class MapEvent_SetSpeed extends ActionValue {
     )}, "bpmMultiplier": ${JSON.stringify(
       params[2] == null ? this.BPM_Multiplier : params[2]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

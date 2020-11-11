@@ -4,7 +4,7 @@ import EASE from "../data_types/ease.js";
 /**
  * Class for storing values of MoveDecoration action.
  *
- * DO NOT MANUALLY USE STRING IN `ease` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `ease` PROPERTY.
  */
 class MapEvent_MoveDecoration extends ActionValue {
   /**
@@ -64,7 +64,7 @@ class MapEvent_MoveDecoration extends ActionValue {
   /**
    * Scale of the decoration.
    */
-  scale = 1;
+  scale = 100;
 
   /**
    * Angle offset of the event.
@@ -104,6 +104,18 @@ class MapEvent_MoveDecoration extends ActionValue {
     )}, "eventTag": ${JSON.stringify(
       params[7] == null ? this.eventTag : params[7]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

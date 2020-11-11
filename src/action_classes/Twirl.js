@@ -8,10 +8,9 @@ class MapEvent_Twirl extends ActionValue {
    * Create a Twirl event using these parameters.
    * @param {Boolean} DoubleTwirled Whether to twirl it twice so planet does not actually get twirled but the tile has twirl icon.
    */
-  constructor(DoubleTwirled) {
+  constructor(DoubleTwirled = false) {
     super();
-    this.DoubleTwirled =
-      DoubleTwirled == null ? this.DoubleTwirled : DoubleTwirled;
+    this.DoubleTwirled = DoubleTwirled;
   }
 
   /**
@@ -26,6 +25,14 @@ class MapEvent_Twirl extends ActionValue {
    */
   asJsonPart() {
     throw new Error("Cannot use asJsonPart method on Twirl action.");
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    return new this();
   }
 }
 

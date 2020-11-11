@@ -5,7 +5,7 @@ import DISAPPEAR_ANIM from "../data_types/trackdisappearanim.js";
 /**
  * Class for storing values of AnimateTrack action.
  *
- * DO NOT MANUALLY USE STRING IN `trackAnimation`, `trackDisappearAnimation` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `trackAnimation`, `trackDisappearAnimation` PROPERTY.
  */
 class MapEvent_AnimateTrack extends ActionValue {
   /**
@@ -65,6 +65,18 @@ class MapEvent_AnimateTrack extends ActionValue {
     )}, "beatsBehind": ${JSON.stringify(
       params[3] == null ? this.beatsBehind : params[3]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

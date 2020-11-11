@@ -62,6 +62,18 @@ class MapEvent_SetConditionalEvents extends ActionValue {
       params[4] == null ? this.lossTag : params[4]
     )}`;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
+  }
 }
 
 export default MapEvent_SetConditionalEvents;

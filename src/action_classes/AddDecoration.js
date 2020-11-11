@@ -4,7 +4,7 @@ import DECO_RELATIVE_TO from "../data_types/deco_relativeto.js";
 /**
  * Class for storing values of AddDecoration action.
  *
- * DO NOT MANUALLY USE STRING IN `relativeTo` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `relativeTo` PROPERTY.
  */
 class MapEvent_AddDecoration extends ActionValue {
   /**
@@ -68,7 +68,7 @@ class MapEvent_AddDecoration extends ActionValue {
   /**
    * Scale of the decoration.
    */
-  scale = 1;
+  scale = 100;
 
   /**
    * Depth of the decoration. (Similar to z-order.)
@@ -99,10 +99,22 @@ class MapEvent_AddDecoration extends ActionValue {
     )}], "rotation": ${JSON.stringify(
       params[4] == null ? this.rotation : params[4]
     )}, "scale": ${JSON.stringify(
-      (params[5] == null ? this.scale : params[5]) * 100
+      params[5] == null ? this.scale : params[5]
     )}, "depth": ${JSON.stringify(
       params[6] == null ? this.depth : params[6]
     )}, "tag": ${JSON.stringify(params[6] == null ? this.tag : params[6])}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

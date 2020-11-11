@@ -8,7 +8,7 @@ import TRACK_STYLE from "../data_types/trackstyle.js";
 /**
  * Class for storing values of RecolorTrack action.
  *
- * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PARAMETER.
+ * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PROPERTY.
  */
 class MapEvent_RecolorTrack extends ActionValue {
   /**
@@ -151,6 +151,18 @@ class MapEvent_RecolorTrack extends ActionValue {
     )}, "eventTag": ${JSON.stringify(
       params[10] == null ? this.eventTag : params[10]
     )}`;
+  }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
   }
 }
 

@@ -135,9 +135,9 @@ var obj = {
   /**
    * Volume of the music.
    *
-   * (Minimum 0 ~ Maximum 1) Allows decimals.
+   * (Minimum 0 ~ Maximum 100) Allows decimals.
    */
-  volume: 1,
+  volume: 100,
 
   /**
    * Offset of the music.
@@ -151,7 +151,7 @@ var obj = {
    *
    * (Minimum > 0 ~ Maximum 2147483647) Allows decimals.
    */
-  pitch: 1,
+  pitch: 100,
 
   /**
    * Hitsound of the tile.
@@ -163,9 +163,9 @@ var obj = {
   /**
    * Volume of hitsounds.
    *
-   * (Minimum 0 ~ Maximum 1) Allows decimals.
+   * (Minimum 0 ~ Maximum 100) Allows decimals.
    */
-  hitsoundVolume: 1,
+  hitsoundVolume: 100,
 
   /**
    * Countdown tick right before playing the level.
@@ -297,9 +297,9 @@ var obj = {
   /**
    * Unscaled size of the image.
    *
-   * (Minimum 0 ~ Maximum 1) Allows decimals.
+   * (Minimum 0 ~ Maximum 100) Allows decimals.
    */
-  unscaledSize: 1,
+  unscaledSize: 100,
 
   /**
    * Type of camera's position relativity.
@@ -325,7 +325,7 @@ var obj = {
    *
    * Allows decimals.
    */
-  zoom: 1.6,
+  zoom: 160,
 
   /**
    * Location of an video file relative to map file's directory.

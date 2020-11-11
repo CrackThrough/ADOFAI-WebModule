@@ -43,6 +43,18 @@ class MapEvent_HallOfMirrors extends ActionValue {
       params[2] == null ? this.eventTag : params[2]
     )}`;
   }
+
+  /**
+   * Create value by converting from object
+   * @param {Object} obj
+   */
+  static fromObject(obj) {
+    var res = new this();
+    Object.keys(obj).forEach((key) => {
+      res[key] = obj[key];
+    });
+    return res;
+  }
 }
 
 export default MapEvent_HallOfMirrors;
