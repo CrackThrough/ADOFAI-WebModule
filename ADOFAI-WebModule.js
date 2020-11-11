@@ -20,7 +20,6 @@ import AdofaiMapSettings from "./src/AdofaiMapSettings.js";
 import AdofaiMapAction from "./src/AdofaiMapAction.js";
 import Enums from "./src/data_types/_init.js";
 import Color from "./src/data_types/color.js";
-import AdofaiActionValue from "./src/ActionValue.js";
 
 /**
  * A class holding the entire ADOFAI map data.
@@ -338,6 +337,41 @@ const ADOFAI = class {
     });
     if (!f) {
       throw new Error(`Could not find any settings object in the map file.`);
+    }
+    if (res.actions.length) {
+      /**
+       * @param {AdofaiMapAction[]} arr
+       * @param {AdofaiMapAction} e
+       */
+      function getAmount(arr, e) {
+        return arr.filter((x) => x.floor == e.floor).length;
+      }
+
+      var twirls = res.actions
+        .filter((x) => x.eventType == "Twirl")
+        .sort((a, b) => a.floor - b.floor);
+      for (var i = 0; i < twirls.length; i++) {
+        var amount = getAmount(twirls, twirls[i]);
+        if (amount > 1) {
+          for (var j = 0; j < amount; j++) {
+            if (j != amount - 1) {
+              res.actions.splice(res.actions.indexOf(twirls[i]), 1);
+            } else if (amount % 2 == 0) {
+              var index = -1;
+              // cant use indexOf() because constructor is different
+              for (var k = 0; k < res.actions.length; k++) {
+                if (
+                  res.actions[k].eventType == "Twirl" &&
+                  res.actions[k].floor == twirls[i].floor
+                )
+                  index = k;
+              }
+              res.actions[index].eventValue.DoubleTwirled = true;
+            }
+          }
+          i += amount;
+        }
+      }
     }
     return res;
   }

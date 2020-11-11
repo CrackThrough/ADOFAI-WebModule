@@ -1,4 +1,5 @@
 // color class is imported separately.
+// why cant i use defineProperties to make a list of values at once vscode is so bad it cant read array so theres no autocomplete at all help
 import BG_DISPLAY_MODE from "./bgdisplaymode.js";
 import DECO_RELATIVETO from "./deco_relativeto.js";
 import EASE from "./ease.js";

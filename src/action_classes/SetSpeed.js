@@ -10,15 +10,16 @@ class MapEvent_SetSpeed extends ActionValue {
   /**
    * Create a SetSpeed event using these parameters.
    * @param {String} speedType Please use enum instead of manually typing the string. Enum is saved at `speedtype.js`.
-   * @param {Number} BPM BPM to change as.
-   * @param {Number} BPM_Multiplier BPM to multiply with previous BPM (Not BPM in this class).
+   * @param {Number} beatsPerMinute BPM to change as.
+   * @param {Number} bpmMultiplier BPM to multiply with previous BPM (Not BPM in this class).
    */
-  constructor(speedType, BPM, BPM_Multiplier) {
+  constructor(speedType, beatsPerMinute, bpmMultiplier) {
     super();
     this.speedType = speedType == null ? this.speedType : speedType;
-    this.BPM = BPM == null ? this.BPM : BPM;
-    this.BPM_Multiplier =
-      BPM_Multiplier == null ? this.BPM_Multiplier : BPM_Multiplier;
+    this.beatsPerMinute =
+      beatsPerMinute == null ? this.beatsPerMinute : beatsPerMinute;
+    this.bpmMultiplier =
+      bpmMultiplier == null ? this.bpmMultiplier : bpmMultiplier;
   }
 
   /**
@@ -29,12 +30,12 @@ class MapEvent_SetSpeed extends ActionValue {
   /**
    * BPM to change as.
    */
-  BPM = 120;
+  beatsPerMinute = 120;
 
   /**
    * BPM to multiply with previous BPM (Not this BPM).
    */
-  BPM_Multiplier = 1;
+  bpmMultiplier = 1;
 
   /**
    * Returns a json part of this event.
