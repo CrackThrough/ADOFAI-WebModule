@@ -46,9 +46,9 @@ class MapEvent_SetSpeed extends ActionValue {
         ? "Bpm"
         : "Multiplier"
     )}, "beatsPerMinute": ${JSON.stringify(
-      params[1] == null ? this.BPM : params[1]
+      params[1] == null ? this.beatsPerMinute : params[1]
     )}, "bpmMultiplier": ${JSON.stringify(
-      params[2] == null ? this.BPM_Multiplier : params[2]
+      params[2] == null ? this.bpmMultiplier : params[2]
     )}`;
   }
 

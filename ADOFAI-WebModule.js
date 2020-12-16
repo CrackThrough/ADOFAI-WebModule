@@ -152,7 +152,7 @@ const ADOFAI = class {
         }"${e.eventValue.asJsonPart()} }${isLast ? "\n\t" : ", \n\t"}`;
       }
     });
-    res = `{\n\t"pathData": "${path}", ${stg}${ats}]\n}`;
+    res = `﻿{\n\t"pathData": "${path}", ${stg}${ats}]\n}`;
     return res;
   }
 
