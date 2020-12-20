@@ -79,13 +79,6 @@ const ADOFAI = class {
 
     var stg = "";
     Object.keys(this.settings).forEach((k, i) => {
-      var multiply = [
-        "volume",
-        "pitch",
-        "hitsoundVolume",
-        "unscaledSize",
-        "zoom",
-      ].includes(k);
       var v = this.settings[k];
       switch (typeof v) {
         case "object":
@@ -110,7 +103,7 @@ const ADOFAI = class {
           break;
         case "number":
         case "string":
-          v = JSON.stringify(multiply ? v * 100 : v);
+          v = JSON.stringify(v);
           break;
         case "boolean":
           v = `"${v ? "Enabled" : "Disabled"}"`;
@@ -152,7 +145,7 @@ const ADOFAI = class {
         }"${e.eventValue.asJsonPart()} }${isLast ? "\n\t" : ", \n\t"}`;
       }
     });
-    res = `﻿{\n\t"pathData": "${path}", ${stg}${ats}]\n}`;
+    res = `{\n\t"pathData": "${path}", ${stg}${ats}]\n}`;
     return res;
   }
 
@@ -200,7 +193,6 @@ const ADOFAI = class {
     var location = "path"; // divide by location and fill each import functions
     var f = false; // flag for finding settings
     lines.forEach((line, index) => {
-      var pureline = line;
       index++; // using index as line count, so i added 1
       // line = line.replace(/(\t+(?=[^\t\n]))+/g, "");
       switch (location) {
@@ -311,9 +303,45 @@ const ADOFAI = class {
               );
             }
 
+            function canSetToBoolean(actionraw, k) {
+              if (
+                [
+                  "Bloom",
+                  "CustomBackground",
+                  "HallOfMirrors",
+                  "PositionTrack",
+                  "SetFilter",
+                  "ShakeScreen",
+                ].includes(actionraw.eventType)
+              ) {
+                switch (actionraw.eventType) {
+                  case "HallOfMirrors":
+                  case "Bloom":
+                    return ["enabled"].includes(k);
+                  case "CustomBackground":
+                    return ["lockRot", "loopBG"].includes(k);
+                  case "PositionTrack":
+                    return ["editorOnly"].includes(k);
+                  case "SetFilter":
+                    return ["enabled", "disableOthers"].includes(k);
+                  case "ShakeScreen":
+                    return ["fadeOut"].includes(k);
+                }
+              }
+              return false;
+            }
+
             var actionrawFiltered = Object.assign({}, actionraw);
             delete actionrawFiltered.floor;
             delete actionrawFiltered.eventType;
+            Object.keys(actionrawFiltered).forEach((k) => {
+              if (
+                ["Enabled", "Disabled"].includes(actionrawFiltered[k]) &&
+                canSetToBoolean(actionraw, k)
+              ) {
+                actionrawFiltered[k] = actionrawFiltered[k] == "Enabled";
+              }
+            });
             var valid = Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(
               actionraw.eventType
             );

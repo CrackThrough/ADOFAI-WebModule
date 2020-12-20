@@ -42,9 +42,7 @@ class MapEvent_SetSpeed extends ActionValue {
    */
   asJsonPart(...params) {
     return `, "speedType": ${JSON.stringify(
-      (params[0] == null ? this.isSpeedTypeBPM : params[0])
-        ? "Bpm"
-        : "Multiplier"
+      params[0] == null ? this.speedType : params[0]
     )}, "beatsPerMinute": ${JSON.stringify(
       params[1] == null ? this.beatsPerMinute : params[1]
     )}, "bpmMultiplier": ${JSON.stringify(
