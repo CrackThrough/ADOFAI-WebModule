@@ -1,3 +1,5 @@
+// import ADOFAI from "./ADOFAI-WebModule";
+
 window.onload = () => {};
 
 // const ADOFAI = window.ADOFAI;
@@ -28,6 +30,8 @@ function processFile(file) {
     // console.log(levelstr.replace(/[\n]/g, "\\n").replace(/[\t]/g, "\\t"));
 
     var level = ADOFAI.Import(levelstr);
+
+    console.log(level.actions.filter((x) => x.floor == 1511));
 
     // console.log(level.actions.filter((x) => x.eventType == "SetSpeed"));
 

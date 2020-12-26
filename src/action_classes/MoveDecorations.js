@@ -98,7 +98,7 @@ class MapEvent_MoveDecoration extends ActionValue {
     )}, "scale": ${JSON.stringify(
       params[4] == null ? this.scale : params[4]
     )}, "angleOffset": ${JSON.stringify(
-      params[5] == null ? this.scale : params[5]
+      params[5] == null ? this.angleOffset : params[5]
     )}, "ease": ${JSON.stringify(
       params[6] == null ? this.ease : params[6]
     )}, "eventTag": ${JSON.stringify(
