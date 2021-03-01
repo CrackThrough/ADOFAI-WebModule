@@ -1,4 +1,7 @@
 # ADOFAI-WebModule
+
+### This repository is deprecated.
+
 ### What is this?
 This is a web module everyone is free to use.
 You can create a instance of an ADOFAI Custom map and edit them easily on the web!
