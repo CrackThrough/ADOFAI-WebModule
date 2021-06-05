@@ -155,26 +155,18 @@ const ADOFAI = class {
    */
   SortActions(dontSortByName = false) {
     this.actions = this.actions.sort((a, b) => a.floor - b.floor);
-    if (!dontSortByName)
-      for (var i = 0; i < this.actions.length; i++) {
-        var filtered = this.actions.filter(
-          (x) => x.floor == this.actions[i].floor
+    if (!dontSortByName) {
+      let sorted = [];
+      const floors = this.actions.map((x) => x.floor).filter(((value, index, array) => array.indexOf(value) === index));
+      for (let i = 0; i < floors.length; i++) {
+        let filtered = this.actions.filter(
+          (x) => x.floor === floors[i]
         );
-        var temp = [];
-        for (var j = 0; j < filtered.length; j++) {
-          var nameIndex = Object.keys(ADOFAI.Action.ACTIONS_LIST).indexOf(
-            this.actions[i].eventType
-          );
-          temp.push(nameIndex);
-        }
-        var tmp = temp;
-        temp = temp.sort((a, b) => a - b);
-        tmp.forEach((e) => {
-          var k = temp.indexOf(e);
-          this.actions[i + k] = temp[k];
-        });
-        i += filtered.length;
+        filtered = filtered.sort((a, b) => a.eventType.localeCompare(b.eventType));
+        sorted = sorted.concat(filtered);
       }
+      this.actions = sorted;
+    }
     return this;
   }
 
