@@ -259,6 +259,11 @@ var obj = {
   backgroundColor: new Color(),
 
   /**
+   * Whether to use default background if no background image is specified.
+   */
+  showDefaultBGIfNoImage: false,
+
+  /**
    * Location of an sound file relative to map file's directory.
    *
    * Image file for this map's background.
@@ -369,6 +374,13 @@ var obj = {
    * Allows decimals.
    */
   planetEaseParts: 1,
+
+  /**
+   * Whether to use legacy flash.
+   *
+   * Should be true if level's original version is 3 or less.
+   */
+  legacyFlash: false,
 };
 
 export default obj;
