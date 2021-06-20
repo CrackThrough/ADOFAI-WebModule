@@ -1,5 +1,6 @@
 import ActionValue from "../ActionValue.js";
 import DECO_RELATIVE_TO from "../data_types/deco_relativeto.js";
+import Color from "../data_types/color";
 
 /**
  * Class for storing values of AddDecoration action.
@@ -15,6 +16,7 @@ class MapEvent_AddDecoration extends ActionValue {
    * @param {[Number, Number]} pivotOffset Pivot offset of the decoration.
    * @param {Number} rotation Rotation for the decoration.
    * @param {Number} scale Scale of the decoration.
+   * @param {Color} color Color of the decoration.
    * @param {Number} depth Depth of the decoration. (Similar to z-order.)
    * @param {String} tag A tag of the decoration.
    */
@@ -25,6 +27,7 @@ class MapEvent_AddDecoration extends ActionValue {
     pivotOffset,
     rotation,
     scale,
+    color,
     depth,
     tag
   ) {
@@ -36,6 +39,7 @@ class MapEvent_AddDecoration extends ActionValue {
     this.pivotOffset = pivotOffset == null ? this.pivotOffset : pivotOffset;
     this.rotation = rotation == null ? this.rotation : rotation;
     this.scale = scale == null ? this.scale : scale;
+    this.color = color == null ? this.color : color;
     this.depth = depth == null ? this.depth : depth;
     this.tag = tag == null ? this.tag : tag;
   }
@@ -71,6 +75,11 @@ class MapEvent_AddDecoration extends ActionValue {
   scale = 100;
 
   /**
+   * Color of the decoration
+   */
+  color = new Color();
+
+  /**
    * Depth of the decoration. (Similar to z-order.)
    */
   depth = 0;
@@ -85,24 +94,28 @@ class MapEvent_AddDecoration extends ActionValue {
    */
   asJsonPart(...params) {
     return `, "decorationImage": ${JSON.stringify(
-      params[0] == null ? this.decorationImage : params[0]
+      params[0] ?? this.decorationImage
     )}, "position": [${JSON.stringify(
-      (params[1] == null ? this.position : params[1])[0]
+      (params[1] ?? this.position)[0]
     )}, ${JSON.stringify(
-      (params[1] == null ? this.position : params[1])[1]
+      (params[1] ?? this.position)[1]
     )}], "relativeTo": ${JSON.stringify(
-      params[2] == null ? this.relativeTo : params[2]
+      params[2] ?? this.relativeTo
     )}, "pivotOffset": [${JSON.stringify(
-      (params[3] == null ? this.pivotOffset : params[3])[0]
+      (params[3] ?? this.pivotOffset)[0]
     )}, ${JSON.stringify(
-      (params[3] == null ? this.pivotOffset : params[3])[1]
+      (params[3] ?? this.pivotOffset)[1]
     )}], "rotation": ${JSON.stringify(
-      params[4] == null ? this.rotation : params[4]
+      params[4] ?? this.rotation
     )}, "scale": ${JSON.stringify(
-      params[5] == null ? this.scale : params[5]
+      params[5] ?? this.scale
+    )}, "color": ${JSON.stringify(
+      (params[6] ?? this.color).toString()
     )}, "depth": ${JSON.stringify(
-      params[6] == null ? this.depth : params[6]
-    )}, "tag": ${JSON.stringify(params[6] == null ? this.tag : params[6])}`;
+      params[7] ?? this.depth
+    )}, "tag": ${JSON.stringify(
+      params[8] ?? this.tag
+    )}`;
   }
 
   /**

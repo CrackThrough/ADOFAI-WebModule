@@ -1,5 +1,6 @@
 import ActionValue from "../ActionValue.js";
 import EASE from "../data_types/ease.js";
+import Color from "../data_types/color";
 
 /**
  * Class for storing values of MoveDecoration action.
@@ -14,6 +15,7 @@ class MapEvent_MoveDecoration extends ActionValue {
    * @param {[Number, Number]} positionOffset Decoration's destinated position.
    * @param {Number} rotationOffset Decoration's destinated rotation.
    * @param {Number} scale Scale of the decoration.
+   * @param {Color} color Color of the decoration.
    * @param {Number} angleOffset Angle offset of the event.
    * @param {String} ease Please use enum instead of manually typing the string. Enum's filename is `ease.js`.
    * @param {String} eventTag A tag of the event.
@@ -24,6 +26,7 @@ class MapEvent_MoveDecoration extends ActionValue {
     positionOffset,
     rotationOffset,
     scale,
+    color,
     angleOffset,
     ease,
     eventTag
@@ -36,6 +39,7 @@ class MapEvent_MoveDecoration extends ActionValue {
     this.rotationOffset =
       rotationOffset == null ? this.rotationOffset : rotationOffset;
     this.scale = scale == null ? this.scale : scale;
+    this.color = color ?? this.color;
     this.angleOffset = angleOffset == null ? this.angleOffset : angleOffset;
     this.ease = ease == null ? this.ease : ease;
     this.eventTag = eventTag == null ? this.eventTag : eventTag;
@@ -67,6 +71,11 @@ class MapEvent_MoveDecoration extends ActionValue {
   scale = 100;
 
   /**
+   * Color of the decoration
+   */
+  color = new Color();
+
+  /**
    * Angle offset of the event.
    */
   angleOffset = 0;
@@ -86,23 +95,25 @@ class MapEvent_MoveDecoration extends ActionValue {
    */
   asJsonPart(...params) {
     return `, "duration": ${JSON.stringify(
-      params[0] == null ? this.duration : params[0]
+      params[0] ?? this.duration
     )}, "tag": ${JSON.stringify(
-      params[1] == null ? this.tag : params[1]
+      params[1] ?? this.tag
     )}, "positionOffset": [${JSON.stringify(
-      (params[2] == null ? this.positionOffset : params[2])[0]
+      (params[2] == null ?? this.positionOffset)[0]
     )}, ${JSON.stringify(
-      (params[2] == null ? this.positionOffset : params[2])[1]
+      (params[2] == null ?? this.positionOffset)[1]
     )}], "rotationOffset": ${JSON.stringify(
-      params[3] == null ? this.rotationOffset : params[3]
+      params[3] ?? this.rotationOffset
     )}, "scale": ${JSON.stringify(
-      params[4] == null ? this.scale : params[4]
+      params[4] ?? this.scale
+    )}, "color": ${JSON.stringify(
+      (params[5] ?? this.color).toString()
     )}, "angleOffset": ${JSON.stringify(
-      params[5] == null ? this.angleOffset : params[5]
+      params[6] ?? this.angleOffset
     )}, "ease": ${JSON.stringify(
-      params[6] == null ? this.ease : params[6]
+      params[7] ?? this.ease
     )}, "eventTag": ${JSON.stringify(
-      params[7] == null ? this.eventTag : params[7]
+      params[8] ?? this.eventTag
     )}`;
   }
 
