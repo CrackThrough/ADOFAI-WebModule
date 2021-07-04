@@ -125,7 +125,7 @@ class MapEvent_AddDecoration extends ActionValue {
   static fromObject(obj) {
     var res = new this();
     Object.keys(obj).forEach((key) => {
-      res[key] = obj[key];
+      res[key !== "decText" ? key : "decorationImage"] = obj[key];
     });
     return res;
   }
