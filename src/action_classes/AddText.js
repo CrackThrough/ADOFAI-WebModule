@@ -6,7 +6,7 @@ import FONT from "../data_types/font";
 /**
  * Class for storing values of AddText action.
  *
- * DO NOT MANUALLY USE STRING IN `relativeTo` PROPERTY.
+ * DO NOT MANUALLY USE STRING IN `font`, `relativeTo` PROPERTY.
  */
 class MapEvent_AddText extends ActionValue {
   /**
