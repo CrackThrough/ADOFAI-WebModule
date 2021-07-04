@@ -18,7 +18,7 @@ const obj = {
      *
      * Does NOT allow decimals.
      */
-    version: 2,
+    version: 4,
 
     /**
      * Name of the artist made the music.
