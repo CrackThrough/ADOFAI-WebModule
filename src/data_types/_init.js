@@ -4,6 +4,7 @@ import BG_DISPLAY_MODE from "./bgdisplaymode.js";
 import DECO_RELATIVETO from "./deco_relativeto.js";
 import EASE from "./ease.js";
 import FILTER from "./filter.js";
+import FONT from "./font";
 import HITSOUNDS from "./hitsound.js";
 import PLANE from "./plane.js";
 import RELATIVETO from "./relativeto.js";
@@ -38,6 +39,12 @@ Object.defineProperty(obj, "EASES", {
 });
 Object.defineProperty(obj, "FILTERS", {
   value: FILTER,
+  writable: false,
+  enumerable: true,
+  configurable: false,
+});
+Object.defineProperty(obj, "FONTS", {
+  value: FONT,
   writable: false,
   enumerable: true,
   configurable: false,

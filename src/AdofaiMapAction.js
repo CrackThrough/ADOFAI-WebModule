@@ -1,5 +1,6 @@
 import AdofaiActionValue from "./ActionValue.js";
 import AddDecoration from "./action_classes/AddDecoration.js";
+import AddText from "./action_classes/AddText";
 import AnimateTrack from "./action_classes/AnimateTrack.js";
 import Bloom from "./action_classes/Bloom.js";
 import Checkpoint from "./action_classes/Checkpoint.js";
@@ -69,6 +70,12 @@ class AdofaiMapAction {
      * DO NOT MANUALLY USE STRING IN `relativeTo` PARAMETER.
      */
     AddDecoration: AddDecoration,
+    /**
+     * Class for storing values of AddText action.
+     *
+     * DO NOT MANUALLY USE STRING IN `font`, `relativeTo` PARAMETER.
+     */
+    AddText: AddText,
 
     /**
      * Class for storing values of AnimateTrack action.
