@@ -346,7 +346,7 @@ const ADOFAI = class {
                                     break;
                             }
                         });
-                        v = `[ ${s} ]`;
+                        v = `[${s}]`;
                     } else v = `"${v.toString()}"`;
                     break;
                 case "number":
@@ -365,7 +365,7 @@ const ADOFAI = class {
             }`;
         });
 
-        stg = `\n\t"settings": {\n\t\t${stg}\n\t}, `;
+        stg = `\n\t"settings":\n\t{\n\t\t${stg}\n\t}, `;
 
         let ats = `\n\t"actions":\n\t[\n\t`;
 
@@ -395,7 +395,7 @@ const ADOFAI = class {
                 }"${e.eventValue.asJsonPart()} }${isLast ? "\n\t" : ", \n\t"}`;
             }
         });
-        res = `{\n\t"pathData": "${path}", ${stg}${ats}]\n}`;
+        res = `{\n\t"pathData": "${path}", ${stg}${ats}]\n}\n`;
         return res;
     }
 

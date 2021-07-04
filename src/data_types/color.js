@@ -42,34 +42,43 @@ class Color {
 
                 if ([3, 4, 6, 8].includes(val.length)) {
                     if (val.length === 3 || val.length === 4) {
-                        val = val.split('').map((v) => v + v).join('')
+                        val = val.split('').map((v) => v + v).join('');
                     }
-                    this.R = parseInt(val.substr(0, 2), 16) || 255;
-                    this.G = parseInt(val.substr(2, 2), 16) || 255;
-                    this.B = parseInt(val.substr(4, 2), 16) || 255;
-                    this.A = parseInt(val.substr(6, 2), 16) || 255;
+                    const _r = parseInt(val.substr(0, 2), 16);
+                    const _g = parseInt(val.substr(2, 2), 16);
+                    const _b = parseInt(val.substr(4, 2), 16);
+                    const _a = parseInt(val.substr(6, 2), 16);
+                    this.R = isNaN(_r) ? 255 : _r;
+                    this.G = isNaN(_g) ? 255 : _g;
+                    this.B = isNaN(_b) ? 255 : _b;
+                    this.A = isNaN(_a) ? 255 : _a;
                 } else if ([1, 2].includes(val.length)) {
-                    let c = parseInt(val, 16) || 255;
-                    this.R = c;
-                    this.G = c;
-                    this.B = c;
+                    let _c = parseInt(val, 16);
+                    _c = isNaN(_c) ? 255 : _c;
+                    this.R = _c;
+                    this.G = _c;
+                    this.B = _c;
                     this.A = 255;
                 }
                 break;
             case "number":
                 val = Math.abs(val);
-                let c;
+                let _c;
                 if (val >= 2 ** 24 && val < 2 ** 32) { // includes alpha value
-                    c = val.toString(16).padStart(8, '0');
+                    _c = val.toString(16).padStart(8, '0');
                 } else if (val >= 0 && val < 2 ** 24) {
-                    c = val.toString(16).padStart(6, '0');
+                    _c = val.toString(16).padStart(6, '0');
                 } else {
                     break;
                 }
-                this.R = parseInt(c.substr(0, 2), 16) || 255;
-                this.G = parseInt(c.substr(2, 2), 16) || 255;
-                this.B = parseInt(c.substr(4, 2), 16) || 255;
-                this.A = parseInt(c.substr(6, 2), 16) || 255;
+                const _r = parseInt(_c.substr(0, 2), 16);
+                const _g = parseInt(_c.substr(2, 2), 16);
+                const _b = parseInt(_c.substr(4, 2), 16);
+                const _a = parseInt(_c.substr(6, 2), 16);
+                this.R = isNaN(_r) ? 255 : _r;
+                this.G = isNaN(_g) ? 255 : _g;
+                this.B = isNaN(_b) ? 255 : _b;
+                this.A = isNaN(_a) ? 255 : _a;
                 break;
         }
     }

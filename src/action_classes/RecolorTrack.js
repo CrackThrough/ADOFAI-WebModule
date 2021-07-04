@@ -139,7 +139,7 @@ class MapEvent_RecolorTrack extends ActionValue {
             params[2] ?? this.trackColorType
         )}, "trackColor": ${JSON.stringify(
             (params[3] ?? this.trackColor).toString()
-        )}, "secondaryColor": ${JSON.stringify(
+        )}, "secondaryTrackColor": ${JSON.stringify(
             (params[4] ?? this.secondaryTrackColor).toString()
         )}, "trackColorAnimDuration": ${JSON.stringify(
             params[5] ?? this.trackColorAnimDuration

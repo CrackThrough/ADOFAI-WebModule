@@ -115,8 +115,8 @@ class MapEvent_AddText extends ActionValue {
     asJsonPart(...params) {
         return `, "decText": ${JSON.stringify(
             params[0] ?? this.decText
-        )}, "font": [${JSON.stringify(
-            (params[1] ?? this.font)[0]
+        )}, "font": ${JSON.stringify(
+            params[1] ?? this.font
         )}, "position": [${JSON.stringify(
             (params[2] ?? this.position)[0]
         )}, ${JSON.stringify(
