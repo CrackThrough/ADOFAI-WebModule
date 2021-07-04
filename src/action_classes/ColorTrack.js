@@ -10,111 +10,102 @@ import TRACK_STYLE from "../data_types/trackstyle.js";
  * DO NOT MANUALLY USE STRING IN `trackColorType`, `trackColorPulse`, `trackStyle` PROPERTY.
  */
 class MapEvent_ColorTrack extends ActionValue {
-  /**
-   * Create a ColorTrack event using these parameters.
-   * @param {String} trackColorType Please use enum instead of manually typing the string. Enum's filename is `trackcolortype.js`.
-   * @param {Color} trackColor 1st Color of the track. The Color class is in `color.js`.
-   * @param {Color} secondaryTrackColor 2nd Color of the track. The Color class is in `color.js`.
-   * @param {Number} trackColorAnimDuration The duration of the color animation.
-   * @param {String} trackColorPulse Please use enum instead of manually typing the string. Enum's filename is `trackcolorpulse.js`.
-   * @param {Number} trackPulseLength The tile length of track pulse.
-   * @param {String} trackStyle Please use enum instead of manually typing the string. Enum's filename is `trackstyle.js`.
-   */
-  constructor(
-    trackColorType,
-    trackColor,
-    secondaryTrackColor,
-    trackColorAnimDuration,
-    trackColorPulse,
-    trackPulseLength,
-    trackStyle
-  ) {
-    super();
-    this.trackColorType =
-      trackColorType == null ? this.trackColorType : trackColorType;
-    this.trackColor = trackColor == null ? this.trackColor : trackColor;
-    this.secondaryTrackColor =
-      secondaryTrackColor == null
-        ? this.secondaryTrackColor
-        : secondaryTrackColor;
-    this.trackColorAnimDuration =
-      trackColorAnimDuration == null
-        ? this.trackColorAnimDuration
-        : trackColorAnimDuration;
-    this.trackColorType =
-      trackColorPulse == null ? this.trackColorPulse : trackColorPulse;
-    this.trackColorType =
-      trackPulseLength == null ? this.trackPulseLength : trackPulseLength;
-    this.trackColorType = trackStyle == null ? this.trackStyle : trackStyle;
-  }
+    /**
+     * Please use enum instead of manually typing the string. Enum's filename is `trackcolortype.js`.
+     */
+    trackColorType = TRACK_COLOR_TYPE.SINGLE;
 
-  /**
-   * Please use enum instead of manually typing the string. Enum's filename is `trackcolortype.js`.
-   */
-  trackColorType = TRACK_COLOR_TYPE.SINGLE;
+    /**
+     * 1st Color of the track. The Color class is in `color.js`
+     */
+    trackColor = new Color(undefined);
 
-  /**
-   * 1st Color of the track. The Color class is in `color.js`
-   */
-  trackColor = new Color();
+    /**
+     * 2nd Color of the track. The Color class is in `color.js`
+     */
+    secondaryTrackColor = new Color(undefined);
 
-  /**
-   * 2nd Color of the track. The Color class is in `color.js`
-   */
-  secondaryTrackColor = new Color();
+    /**
+     * The duration of the color animation.
+     */
+    trackColorAnimDuration = 1;
 
-  /**
-   * The duration of the color animation.
-   */
-  trackColorAnimDuration = 1;
+    /**
+     * Please use enum instead of manually typing the string. Enum's filename is `trackcolorpulse.js`.
+     */
+    trackColorPulse = TRACK_COLOR_PULSE.NONE;
 
-  /**
-   * Please use enum instead of manually typing the string. Enum's filename is `trackcolorpulse.js`.
-   */
-  trackColorPulse = TRACK_COLOR_PULSE.NONE;
+    /**
+     * The tile length of track pulse.
+     */
+    trackPulseLength = 1;
 
-  /**
-   * The tile length of track pulse.
-   */
-  trackPulseLength = 1;
+    /**
+     * Please use enum instead of manually typing the string. Enum's filename is `trackstyle.js`.
+     */
+    trackStyle = TRACK_STYLE.STANDARD;
 
-  /**
-   * Please use enum instead of manually typing the string. Enum's filename is `trackstyle.js`.
-   */
-  trackStyle = TRACK_STYLE.STANDARD;
+    /**
+     * Create a ColorTrack event using these parameters.
+     * @param {String} trackColorType Please use enum instead of manually typing the string. Enum's filename is `trackcolortype.js`.
+     * @param {Color} trackColor 1st Color of the track. The Color class is in `color.js`.
+     * @param {Color} secondaryTrackColor 2nd Color of the track. The Color class is in `color.js`.
+     * @param {Number} trackColorAnimDuration The duration of the color animation.
+     * @param {String} trackColorPulse Please use enum instead of manually typing the string. Enum's filename is `trackcolorpulse.js`.
+     * @param {Number} trackPulseLength The tile length of track pulse.
+     * @param {String} trackStyle Please use enum instead of manually typing the string. Enum's filename is `trackstyle.js`.
+     */
+    constructor(
+        trackColorType,
+        trackColor,
+        secondaryTrackColor,
+        trackColorAnimDuration,
+        trackColorPulse,
+        trackPulseLength,
+        trackStyle
+    ) {
+        super();
+        this.trackColorType = trackColorType ?? this.trackColorType;
+        this.trackColor = trackColor ?? this.trackColor;
+        this.secondaryTrackColor = secondaryTrackColor ?? this.secondaryTrackColor;
+        this.trackColorAnimDuration = trackColorAnimDuration ?? this.trackColorAnimDuration;
+        this.trackColorType = trackColorPulse ?? this.trackColorPulse;
+        this.trackColorType = trackPulseLength ?? this.trackPulseLength;
+        this.trackColorType = trackStyle ?? this.trackStyle;
+    }
 
-  /**
-   * Returns a json part of this event.
-   */
-  asJsonPart(...params) {
-    return `, "trackColorType": ${JSON.stringify(
-      params[0] == null ? this.trackColorType : params[0]
-    )}, "trackColor": ${JSON.stringify(
-      (params[1] == null ? this.trackColor : params[1]).toString()
-    )}, "secondaryTrackColor": ${JSON.stringify(
-      (params[2] == null ? this.secondaryTrackColor : params[2]).toString()
-    )}, "trackColorAnimDuration": ${JSON.stringify(
-      params[3] == null ? this.trackColorAnimDuration : params[3]
-    )}, "trackColorPulse": ${JSON.stringify(
-      params[4] == null ? this.trackColorPulse : params[4]
-    )}, "trackPulseLength": ${JSON.stringify(
-      params[5] == null ? this.trackPulseLength : params[5]
-    )}, "trackStyle": ${JSON.stringify(
-      params[6] == null ? this.trackStyle : params[6]
-    )}`;
-  }
+    /**
+     * Create value by converting from object
+     * @param {Object} obj
+     */
+    static fromObject(obj) {
+        const res = new this();
+        Object.keys(obj).forEach((key) => {
+            res[key] = obj[key];
+        });
+        return res;
+    }
 
-  /**
-   * Create value by converting from object
-   * @param {Object} obj
-   */
-  static fromObject(obj) {
-    var res = new this();
-    Object.keys(obj).forEach((key) => {
-      res[key] = obj[key];
-    });
-    return res;
-  }
+    /**
+     * Returns a json part of this event.
+     */
+    asJsonPart(...params) {
+        return `, "trackColorType": ${JSON.stringify(
+            params[0] ?? this.trackColorType
+        )}, "trackColor": ${JSON.stringify(
+            (params[1] ?? this.trackColor).toString()
+        )}, "secondaryTrackColor": ${JSON.stringify(
+            (params[2] ?? this.secondaryTrackColor).toString()
+        )}, "trackColorAnimDuration": ${JSON.stringify(
+            params[3] ?? this.trackColorAnimDuration
+        )}, "trackColorPulse": ${JSON.stringify(
+            params[4] ?? this.trackColorPulse
+        )}, "trackPulseLength": ${JSON.stringify(
+            params[5] ?? this.trackPulseLength
+        )}, "trackStyle": ${JSON.stringify(
+            params[6] ?? this.trackStyle
+        )}`;
+    }
 }
 
 export default MapEvent_ColorTrack;
