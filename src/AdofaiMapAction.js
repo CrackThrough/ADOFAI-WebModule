@@ -14,6 +14,8 @@ import MoveTrack from "./action_classes/MoveTrack.js";
 import PositionTrack from "./action_classes/PositionTrack.js";
 import RecolorTrack from "./action_classes/RecolorTrack.js";
 import RepeatEvents from "./action_classes/RepeatEvents.js";
+import ScreenScroll from "./action_classes/ScreenScroll";
+import ScreenTile from "./action_classes/ScreenTile";
 import SetConditionalEvents from "./action_classes/SetConditionalEvents.js";
 import SetFilter from "./action_classes/SetFilter.js";
 import SetHitsound from "./action_classes/SetHitsound.js";
@@ -157,6 +159,16 @@ class AdofaiMapAction {
      * Class for storing values of RepeatEvents action.
      */
     RepeatEvents: RepeatEvents,
+
+    /**
+     * Class for storing values of ScreenScroll action.
+     */
+    ScreenScroll: ScreenScroll,
+
+    /**
+     * Class for storing values of ScreenTile action.
+     */
+    ScreenTile: ScreenTile,
 
     /**
      * Class for storing values of SetConditionalEvents action.
