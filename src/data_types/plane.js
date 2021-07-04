@@ -4,16 +4,16 @@
 const PLANE = {};
 
 Object.defineProperty(PLANE, "FOREGROUND", {
-  value: "Foreground",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "Foreground",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 Object.defineProperty(PLANE, "BACKGROUND", {
-  value: "Background",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "Background",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 
 export default PLANE;

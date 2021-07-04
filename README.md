@@ -1,6 +1,6 @@
 # ADOFAI-WebModule
 
-### This repository is deprecated.
+### This repository is under development.
 
 ### What is this?
 This is a web module everyone is free to use.
@@ -21,6 +21,7 @@ HTML file should look like:
 ```html
 <!DOCTYPE HTML>
 <head>
+    ...
 	<script src="./YourJsFile_NotTheFileYouCloned.js" type="module"></script>
 </head>
 ```

@@ -1,13 +1,13 @@
 import ActionValue from "../ActionValue.js";
 
 /**
- * Class for storing values of HallOfMirrors action.
+ * Class for storing values of ScreenTile action.
  */
-class MapEvent_HallOfMirrors extends ActionValue {
+class MapEvent_ScreenTile extends ActionValue {
     /**
-     * Enabled / Disabled status of the event.
+     * Number of tiles to split.
      */
-    enabled = true;
+    tile = [0, 0];
 
     /**
      * Angle offset of the event.
@@ -20,14 +20,18 @@ class MapEvent_HallOfMirrors extends ActionValue {
     eventTag = String();
 
     /**
-     * Create a HallOfMirrors event using these parameters.
-     * @param {Boolean} enabled Enabled / Disabled status of the event.
+     * Create a ScreenTile event using these parameters.
+     * @param {[Number, Number]} tile Number of tiles to split.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */
-    constructor(enabled, angleOffset, eventTag) {
+    constructor(
+        tile,
+        angleOffset,
+        eventTag
+    ) {
         super();
-        this.enabled = enabled ?? this.enabled;
+        this.tile = tile ?? this.tile;
         this.angleOffset = angleOffset ?? this.angleOffset;
         this.eventTag = eventTag ?? this.eventTag;
     }
@@ -48,9 +52,11 @@ class MapEvent_HallOfMirrors extends ActionValue {
      * Returns a json part of this event.
      */
     asJsonPart(...params) {
-        return `, "enabled": ${JSON.stringify(
-            (params[0] ?? this.enabled) ? "Enabled" : "Disabled"
-        )}, "angleOffset": ${JSON.stringify(
+        return `, "tile": [${JSON.stringify(
+            (params[0] ?? this.tile)[0]
+        )}, ${JSON.stringify(
+            (params[0] ?? this.tile)[1]
+        )}], "angleOffset": ${JSON.stringify(
             params[1] ?? this.angleOffset
         )}, "eventTag": ${JSON.stringify(
             params[2] ?? this.eventTag
@@ -58,4 +64,4 @@ class MapEvent_HallOfMirrors extends ActionValue {
     }
 }
 
-export default MapEvent_HallOfMirrors;
+export default MapEvent_ScreenTile;

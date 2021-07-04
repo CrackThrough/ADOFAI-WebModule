@@ -4,28 +4,28 @@
 const DECO_RELATIVE_TO = {};
 
 Object.defineProperty(DECO_RELATIVE_TO, "TILE", {
-  value: "Tile",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "Tile",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 Object.defineProperty(DECO_RELATIVE_TO, "GLOBAL", {
-  value: "Global",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "Global",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 Object.defineProperty(DECO_RELATIVE_TO, "REDPLANET", {
-  value: "RedPlanet",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "RedPlanet",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 Object.defineProperty(DECO_RELATIVE_TO, "BLUEPLANET", {
-  value: "BluePlanet",
-  writable: false,
-  enumerable: true,
-  configurable: false,
+    value: "BluePlanet",
+    writable: false,
+    enumerable: true,
+    configurable: false,
 });
 
 export default DECO_RELATIVE_TO;

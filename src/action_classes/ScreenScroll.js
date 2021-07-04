@@ -1,13 +1,13 @@
 import ActionValue from "../ActionValue.js";
 
 /**
- * Class for storing values of HallOfMirrors action.
+ * Class for storing values of ScreenScroll action.
  */
-class MapEvent_HallOfMirrors extends ActionValue {
+class MapEvent_ScreenScroll extends ActionValue {
     /**
-     * Enabled / Disabled status of the event.
+     * Position of the text.
      */
-    enabled = true;
+    scroll = [0, 0];
 
     /**
      * Angle offset of the event.
@@ -20,14 +20,18 @@ class MapEvent_HallOfMirrors extends ActionValue {
     eventTag = String();
 
     /**
-     * Create a HallOfMirrors event using these parameters.
-     * @param {Boolean} enabled Enabled / Disabled status of the event.
+     * Create a ScreenScroll event using these parameters.
+     * @param {[Number, Number]} scroll Speed of the scroll.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */
-    constructor(enabled, angleOffset, eventTag) {
+    constructor(
+        scroll,
+        angleOffset,
+        eventTag
+    ) {
         super();
-        this.enabled = enabled ?? this.enabled;
+        this.scroll = scroll ?? this.scroll;
         this.angleOffset = angleOffset ?? this.angleOffset;
         this.eventTag = eventTag ?? this.eventTag;
     }
@@ -48,9 +52,11 @@ class MapEvent_HallOfMirrors extends ActionValue {
      * Returns a json part of this event.
      */
     asJsonPart(...params) {
-        return `, "enabled": ${JSON.stringify(
-            (params[0] ?? this.enabled) ? "Enabled" : "Disabled"
-        )}, "angleOffset": ${JSON.stringify(
+        return `, "scroll": [${JSON.stringify(
+            (params[0] ?? this.scroll)[0]
+        )}, ${JSON.stringify(
+            (params[0] ?? this.scroll)[1]
+        )}], "angleOffset": ${JSON.stringify(
             params[1] ?? this.angleOffset
         )}, "eventTag": ${JSON.stringify(
             params[2] ?? this.eventTag
@@ -58,4 +64,4 @@ class MapEvent_HallOfMirrors extends ActionValue {
     }
 }
 
-export default MapEvent_HallOfMirrors;
+export default MapEvent_ScreenScroll;
