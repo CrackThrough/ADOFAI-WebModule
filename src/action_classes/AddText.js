@@ -10,7 +10,7 @@ import FONT from "../data_types/font";
  */
 class MapEvent_AddText extends ActionValue {
   /**
-   * Image file location relative to map file.
+   * Content of the text.
    */
   decText = "";
   /**
@@ -52,7 +52,7 @@ class MapEvent_AddText extends ActionValue {
 
   /**
    * Create a AddText event using these parameters.
-   * @param {String} decText Image file location relative to map file.
+   * @param {String} decText Content of the text.
    * @param {String} font Please use enum instead of manually typing the string. Enum's file name is `font.js`.
    * @param {[Number, Number]} position Position of the text.
    * @param {String} relativeTo Please use enum instead of manually typing the string. Enum's filename is `deco_relativeto.js`.

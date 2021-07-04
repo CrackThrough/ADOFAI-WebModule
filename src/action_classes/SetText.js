@@ -5,7 +5,7 @@ import ActionValue from "../ActionValue.js";
  */
 class MapEvent_SetText extends ActionValue {
   /**
-   * Image file location relative to map file.
+   * Content of the text.
    */
   decText = "";
   /**
@@ -23,7 +23,7 @@ class MapEvent_SetText extends ActionValue {
 
   /**
    * Create a SetText event using these parameters.
-   * @param {String} decText Image file location relative to map file.
+   * @param {String} decText Content of the text.
    * @param {String} tag A tag of the text.
    * @param {Number} angleOffset Angle offset of the event.
    * @param {String} eventTag A tag of the event.
