@@ -169,14 +169,16 @@ const ADOFAI = class {
                                         // switch to boolean
                                         "separateCountdownTime",
                                         "seizureWarning",
+                                        "showDefaultBGIfNoImage",
                                         "lockRot",
                                         "loopBG",
                                         "loopVideo",
                                         "floorIconOutlines",
                                         "stickToFloors",
+                                        "legacyFlash",
                                     ].includes(k) && ["Enabled", "Disabled"].includes(v())
                                         ? v() === "Enabled"
-                                        : typeof v() == "string"
+                                        : typeof v() === "string"
                                         ? [
                                             // switch to color
                                             "previewIconColor",
