@@ -345,10 +345,10 @@ const ADOFAI = class {
             var valid = Object.keys(AdofaiMapAction.ACTIONS_LIST).includes(
               actionraw.eventType
             );
-            if (!valid)
-              throw new Error(
-                `Unknown action '${actionraw.eventType}' in line ${index}.\n\nFull line: '${line}'.`
-              );
+            if (!valid) return;
+              // throw new Error(
+              //   `Unknown action '${actionraw.eventType}' in line ${index}.\n\nFull line: '${line}'.`
+              // );
             var action = new AdofaiMapAction(
               actionraw.floor || 0,
               actionraw.eventType,

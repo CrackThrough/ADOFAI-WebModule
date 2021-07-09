@@ -31,7 +31,47 @@ function processFile(file) {
 
     var level = ADOFAI.Import(levelstr);
 
-    console.log(level.actions.filter((x) => x.floor == 1511));
+    var msarr = [];
+    var curbpm = level.settings.bpm;
+
+    level.pathData.forEach((p, i) => {
+      var next = level.pathData[i + 1];
+      if (next != null) {
+        var value = level.actions.filter(x => x.eventType == "SetSpeed").filter(x => x.floor == i)[0]?.eventValue;
+        if (value && value instanceof ADOFAI.Action.ACTIONS_LIST.SetSpeed) {
+          var isBpm = value.speedType == ADOFAI.Enums.SPEEDTYPE.BPM;
+          if (isBpm) {
+            curbpm = value.beatsPerMinute;
+          }else{
+            curbpm *= value.bpmMultiplier;
+          }
+        }
+        var getangle = (t, n) => {var r = (t - n + 540) % 360;return r==0?360:r}
+
+        // console.log(ADOFAI.PathData.GetMsBetweenTile(getangle(p.absoluteAngle, next.absoluteAngle), curbpm))
+
+        msarr.push(ADOFAI.PathData.GetMsBetweenTile(getangle(p.absoluteAngle, next.absoluteAngle), curbpm));
+      }
+    });
+
+console.log(msarr)
+
+    var getbpm = (ms, angle) => (1000 * angle) / 3 / ms;
+
+    level.actions=[];
+    level.pathData=[];
+    msarr.forEach((t, i) => {
+      var bpm = getbpm((t), 180);
+      level.pathData.push(new ADOFAI.PathData("R"));
+      var action = new ADOFAI.Action(i + 1, "SetSpeed");
+      action.eventValue = new ADOFAI.Action.ACTIONS_LIST.SetSpeed();
+      if (action.eventValue instanceof ADOFAI.Action.ACTIONS_LIST.SetSpeed) {
+        action.eventValue.beatsPerMinute = bpm;
+      }
+      level.actions.push(action)
+    })
+
+    console.log(level.Export());
 
     // console.log(level.actions.filter((x) => x.eventType == "SetSpeed"));
 
