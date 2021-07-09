@@ -1,33 +1,33 @@
 /**
- * Customizable color and utilities
+ * Customizable color and utilities.
  */
 class Color {
     /**
-     * Redness of current color
+     * Redness of current color.
      * @type {number}
      */
     R = 255;
 
     /**
-     * Greenness of current color
+     * Greenness of current color.
      * @type {number}
      */
     G = 255;
 
     /**
-     * Blueness of current color
+     * Blueness of current color.
      * @type {number}
      */
     B = 255;
 
     /**
-     * Opacity of current color
+     * Opacity of current color.
      * @type {number}
      */
     A = 255;
 
     /**
-     * Create color from RGB values
+     * Creates color from RGB values.
      * @param {number} R Redness of the color
      * @param {number} G Greenness of the color
      * @param {number} B Blueness of the color
@@ -42,7 +42,7 @@ class Color {
 
     /**
      * Converts this color to string.
-     * @returns {string} a converted HEX string. DOES NOT INCLUDE #.
+     * @returns {string} a converted HEX string. DOES NOT INCLUDE #
      */
     toString() {
         function clampAndPad(val) {
@@ -64,7 +64,7 @@ class Color {
     }
 
     /**
-     * Convert color from HSV Data
+     * Convert color from HSV Data.
      * @param {number} hue Hue (0.0 ~ 360.0)
      * @param {number} saturation Saturation (0.0 ~ 1.0)
      * @param {number} value Value (0.0 ~ 1.0)
@@ -79,7 +79,7 @@ class Color {
         saturation = saturation ?? 0;
         value = value ?? 0;
 
-        if (!inRangeOf(hue, 0, 360) || !inRangeOf(saturation, 0, 1) || !inRangeOf(value, 0, 1)) throw new this.ColorError("Parameter out of range");
+        if (!inRangeOf(hue, 0, 360) || !inRangeOf(saturation, 0, 1) || !inRangeOf(value, 0, 1)) throw new Error("Parameter out of range");
 
         const c = value * saturation;
         const x = c * (1 - Math.abs(hue / 60 % 2 - 1))
@@ -124,7 +124,7 @@ class Color {
     }
 
     /**
-     * Convert color from number
+     * Convert color from number.
      * @param {number} num number to convert into color
      * @returns {Color}
      */
@@ -141,7 +141,7 @@ class Color {
         } else if (num >= 0 && num < 2 ** 24) {
             _c = num.toString(16).padStart(6, '0');
         } else {
-            throw new Color.ColorError("Parameter out of range");
+            throw new Error("Parameter out of range");
         }
 
         this.R = parseAndClamp(_c.substr(0, 2));
@@ -151,7 +151,7 @@ class Color {
     }
 
     /**
-     * Convert color from string
+     * Convert color from string.
      * @param {string} str string to convert into color (ex: '#FFFFFF', 'F00', 'FF')
      * @returns {Color}
      */
@@ -179,12 +179,12 @@ class Color {
             this.B = _c;
             this.A = 255;
         } else {
-            throw new Color.ColorError("Invalid parameter");
+            throw new Error("Invalid parameter");
         }
     }
 
     /**
-     * Convert color from object
+     * Convert color from object.
      * @param {object} obj object to convert into color
      * @returns {Color}
      */
@@ -194,18 +194,6 @@ class Color {
             r[k] = obj[k];
         }
         return r;
-    }
-}
-
-/**
- * This error is thrown when passed parameter is not valid
- */
-Color.ColorError = class extends Error {
-    /**
-     * @param {string} message 
-     */
-    constructor(message = "") {
-        super(message);
     }
 }
 

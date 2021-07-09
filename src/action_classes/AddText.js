@@ -1,20 +1,26 @@
 import ActionValue from "../ActionValue.js";
 import DECO_RELATIVE_TO from "../data_types/deco_relativeto.js";
 import Color from "../data_types/color.js";
+import FONT from "../data_types/font.js";
 
 /**
- * Class for storing values of AddDecoration action.
+ * Class for storing values of AddText action.
  *
- * DO NOT MANUALLY USE STRING IN `relativeTo` PROPERTY.
+ * DO NOT MANUALLY USE STRING IN `font`, `relativeTo` PROPERTY.
  */
-class MapEvent_AddDecoration extends ActionValue {
+class MapEvent_AddText extends ActionValue {
     /**
-     * Image file location relative to map file.
+     * Content of the text.
      */
-    decorationImage = "";
+    decText = "";
 
     /**
-     * Position of the decoration.
+     * Please use enum instead of manually typing the string. Enum's file name is `font.js`.
+     */
+    font = FONT.DEFAULT;
+
+    /**
+     * Position of the text.
      */
     position = [0, 0];
 
@@ -24,49 +30,51 @@ class MapEvent_AddDecoration extends ActionValue {
     relativeTo = DECO_RELATIVE_TO.TILE;
 
     /**
-     * Pivot offset of the decoration.
+     * Pivot offset of the text.
      */
     pivotOffset = [0, 0];
 
     /**
-     * Rotation for the decoration.
+     * Rotation for the text.
      */
     rotation = 0;
 
     /**
-     * Scale of the decoration.
+     * Scale of the text.
      */
     scale = 100;
 
     /**
-     * Color of the decoration
+     * Color of the text
      */
     color = new Color(undefined);
 
     /**
-     * Depth of the decoration. (Similar to z-order.)
+     * Depth of the text. (Similar to z-order.)
      */
     depth = 0;
 
     /**
-     * A tag of the decoration.
+     * A tag of the text.
      */
     tag = "";
 
     /**
-     * Create a AddDecoration event using these parameters.
-     * @param {String} decorationImage Image file location relative to map file.
-     * @param {[Number, Number]} position Position of the decoration.
+     * Create a AddText event using these parameters.
+     * @param {String} decText Content of the text.
+     * @param {String} font Please use enum instead of manually typing the string. Enum's file name is `font.js`.
+     * @param {[Number, Number]} position Position of the text.
      * @param {String} relativeTo Please use enum instead of manually typing the string. Enum's filename is `deco_relativeto.js`.
-     * @param {[Number, Number]} pivotOffset Pivot offset of the decoration.
-     * @param {Number} rotation Rotation for the decoration.
-     * @param {Number} scale Scale of the decoration.
-     * @param {Color} color Color of the decoration.
-     * @param {Number} depth Depth of the decoration. (Similar to z-order.)
-     * @param {String} tag A tag of the decoration.
+     * @param {[Number, Number]} pivotOffset Pivot offset of the text.
+     * @param {Number} rotation Rotation for the text.
+     * @param {Number} scale Scale of the text.
+     * @param {Color} color Color of the text.
+     * @param {Number} depth Depth of the text. (Similar to z-order.)
+     * @param {String} tag A tag of the text.
      */
     constructor(
-        decorationImage,
+        decText,
+        font,
         position,
         relativeTo,
         pivotOffset,
@@ -77,7 +85,8 @@ class MapEvent_AddDecoration extends ActionValue {
         tag
     ) {
         super();
-        this.decorationImage = decorationImage ?? this.decorationImage;
+        this.decText = decText ?? this.decText;
+        this.font = font ?? this.font;
         this.position = position ?? this.position;
         this.relativeTo = relativeTo ?? this.relativeTo;
         this.pivotOffset = pivotOffset ?? this.pivotOffset;
@@ -95,7 +104,7 @@ class MapEvent_AddDecoration extends ActionValue {
     static fromObject(obj) {
         const res = new this();
         Object.keys(obj).forEach((key) => {
-            res[key !== "decText" ? key : "decorationImage"] = obj[key];
+            res[key] = obj[key];
         });
         return res;
     }
@@ -104,30 +113,32 @@ class MapEvent_AddDecoration extends ActionValue {
      * Returns a json part of this event.
      */
     asJsonPart(...params) {
-        return `, "decorationImage": ${JSON.stringify(
-            params[0] ?? this.decorationImage
+        return `, "decText": ${JSON.stringify(
+            params[0] ?? this.decText
+        )}, "font": ${JSON.stringify(
+            params[1] ?? this.font
         )}, "position": [${JSON.stringify(
-            (params[1] ?? this.position)[0]
+            (params[2] ?? this.position)[0]
         )}, ${JSON.stringify(
-            (params[1] ?? this.position)[1]
+            (params[2] ?? this.position)[1]
         )}], "relativeTo": ${JSON.stringify(
-            params[2] ?? this.relativeTo
+            params[3] ?? this.relativeTo
         )}, "pivotOffset": [${JSON.stringify(
-            (params[3] ?? this.pivotOffset)[0]
+            (params[4] ?? this.pivotOffset)[0]
         )}, ${JSON.stringify(
-            (params[3] ?? this.pivotOffset)[1]
+            (params[4] ?? this.pivotOffset)[1]
         )}], "rotation": ${JSON.stringify(
-            params[4] ?? this.rotation
+            params[5] ?? this.rotation
         )}, "scale": ${JSON.stringify(
-            params[5] ?? this.scale
+            params[6] ?? this.scale
         )}, "color": ${JSON.stringify(
-            (params[6] ?? this.color).toString()
+            (params[7] ?? this.color).toString()
         )}, "depth": ${JSON.stringify(
-            params[7] ?? this.depth
+            params[8] ?? this.depth
         )}, "tag": ${JSON.stringify(
-            params[8] ?? this.tag
+            params[9] ?? this.tag
         )}`;
     }
 }
 
-export default MapEvent_AddDecoration;
+export default MapEvent_AddText;

@@ -1,13 +1,18 @@
 import ActionValue from "../ActionValue.js";
 
 /**
- * Class for storing values of HallOfMirrors action.
+ * Class for storing values of SetText action.
  */
-class MapEvent_HallOfMirrors extends ActionValue {
+class MapEvent_SetText extends ActionValue {
     /**
-     * Enabled / Disabled status of the event.
+     * Content of the text.
      */
-    enabled = true;
+    decText = "";
+
+    /**
+     * A tag of the text.
+     */
+    tag = "";
 
     /**
      * Angle offset of the event.
@@ -20,14 +25,21 @@ class MapEvent_HallOfMirrors extends ActionValue {
     eventTag = String();
 
     /**
-     * Create a HallOfMirrors event using these parameters.
-     * @param {Boolean} enabled Enabled / Disabled status of the event.
+     * Create a SetText event using these parameters.
+     * @param {String} decText Content of the text.
+     * @param {String} tag A tag of the text.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */
-    constructor(enabled, angleOffset, eventTag) {
+    constructor(
+        decText,
+        tag,
+        angleOffset,
+        eventTag
+    ) {
         super();
-        this.enabled = enabled ?? this.enabled;
+        this.decText = decText ?? this.decText;
+        this.tag = tag ?? this.tag;
         this.angleOffset = angleOffset ?? this.angleOffset;
         this.eventTag = eventTag ?? this.eventTag;
     }
@@ -48,14 +60,16 @@ class MapEvent_HallOfMirrors extends ActionValue {
      * Returns a json part of this event.
      */
     asJsonPart(...params) {
-        return `, "enabled": ${JSON.stringify(
-            (params[0] ?? this.enabled) ? "Enabled" : "Disabled"
+        return `, "decText": ${JSON.stringify(
+            params[0] ?? this.decText
+        )}, "tag": ${JSON.stringify(
+            params[1] ?? this.tag
         )}, "angleOffset": ${JSON.stringify(
-            params[1] ?? this.angleOffset
+            params[2] ?? this.angleOffset
         )}, "eventTag": ${JSON.stringify(
-            params[2] ?? this.eventTag
+            params[3] ?? this.eventTag
         )}`;
     }
 }
 
-export default MapEvent_HallOfMirrors;
+export default MapEvent_SetText;
