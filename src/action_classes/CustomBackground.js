@@ -65,8 +65,8 @@ class MapEvent_CustomBackground extends ActionValue {
      * @param {Color} imageColor Color of the background (with image). The Color class is in `color.js`.
      * @param {[Number, Number]} parallax Parallax of the image.
      * @param {String} bgDisplayMode Please use enum instead of manually typing the string. Enum's filename is `bgdisplaymode.js`.
-     * @param {Boolean} lockRot Whether lock rotation of an image or not.
-     * @param {Boolean} loopBG Whether looping a background image or not.
+     * @param {boolean} lockRot Whether lock rotation of an image or not.
+     * @param {boolean} loopBG Whether looping a background image or not.
      * @param {Number} unscaledSize Size of an image when unscaled.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.

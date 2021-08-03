@@ -11,7 +11,7 @@ class MapEvent_Twirl extends ActionValue {
 
     /**
      * Create a Twirl event using these parameters.
-     * @param {Boolean} DoubleTwirled Whether to twirl it twice so planet does not actually get twirled but the tile has twirl icon.
+     * @param {boolean} DoubleTwirled Whether to twirl it twice so planet does not actually get twirled but the tile has twirl icon.
      */
     constructor(DoubleTwirled = false) {
         super();

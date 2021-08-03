@@ -39,7 +39,7 @@ class MapEvent_ShakeScreen extends ActionValue {
      * @param {Number} duration Duration of this action.
      * @param {Number} strength Strength of the shake.
      * @param {Number} intensity Intensity of the shake.
-     * @param {Boolean} fadeOut Whether to fade out the shake effect (<-- true) or just cut it plain (<-- false).
+     * @param {boolean} fadeOut Whether to fade out the shake effect (<-- true) or just cut it plain (<-- false).
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */

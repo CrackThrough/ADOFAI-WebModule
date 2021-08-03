@@ -201,7 +201,7 @@ class AdofaiMapPathData {
      *
      * @param {AdofaiMapPathData | String} thisTile First tile to be a base for second tile's angle. (Input String when calculating all of 5, 6, 7, 8. They should be calculated at once)
      * @param {AdofaiMapPathData} nextTile Second tile to base on the first tile
-     * @param {Boolean} twirled Whether the planet is twirled or not
+     * @param {boolean} twirled Whether the planet is twirled or not
      */
     static GetRelativeAngle(thisTile, nextTile, twirled) {
         let absTiles = ["5", "6", "7", "8"];

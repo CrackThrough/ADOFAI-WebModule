@@ -40,9 +40,9 @@ class MapEvent_SetFilter extends ActionValue {
     /**
      * Create a SetFilter event using these parameters.
      * @param {String} filter Type of filter. Please use enum instead of manually typing the string. Enum is saved at `filter.js`.
-     * @param {Boolean} enabled Whether enable or disable the filter.
+     * @param {boolean} enabled Whether enable or disable the filter.
      * @param {Number} intensity Intensity of the filter.
-     * @param {Boolean} disableOthers Disable other filters when this event occurs.
+     * @param {boolean} disableOthers Disable other filters when this event occurs.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */

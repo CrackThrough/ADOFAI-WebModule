@@ -437,7 +437,7 @@ const ADOFAI = class {
     // noinspection JSUnusedGlobalSymbols
     /**
      * Sorts action[] by floor number and action name
-     * @param {Boolean} dontSortByName Whether not to sort events by name at all, and just sort by floor numbers. (default: false)
+     * @param {boolean} dontSortByName Whether not to sort events by name at all, and just sort by floor numbers. (default: false)
      */
     SortActions(dontSortByName = false) {
         this.actions = this.actions.sort((a, b) => a.floor - b.floor);

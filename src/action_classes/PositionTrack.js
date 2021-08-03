@@ -17,7 +17,7 @@ class MapEvent_PositionTrack extends ActionValue {
     /**
      * Create a PositionTrack event using these parameters.
      * @param {[Number, Number]} positionOffset Offset of the tile's position.
-     * @param {Boolean} editorOnly Whether apply it for editor only or not.
+     * @param {boolean} editorOnly Whether apply it for editor only or not.
      */
     constructor(positionOffset, editorOnly) {
         super();

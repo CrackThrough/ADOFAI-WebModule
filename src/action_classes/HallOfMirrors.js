@@ -21,7 +21,7 @@ class MapEvent_HallOfMirrors extends ActionValue {
 
     /**
      * Create a HallOfMirrors event using these parameters.
-     * @param {Boolean} enabled Enabled / Disabled status of the event.
+     * @param {boolean} enabled Enabled / Disabled status of the event.
      * @param {Number} angleOffset Angle offset of the event.
      * @param {String} eventTag A tag of the event.
      */

@@ -37,7 +37,7 @@ class MapEvent_Bloom extends ActionValue {
 
     /**
      * Create a Bloom event using these parameters.
-     * @param {Boolean} enabled Enabled / Disabled status of the event.
+     * @param {boolean} enabled Enabled / Disabled status of the event.
      * @param {Number} threshold Area (threshold) of the bloom effect.
      * @param {Number} intensity Intensity of the event.
      * @param {Color} color Color of the bloom. The Color class is in `color.js`.
