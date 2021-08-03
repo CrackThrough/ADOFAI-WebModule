@@ -1,1 +1,7 @@
+# Ignore environment directories
 .idea/
+.vscode/
+
+# Ignore unnecessary directories
+node_modules/
+dist/

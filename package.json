@@ -1,0 +1,25 @@
+{
+    "name": "adofai-webmodule",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepack": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CrackThrough/ADOFAI-WebModule.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/CrackThrough/ADOFAI-WebModule/issues"
+    },
+    "homepage": "https://github.com/CrackThrough/ADOFAI-WebModule#readme",
+    "devDependencies": {
+        "prettier": "^2.3.2",
+        "typescript": "^4.3.5"
+    }
+}
