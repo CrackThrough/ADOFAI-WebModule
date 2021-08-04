@@ -3,19 +3,7 @@ import { PathCode } from "../typings";
 /**
  * Class representing a single path tile.
  */
-export default class PathData {
-    /**
-     * Creates PathData from 'code' or 'angle'.
-     * @param {PathCode | number} v the angle or path code
-     */
-    constructor(v: PathCode | number) {
-        let [code, angle] = PathData.FindTileFromDict(v);
-        if (code && angle) {
-            this.code = code;
-            this.angle = angle;
-        }
-    }
-
+export class PathData {
     /**
      * The code of this tile.
      */
@@ -39,6 +27,18 @@ export default class PathData {
      */
     get isAlwaysRelative(): boolean {
         return this.isValid && PathData.ALWAYS_RELATIVE_TILE_CODES.includes(this.code);
+    }
+
+    /**
+     * Create an instance of PathData from 'code' or 'angle'.
+     * @param v the angle or path code
+     */
+    constructor(v: PathCode | number) {
+        let [code, angle] = PathData.FindTileFromDict(v);
+        if (code && angle) {
+            this.code = code;
+            this.angle = angle;
+        }
     }
 
     static readonly TileDictionary: { [key in PathCode]: number } = {
@@ -95,7 +95,7 @@ export default class PathData {
 
     /**
      * Finds element inside the `PathData.TileDictionary`.
-     * @param {string | number} v the code or angle for finding element
+     * @param v the code or angle for finding element
      * @returns {[PathCode, number, true?] | []} [PathCode, angle]
      */
     static FindTileFromDict(

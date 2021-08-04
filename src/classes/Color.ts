@@ -27,11 +27,11 @@ export class Color {
     A = 255;
 
     /**
-     * Creates color from RGB values.
-     * @param {number} R Redness of the color
-     * @param {number} G Greenness of the color
-     * @param {number} B Blueness of the color
-     * @param {number} A Opacity of the color
+     * Create instance of a `Color` from RGB values.
+     * @param R Redness of the color
+     * @param G Greenness of the color
+     * @param B Blueness of the color
+     * @param A Opacity of the color
      */
     constructor(R = 255, G = 255, B = 255, A = 255) {
         this.R = R ?? 255;
@@ -68,9 +68,9 @@ export class Color {
 
     /**
      * Convert color from HSV Data.
-     * @param {number} hue Hue (0.0 ~ 360.0)
-     * @param {number} saturation Saturation (0.0 ~ 1.0)
-     * @param {number} value Value (0.0 ~ 1.0)
+     * @param hue Hue (0.0 ~ 360.0)
+     * @param saturation Saturation (0.0 ~ 1.0)
+     * @param value Value (0.0 ~ 1.0)
      * @returns {Color}
      */
     static FromHSV(hue: number, saturation: number, value: number): Color {
@@ -130,7 +130,7 @@ export class Color {
 
     /**
      * Convert color from number.
-     * @param {number} num number to convert into color
+     * @param num number to convert into color
      * @returns {Color}
      */
     static FromNumber(num: number): Color {
@@ -162,7 +162,7 @@ export class Color {
 
     /**
      * Convert color from string.
-     * @param {string} str string to convert into color (ex: '#FFFFFF', 'F00', 'FF')
+     * @param str string to convert into color (ex: '#FFFFFF', 'F00', 'FF')
      * @returns {Color}
      */
     static FromString(str: string): Color {
@@ -196,7 +196,7 @@ export class Color {
 
     /**
      * Convert color from object.
-     * @param {object} obj object to convert into color
+     * @param obj object to convert into color
      * @returns {Color}
      */
     static FromObject(obj: any): Color {

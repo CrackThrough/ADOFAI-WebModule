@@ -205,11 +205,6 @@ export type SpecialArtistType = "None" | "AuthorIsArtist" | "PublicLicense";
 export type SpeedType = "Bpm" | "Multiplier";
 
 /**
- * Boolean in text.
- */
-export type TextBoolean = "Enabled" | "Disabled";
-
-/**
  * List of tile range options.
  */
 export type TileRange = "ThisTile" | "Start" | "End";
@@ -302,7 +297,7 @@ export interface Settings {
     /**
      * Whether to separate countdown time from the music.
      */
-    separateCountdownTime: TextBoolean;
+    separateCountdownTime: boolean;
 
     /**
      * Directory for the preview image file.
@@ -346,7 +341,7 @@ export interface Settings {
     /**
      * Whether seizure warning is enabled.
      */
-    seizureWarning: TextBoolean;
+    seizureWarning: boolean;
 
     /**
      * Description of the level.
@@ -485,7 +480,7 @@ export interface Settings {
     /**
      * Whether to show default tutorial background if there is no background image specified or found.
      */
-    showDefaultBGIfNoImage: TextBoolean;
+    showDefaultBGIfNoImage: boolean;
 
     /**
      * Directory of the background image file.
@@ -512,12 +507,12 @@ export interface Settings {
     /**
      * Whether to lock background's rotation.
      */
-    lockRot: TextBoolean;
+    lockRot: boolean;
 
     /**
      * Whether to loop background.
      */
-    loopBG: TextBoolean;
+    loopBG: boolean;
 
     /**
      * Unscaled background's size.
@@ -552,7 +547,7 @@ export interface Settings {
     /**
      * Whether to loop video after video is finished.
      */
-    loopVideo: TextBoolean;
+    loopVideo: boolean;
 
     /**
      * Offset of the video.
@@ -564,12 +559,12 @@ export interface Settings {
     /**
      * Whether to display outlines on floor's icons.
      */
-    floorIconOutlines: TextBoolean;
+    floorIconOutlines: boolean;
 
     /**
      * Whether to stick planets to floors.
      */
-    stickToFloors: TextBoolean;
+    stickToFloors: boolean;
 
     /**
      * Planets' rotation ease.
@@ -584,5 +579,5 @@ export interface Settings {
     /**
      * Whether legacy flash is enabled.
      */
-    legacyFlash: TextBoolean;
+    legacyFlash: boolean;
 }

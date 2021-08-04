@@ -1,23 +1,24 @@
-import type { PathCode, Settings } from "../typings";
-import { Color } from "..";
+import type { Settings } from "../typings";
+import { Action, Color, PathData } from "..";
 
+/**
+ * Class representing a custom level
+ */
 export class Level {
-    // default 저렇게 되는거 같은데
-    static defaultSettings: Settings = {
-        //노가다 하면 되려나
+    static readonly DEFAULT_SETTINGS: Settings = {
         version: 4,
         artist: "Artist",
         specialArtistType: "None",
         artistPermission: "",
         song: "Song",
         author: "Author",
-        separateCountdownTime: "Enabled",
+        separateCountdownTime: true,
         previewImage: "",
         previewIcon: "",
         previewIconColor: Color.FromString("003f52"),
         previewSongStart: 0,
         previewSongDuration: 10,
-        seizureWarning: "Disabled",
+        seizureWarning: false,
         levelDesc: "Say something about your level!",
         levelTags: "",
         artistLinks: "",
@@ -42,26 +43,32 @@ export class Level {
         trackDisappearAnimation: "None",
         beatsBehind: 4,
         backgroundColor: Color.FromString("000000"),
-        showDefaultBGIfNoImage: "Enabled",
+        showDefaultBGIfNoImage: true,
         bgImage: "",
         bgImageColor: Color.FromString("ffffff"),
         parallax: [100, 100],
         bgDisplayMode: "FitToScreen",
-        lockRot: "Disabled",
-        loopBG: "Disabled",
+        lockRot: false,
+        loopBG: false,
         unscaledSize: 100,
         relativeTo: "Player",
         position: [0, 0],
         rotation: 0,
         zoom: 100,
         bgVideo: "",
-        loopVideo: "Disabled",
+        loopVideo: false,
         vidOffset: 0,
-        floorIconOutlines: "Disabled",
-        stickToFloors: "Disabled",
+        floorIconOutlines: false,
+        stickToFloors: false,
         planetEase: "Linear",
         planetEaseParts: 1,
-        legacyFlash: "Disabled",
+        legacyFlash: false,
     };
-    constructor(public pathData: PathCode[] = [], public settings: Settings) {}
+    /**
+     * Create an instance of `Level`.
+     * @param pathData list of path
+     * @param settings level settings
+     * @param actions level actions
+     */
+    constructor(public pathData: PathData[] = [], public settings: Settings = Level.DEFAULT_SETTINGS, public actions: Action[] = []) {}
 }

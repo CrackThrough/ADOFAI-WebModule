@@ -1,13 +1,13 @@
 import { EventType } from "../typings";
 
 /**
- * Class representing a single action(event).
+ * Abstract class representing a single action(level event).
  */
 export abstract class Action {
     /**
-     * Create instance of an action.
-     * @param {number} floor floor index
-     * @param {EventType} eventType type string of event
+     * Create instance of an `Action`.
+     * @param floor floor index
+     * @param eventType type string of event
      */
     constructor(public floor: number, public eventType: EventType) {}
 }
