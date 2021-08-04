@@ -591,7 +591,8 @@ export type JSONActionStructure = {
 };
 
 export type JSONLevelStructure = {
-    pathData: string;
+    angleData?: number[];
+    pathData?: string;
     settings: Settings;
     actions: JSONActionStructure[];
 };

@@ -158,13 +158,14 @@ export class Level {
         let result = new Level();
 
         if (parsedLevelData) {
-            let { pathData, settings, actions } = parsedLevelData;
+            // TODO: Add angleData support
+            let { pathData, angleData, settings, actions } = parsedLevelData;
 
             let newPathData: PathData[] = [],
                 newActions: Action[] = [];
 
             // Append data to PathData array
-            pathData.split("").forEach((p) => {
+            pathData?.split("").forEach((p) => {
                 let tile = new PathData(p as PathCode);
                 newPathData.push(tile);
             });
