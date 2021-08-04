@@ -29,7 +29,8 @@ export type EventType =
     | "SetSpeed"
     | "SetText"
     | "ShakeScreen"
-    | "Twirl";
+    | "Twirl"
+    | "$UNKNOWN_ACTION";
 
 /**
  * Position vector of objects in the game.
@@ -582,3 +583,15 @@ export interface Settings {
      */
     legacyFlash: boolean;
 }
+
+export type JSONActionStructure = {
+    floor: number;
+    eventType: EventType;
+    [key: string]: any;
+};
+
+export type JSONLevelStructure = {
+    pathData: string;
+    settings: Settings;
+    actions: JSONActionStructure[];
+};
