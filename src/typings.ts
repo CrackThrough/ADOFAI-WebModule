@@ -8,6 +8,7 @@ export type EventType =
     | "AddText"
     | "AnimateTrack"
     | "Bloom"
+    | "ChangeTrack"
     | "Checkpoint"
     | "ColorTrack"
     | "CustomBackground"
