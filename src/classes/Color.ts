@@ -45,15 +45,11 @@ export class Color {
      * @returns {string} a converted HEX string. DOES NOT INCLUDE #
      */
     toString(): string {
-        function clampAndPad(val: number): string {
-            return Math.max(0, Math.min(Math.floor(val), 255))
-                .toString(16)
-                .padStart(2, "0");
-        }
-
         let result =
-            clampAndPad(this.R) + clampAndPad(this.G) + clampAndPad(this.B);
-        if (this.A < 255) result += clampAndPad(this.A);
+            Color._ClampAndPad(this.R) +
+            Color._ClampAndPad(this.G) +
+            Color._ClampAndPad(this.B);
+        if (this.A < 255) result += Color._ClampAndPad(this.A);
 
         return result;
     }
@@ -206,6 +202,12 @@ export class Color {
             r[k] = obj[k];
         }
         return r;
+    }
+
+    private static _ClampAndPad(val: number): string {
+        return Math.max(0, Math.min(Math.floor(val), 255))
+            .toString(16)
+            .padStart(2, "0");
     }
 
     private static _InRangeOf(v: number, min: number, max: number): boolean {
