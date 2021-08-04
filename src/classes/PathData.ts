@@ -232,8 +232,8 @@
 //                         numbers.push(thisTile.replace(regex, "").length);
 //                     }
 //                     t =
-//                         (72 * numbers[0] +
-//                             288 * numbers[1] +
+//                         (72 * numbers[0] + // 180 - 108
+//                             288 * numbers[1] + // 252 
 //                             (900 / 7) * numbers[2] +
 //                             (1620 / 7) * numbers[3]) %
 //                         360;
@@ -268,14 +268,14 @@ import { PathCode } from "../typings";
 /**
  * Class representing a single path tile.
  */
-class PathData {
+export default class PathData {
     /**
      * Creates PathData from 'code' or 'angle'.
      * @param {PathCode | number} v the angle or path code
      */
-    constructor(v) {
-        let [code, angle, isValid] = PathData.FindFromDictRaw(v);
-        if (isValid) {
+    constructor(v: PathCode | number) {
+        let [code, angle] = PathData.FindTileFromDict(v);
+        if (code && angle) {
             this.code = code;
             this.angle = angle;
         }
@@ -284,127 +284,215 @@ class PathData {
     /**
      * The code of this tile.
      */
-    code = "";
+    code: PathCode = 'R';
 
     /**
      * The absolute angle of this tile.
      */
-    angle = 0;
+    angle: number = NaN;
 
     /**
      * Whether this path instance is actually a valid value.
      */
-    get isValid() {
-        let dictValue = PathData.FindFromDictRaw(this.code);
+    get isValid(): boolean {
+        let dictValue = PathData.FindTileFromDict(this.code);
         return dictValue[0] === this.code && dictValue[1] === this.angle;
     }
 
     /**
      * Whether the `angle` property is actually always relative.
      */
-    get isAlwaysRelative() {
-        if (this.isValid) {
-            return PathData.FindFromDictRaw(this.code)[2] ?? false;
-        }
-        return false;
+    get isAlwaysRelative(): boolean {
+        return this.isValid && PathData.ALWAYS_RELATIVE_TILE_CODES.includes(this.code);
     }
 
-    static readonly TileDictionary2: Map<PathCode, number | [number]> = new Map(
-        [
-            ["W", 15],
-            ["H", 30],
-            ["Q", 45],
-            ["G", 60],
-            ["q", 75],
-            ["U", 90],
-            ["o", 105],
-            ["T", 120],
-            ["E", 135],
-            ["J", 150],
-            ["p", 165],
-            ["R", 180],
-            ["A", 195],
-            ["M", 210],
-            ["C", 225],
-            ["B", 240],
-            ["Y", 255],
-            ["D", 270],
-            ["V", 285],
-            ["F", 300],
-            ["Z", 315],
-            ["N", 330],
-            ["x", 345],
-            ["L", 360],
-            ["5", 108],
-            ["6", 252],
-            ["7", 900 / 7],
-            ["8", 1620 / 7],
-            ["9", 210],
-            ["t", 60],
-            ["h", 120],
-            ["j", 240],
-            ["y", 300],
-            ["!", 0],
-        ]
-    );
+    static readonly TileDictionary: { [key in PathCode]: number } = {
+        // * NORMAL TILES
+        'W': 15,
+        'H': 30,
+        'Q': 45,
+        'G': 60,
+        'q': 75,
+        'U': 90,
+        'o': 105,
+        'T': 120,
+        'E': 135,
+        'J': 150,
+        'p': 165,
+        'R': 180,
+        'A': 195,
+        'M': 210,
+        'C': 225,
+        'B': 240,
+        'Y': 255,
+        'D': 270,
+        'V': 285,
+        'F': 300,
+        'Z': 315,
+        'N': 330,
+        'x': 345,
+        'L': 360,
+        // * ABSOLUTE ANGLE TILES
+        '5': 108,
+        '6': 252,
+        '7': 900 / 7,
+        '8': 1620 / 7,
+        '9': 210,
+        't': 60,
+        'h': 120,
+        'j': 240,
+        'y': 300,
+        '!': 0,
+    };
 
-    static readonly AbsoluteTileCode = "56789thjy!";
-
-    /**
-     * Tile's absolute angles and codes are saved here.
-     * @type {[string, number, true?][]}
-     */
-    static readonly TileDictionary: [string, number, true?][] = [
-        ["W", 15],
-        ["H", 30],
-        ["Q", 45],
-        ["G", 60],
-        ["q", 75],
-        ["U", 90],
-        ["o", 105],
-        ["T", 120],
-        ["E", 135],
-        ["J", 150],
-        ["p", 165],
-        ["R", 180],
-        ["A", 195],
-        ["M", 210],
-        ["C", 225],
-        ["B", 240],
-        ["Y", 255],
-        ["D", 270],
-        ["V", 285],
-        ["F", 300],
-        ["Z", 315],
-        ["N", 330],
-        ["x", 345],
-        ["L", 360],
-        ["5", 108, true],
-        ["6", 252, true],
-        ["7", 900 / 7, true],
-        ["8", 1620 / 7, true],
-        ["9", 210, true],
-        ["t", 60, true],
-        ["h", 120, true],
-        ["j", 240, true],
-        ["y", 300, true],
-        ["!", 0, true],
+    static readonly ALWAYS_RELATIVE_TILE_CODES = "56789thjy!";
+    static readonly ALWAYS_RELATIVE_TILE_OFFSETS = [
+        72,       // '5'
+        288,      // '6'
+        360 / 7,  // '7'
+        2160 / 7, // '8'
+        330,      // '9'
+        60,       // 't'
+        120,      // 'h'
+        240,      // 'j'
+        300,      // 'y'
     ];
 
     /**
-     * Finds element inside the dictionary.
+     * Finds element inside the `PathData.TileDictionary`.
      * @param {string | number} v the code or angle for finding element
-     * @returns {[string, number, true?] | []}
+     * @returns {[PathCode, number, true?] | []} [PathCode, angle]
      */
-    static FindFromDictRaw(
-        v: string | number
-    ): [string, number, boolean?] | [] {
-        return (
-            this.TileDictionary.find((x) => x[0] === v) ??
-            this.TileDictionary.find((x) => x[1] === v) ??
-            []
-        );
+    static FindTileFromDict(
+        v: PathCode | number
+    ): [PathCode, number, true?] | [] {
+        let result: [PathCode, number] = ['R', NaN];
+
+        // Find w/ PathCode
+        if (typeof v === 'string') {
+            if (!this.TileDictionary[v]) return [];
+            result[0] = v;
+            result[1] = this.TileDictionary[v];
+            return result;
+        }
+
+        // Find w/ result number
+        let dictValues: number[] = Object.values(this.TileDictionary);
+        if (dictValues.includes(v)) {
+            result[0] = Object.keys(this.TileDictionary)[dictValues.indexOf(v)] as PathCode;
+            result[1] = v;
+            return result;
+        }
+
+        // Found nothing in dictionary
+        return [];
+    }
+
+    /**
+     * Calculates relative angle between two tiles
+     * @param prevTile previous tile(s) to get offset angle from
+     * @param thisTile current tile to get actual angle from
+     * @param twirled if the planets are twirled
+     * @returns relative angle between two tiles
+     */
+    static GetRelativeAngle(prevTile: PathData[] | PathData, thisTile: PathData, twirled = false): number {
+        // Pass generated parameters to GetRelativeAngleByCode and then give back the results
+        let params: [string, string] = [ "", "" ];
+
+        // Stringify previous tile(s)
+        if (Array.isArray(prevTile)) {
+            prevTile.forEach(t => {
+                params[0] += t.code;
+            });
+        } else params[0] = prevTile.code;
+
+        // Stringify this tile
+        params[1] = thisTile.code;
+
+        // Return the calculation result
+        return this.GetRelativeAngleByCode(...params, twirled);
+    }
+
+    /**
+     * Calculates relative angle between two tiles using path codes
+     * @param prevTile previous tile(s) to get offset angle from
+     * @param thisTile current tile to get actual angle from
+     * @param twirled if the planets are twirled
+     * @returns relative angle between two tiles
+     */
+    static GetRelativeAngleByCode(prevTile: string, thisTile: string, twirled = false): number {
+        let prevAngle = this.GetRelativeAngleOffset(prevTile);
+
+    }
+
+    /**
+     * Calculates special relative angle
+     * @param tileCodes list of tile codes
+     * @param twirled whether the planets are twirled
+     * @returns relative angle offset
+     */
+    private static GetRelativeAngleOffset(tileCodes: string, twirled = false): number {
+        // Filter out length 0 string
+        if (!tileCodes.length) return NaN;
+
+        // Find the "isAlwaysRelative = false" tile code and cut string
+        let latestAbsoluteIndex = -1;
+        for (let i = 0; i < tileCodes.length; i++) {
+            if (!this.ALWAYS_RELATIVE_TILE_CODES.includes(tileCodes)) {
+                latestAbsoluteIndex = i;
+            }
+        }
+        tileCodes = tileCodes.substr(latestAbsoluteIndex);
+
+        // Starting angle to calculate "offset" from
+        let startingAngle = this.FindTileFromDict(tileCodes[0] as PathCode)[1] ?? NaN;
+
+        // Filter out length 1 string and NaN
+        if (!(tileCodes.length - 1) || isNaN(startingAngle)) return startingAngle;
+
+        // True offset from R to add to calculated value
+        startingAngle = 180 - startingAngle;
+
+        // If there's any midspin tile inside
+        if (tileCodes.includes('!')) {
+            // For easier calculation of midspin tiles we just split it to '!' first
+            let tileCodesSplit = tileCodes.split('!');
+            tileCodesSplit.forEach(t => {
+                // TODO: Write a code that 
+            });
+        }
+    }
+
+    private static GetRelativeMidspinAngle(prevAngle: number, nextAngle: number, twirled = false): number {
+        // Middle angle to append
+        let midAngle: number,
+            diff: number = Math.abs(prevAngle - nextAngle);
+
+        // Find the middle angle
+        switch (true) {
+            case diff < 180:
+                midAngle = prevAngle - nextAngle;
+                break;
+            case diff > 180:
+                midAngle = 360 - diff;
+                break;
+            default:
+                midAngle = 360;
+                break;
+        }
+
+        // Twirl difference
+        midAngle *= twirled ? -1 : 1;
+
+        // Calculate final result
+        switch (true) {
+            case diff < 180:
+            case nextAngle - prevAngle > 180:
+                return 180 - midAngle;
+            case prevAngle - nextAngle > 180:
+                return 180 + midAngle;
+            default:
+                return 360;
+        }
     }
 }
-
-export default PathData;
