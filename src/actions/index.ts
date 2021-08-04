@@ -1,3 +1,4 @@
+export * from "./$UNKNOWN_ACTION";
 export * from "./AddDecoration";
 export * from "./AddText";
 export * from "./AnimateTrack";
