@@ -156,9 +156,17 @@ export default class PathData {
      * @returns relative angle between two tiles
      */
     static GetRelativeAngleByCode(prevTile: string, thisTile: string, twirled = false): number {
-        let prevAngle = this.GetRelativeAngleOffset(prevTile),
-            thisAngle = this.FindTileFromDict(thisTile as PathCode)[1] ?? NaN;
-        
+        // Get current tile's angle
+        let thisAngle = this.FindTileFromDict(thisTile as PathCode)[1] ?? NaN;
+
+        // Return if thisTile is always relative
+        if (this.ALWAYS_RELATIVE_TILE_CODES.includes(thisTile)) {
+            return thisAngle;
+        }
+
+        // Get previous tile's angle
+        let prevAngle = this.GetRelativeAngleOffset(prevTile, twirled);
+
         // Calculate angle between two tiles
         let result = (thisAngle - prevAngle + 540) % 360;
         if (twirled) result = 360 - result;
@@ -240,6 +248,13 @@ export default class PathData {
         return result;
     }
 
+    /**
+     * Calculates midspin angle
+     * @param prevAngle previous tile angle
+     * @param nextAngle next tile angle
+     * @param twirled whether the planets are twirled
+     * @returns relative angle after midspin tile
+     */
     private static GetRelativeMidspinAngle(prevAngle: number, nextAngle: number, twirled = false): number {
         // Middle angle to append to result
         let midAngle: number,
