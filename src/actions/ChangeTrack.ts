@@ -5,14 +5,14 @@ import {
     TrackAppearAnimation,
     TrackDisappearAnimation,
 } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class ChangeTrack extends Action {
     constructor(
         floor: number,
         public trackColorType: TrackColorType = "Single",
-        public trackColor: Color = Color.FromString("debb7b"),
-        public secondaryTrackColor: Color = Color.FromString("ffffff"),
+        public trackColor: Color = Color.fromString("debb7b"),
+        public secondaryTrackColor: Color = Color.fromString("ffffff"),
         public trackColorAnimDuration: number = 2,
         public trackColorPulse: TrackColorPulse = "None",
         public trackPulseLength: number = 10,

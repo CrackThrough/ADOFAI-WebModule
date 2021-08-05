@@ -1,5 +1,4 @@
-import { Ease } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class HallOfMirrors extends Action {
     constructor(

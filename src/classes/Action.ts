@@ -9,14 +9,12 @@ export abstract class Action {
     }
 
     /**
-     * Store custom data without any type restriction.
-     */
-    [key: string]: any;
-
-    /**
      * Create instance of an `Action`.
      * @param floor floor index
      * @param _eventType type string of event
      */
-    constructor(public floor: number, private _eventType: EventType) {}
+    protected constructor(
+        public floor: number,
+        private _eventType: EventType
+    ) {}
 }

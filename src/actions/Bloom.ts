@@ -1,5 +1,5 @@
 // import { TextBoolean } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class Bloom extends Action {
     constructor(

@@ -1,5 +1,5 @@
 import { Position } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class PositionTrack extends Action {
     constructor(

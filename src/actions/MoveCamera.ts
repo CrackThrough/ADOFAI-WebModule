@@ -1,5 +1,5 @@
 import { RelativeTo, Position, Ease } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class MoveCamera extends Action {
     constructor(

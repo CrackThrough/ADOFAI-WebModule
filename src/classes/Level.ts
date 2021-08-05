@@ -1,5 +1,5 @@
 import type { Settings, JSONLevelStructure, PathCode } from "../typings";
-import { AngleData, Action, Color, PathData } from "..";
+import { AngleData, Action, Color, PathData } from ".";
 import * as ALL_ACTIONS from "../actions";
 
 /**
@@ -13,10 +13,10 @@ export class Level {
 
     /**
      * Converts this level's path.
-     * @param destination convert destination
+     * @param convertTo convert to pathData or angleData
      */
-    ConvertPath(): void {
-
+    convertPath(convertTo: "pathData" | "angleData"): void {
+        // TODO: Write a code here
     }
 
     /**
@@ -24,16 +24,16 @@ export class Level {
      * @param releaseNumber ADOFAI's release number to export with specific version
      * @param useAngleData whether to use angleData instead of pathData when exporting
      */
-    Export(releaseNumber: number = 75, useAngleData = false): string {
+    export(releaseNumber: number = 75, useAngleData = false): string {
         // Convert pathData to angleData
         // Only use angleData if releaseNumber is greater than 75 (the version right before mesh system is added)
         if (releaseNumber > 75 && useAngleData) {
             // If there is no angleData defined in the instance
             if (!this.angleData) {
-                this.ConvertPath();
+                this.convertPath("angleData");
             }
         } else if (!this.pathData) {
-            // Add pathData just in case
+            // Add empty pathData just in case
             this.pathData = [];
         }
 
@@ -73,26 +73,11 @@ export class Level {
      * Sorts action by floor number and eventType.
      * @returns current instance
      */
-    SortAction(): this {
-        // Sort by floor number
-        this.actions.sort((a, b) => a.floor - b.floor);
-
-        // Sort again by event name
-        for (let i = 0; i < this.actions.length; i++) {
-            let selectedFloor = this.actions[i].floor,
-                floorActions = this.actions
-                    .filter(x => x.floor = selectedFloor)
-                    .slice()
-                    .sort((a, b) => a.eventType < b.eventType ? -1 : 1);
-
-            // Replace current actions value
-            floorActions.forEach((a, j) => {
-                this.actions[i + j] = a;
-            });
-
-            // Add i by amount of actions to skip to the next element with different floor value
-            i += floorActions.length - 1;
-        }
+    sortActions(): this {
+        // Sort by floor number and eventType
+        this.actions.sort(
+            (a, b) => a.floor - b.floor || (a.eventType > b.eventType ? 1 : -1)
+        );
 
         // Return the current instance
         return this;
@@ -105,7 +90,9 @@ export class Level {
      * @param actions level actions
      */
     constructor(
-        public pathData: PathData[] | undefined = new Array(10).fill(new PathData("R")),
+        public pathData: PathData[] | undefined = new Array(10).fill(
+            new PathData("R")
+        ),
         public settings: Settings = Level.DEFAULT_SETTINGS,
         public actions: Action[] = []
     ) {}
@@ -123,7 +110,7 @@ export class Level {
         separateCountdownTime: true,
         previewImage: "",
         previewIcon: "",
-        previewIconColor: Color.FromString("003f52"),
+        previewIconColor: Color.fromString("003f52"),
         previewSongStart: 0,
         previewSongDuration: 10,
         seizureWarning: false,
@@ -140,8 +127,8 @@ export class Level {
         hitsoundVolume: 100,
         countdownTicks: 4,
         trackColorType: "Single",
-        trackColor: Color.FromString("debb7b"),
-        secondaryTrackColor: Color.FromString("ffffff"),
+        trackColor: Color.fromString("debb7b"),
+        secondaryTrackColor: Color.fromString("ffffff"),
         trackColorAnimDuration: 2,
         trackColorPulse: "None",
         trackPulseLength: 10,
@@ -150,10 +137,10 @@ export class Level {
         beatsAhead: 3,
         trackDisappearAnimation: "None",
         beatsBehind: 4,
-        backgroundColor: Color.FromString("000000"),
+        backgroundColor: Color.fromString("000000"),
         showDefaultBGIfNoImage: true,
         bgImage: "",
-        bgImageColor: Color.FromString("ffffff"),
+        bgImageColor: Color.fromString("ffffff"),
         parallax: [100, 100],
         bgDisplayMode: "FitToScreen",
         lockRot: false,
@@ -178,7 +165,7 @@ export class Level {
      * @param fileContent the .adofai file content to import level data from
      * @returns instance of the `Level`.
      */
-    static Import(fileContent: string): Level {
+    static import(fileContent: string): Level {
         // Backup strings to remove all whitespaces for easier parsing
         let strings = fileContent.match(/"([^"]|\")*"/g) ?? [];
 
@@ -248,11 +235,12 @@ export class Level {
                 if (action.eventType != "$UNKNOWN_ACTION") {
                     for (let k in a) {
                         if (!["floor", "_eventType", "eventType"].includes(k)) {
+                            // @ts-ignore
                             action[k] = a[k];
                         }
                     }
                 } else {
-                    // Store rawData
+                    // @ts-ignore Store the event value in rawData
                     action.rawData = a;
                 }
 

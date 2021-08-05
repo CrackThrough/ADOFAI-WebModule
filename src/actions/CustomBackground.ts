@@ -1,5 +1,5 @@
 import { Position, BGDisplayMode } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class CustomBackground extends Action {
     constructor(
