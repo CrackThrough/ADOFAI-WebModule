@@ -1,5 +1,2 @@
-import { Action, Color, PathData, Level, AngleData } from "./classes";
-
-export { Action, Color, PathData, Level, AngleData };
-
+export * from "./classes";
 export * as Actions from "./actions";

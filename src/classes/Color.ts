@@ -63,51 +63,44 @@ export class Color {
      * @param saturation Saturation (0.0 ~ 1.0)
      * @param value Value (0.0 ~ 1.0)
      */
-    static FromHSV(hue: number, saturation: number, value: number): Color {
-        hue = hue ?? 0;
-        saturation = saturation ?? 0;
-        value = value ?? 0;
-
-        if (
-            !this._InRangeOf(hue, 0, 360) ||
-            !this._InRangeOf(saturation, 0, 1) ||
-            !this._InRangeOf(value, 0, 1)
-        )
-            throw new Error("Parameter out of range");
+    static fromHSV(hue: number, saturation: number, value: number): Color {
+        hue = this.clamp(hue, 0, 360);
+        saturation = this.clamp(saturation, 0, 1);
+        value = this.clamp(value, 0, 1);
 
         const c = value * saturation;
         const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
         const m = value - c;
         const colorData = {
-            R: 0,
-            G: 0,
-            B: 0,
+            r: 0,
+            g: 0,
+            b: 0,
         };
 
         switch (true) {
-            case this._InRangeOf(hue, 0, 60):
-                colorData.R = c;
-                colorData.G = x;
+            case this.inRangeOf(hue, 0, 60):
+                colorData.r = c;
+                colorData.g = x;
                 break;
-            case this._InRangeOf(hue, 60, 120):
-                colorData.R = x;
-                colorData.G = c;
+            case this.inRangeOf(hue, 60, 120):
+                colorData.r = x;
+                colorData.g = c;
                 break;
-            case this._InRangeOf(hue, 120, 180):
-                colorData.G = c;
-                colorData.B = x;
+            case this.inRangeOf(hue, 120, 180):
+                colorData.g = c;
+                colorData.b = x;
                 break;
-            case this._InRangeOf(hue, 180, 240):
-                colorData.G = x;
-                colorData.B = c;
+            case this.inRangeOf(hue, 180, 240):
+                colorData.g = x;
+                colorData.b = c;
                 break;
-            case this._InRangeOf(hue, 240, 300):
-                colorData.R = x;
-                colorData.B = c;
+            case this.inRangeOf(hue, 240, 300):
+                colorData.r = x;
+                colorData.b = c;
                 break;
-            case this._InRangeOf(hue, 300, 360):
-                colorData.R = c;
-                colorData.B = x;
+            case this.inRangeOf(hue, 300, 360):
+                colorData.r = c;
+                colorData.b = x;
                 break;
         }
 
@@ -121,7 +114,6 @@ export class Color {
     /**
      * Convert color from number.
      * @param num number to convert into color
-     * @returns {Color}
      */
     static fromNumber(num: number): Color {
         num = Math.abs(num ?? 0);
@@ -136,24 +128,18 @@ export class Color {
         }
 
         const color = new Color(
-            this._ParseAndClamp(_c.substr(0, 2)),
-            this._ParseAndClamp(_c.substr(2, 2)),
-            this._ParseAndClamp(_c.substr(4, 2)),
-            this._ParseAndClamp(_c.substr(6, 2))
+            this.parseAndClamp(_c.substr(0, 2)),
+            this.parseAndClamp(_c.substr(2, 2)),
+            this.parseAndClamp(_c.substr(4, 2)),
+            this.parseAndClamp(_c.substr(6, 2))
         );
 
         return color;
-
-        // color.R = this._ParseAndClamp(_c.substr(0, 2));
-        // color.G = this._ParseAndClamp(_c.substr(2, 2));
-        // color.B = this._ParseAndClamp(_c.substr(4, 2));
-        // color.A = this._ParseAndClamp(_c.substr(6, 2));
     }
 
     /**
      * Convert color from string.
      * @param str string to convert into color (ex: '#FFFFFF', 'F00', 'FF')
-     * @returns {Color}
      */
     static fromString(str: string): Color {
         const color = new Color();
@@ -168,18 +154,16 @@ export class Color {
                     .join("");
             }
 
-            color.R = this._ParseAndClamp(str.substr(0, 2));
-            color.G = this._ParseAndClamp(str.substr(2, 2));
-            color.B = this._ParseAndClamp(str.substr(4, 2));
-            color.A = this._ParseAndClamp(str.substr(6, 2));
+            color.r = this.parseAndClamp(str.substr(0, 2));
+            color.g = this.parseAndClamp(str.substr(2, 2));
+            color.b = this.parseAndClamp(str.substr(4, 2));
+            color.a = this.parseAndClamp(str.substr(6, 2));
         } else if ([1, 2].includes(str.length)) {
-            const _c = this._ParseAndClamp(str);
-            color.R = _c;
-            color.G = _c;
-            color.B = _c;
-            color.A = 255;
-        } else {
-            throw new Error("Invalid parameter");
+            const _c = this.parseAndClamp(str);
+            color.r = _c;
+            color.g = _c;
+            color.b = _c;
+            color.a = 255;
         }
         return color;
     }
@@ -187,7 +171,6 @@ export class Color {
     /**
      * Convert color from object.
      * @param obj object to convert into color
-     * @returns {Color}
      */
     static fromObject(obj: any): Color {
         let r = new Color();
@@ -198,10 +181,12 @@ export class Color {
         return r;
     }
 
-    private static _ClampAndPad(val: number): string {
-        return Math.max(0, Math.min(Math.floor(val), 255))
-            .toString(16)
-            .padStart(2, "0");
+    private static clamp(v: number, min: number, max: number): number {
+        return Math.max(min, Math.min(v, max));
+    }
+
+    private static clampAndPad(v: number): string {
+        return this.clamp(Math.floor(v), 0, 255).toString(16).padStart(2, "0");
     }
 
     private static inRangeOf(v: number, min: number, max: number): boolean {

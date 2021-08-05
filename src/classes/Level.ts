@@ -15,20 +15,22 @@ export class Level {
      * Converts this level's path.
      * @param convertTo convert to pathData or angleData
      */
-    ConvertPath(): void {}
+    convertPath(convertTo: "pathData" | "angleData"): void {
+        // TODO: Write a code here
+    }
 
     /**
      * Exports this level into a json string which ADOFAI can read.
      * @param releaseNumber ADOFAI's release number to export with specific version
      * @param useAngleData whether to use angleData instead of pathData when exporting
      */
-    Export(releaseNumber: number = 75, useAngleData = false): string {
+    export(releaseNumber: number = 75, useAngleData = false): string {
         // Convert pathData to angleData
         // Only use angleData if releaseNumber is greater than 75 (the version right before mesh system is added)
         if (releaseNumber > 75 && useAngleData) {
             // If there is no angleData defined in the instance
             if (!this.angleData) {
-                this.ConvertPath();
+                this.convertPath("angleData");
             }
         } else if (!this.pathData) {
             // Add empty pathData just in case
@@ -71,7 +73,7 @@ export class Level {
      * Sorts action by floor number and eventType.
      * @returns current instance
      */
-    SortAction(): this {
+    sortActions(): this {
         // Sort by floor number and eventType
         this.actions.sort(
             (a, b) => a.floor - b.floor || (a.eventType > b.eventType ? 1 : -1)
@@ -163,7 +165,7 @@ export class Level {
      * @param fileContent the .adofai file content to import level data from
      * @returns instance of the `Level`.
      */
-    static Import(fileContent: string): Level {
+    static import(fileContent: string): Level {
         // Backup strings to remove all whitespaces for easier parsing
         let strings = fileContent.match(/"([^"]|\")*"/g) ?? [];
 

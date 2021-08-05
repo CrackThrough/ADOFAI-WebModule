@@ -9,4 +9,4 @@ console.log(level.actions);
 
 level.sortActions();
 
-console.log(level);
+console.log(level.actions);
