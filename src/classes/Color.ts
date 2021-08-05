@@ -5,57 +5,56 @@ export class Color {
     /**
      * Redness of current color.
      */
-    R: number = 255;
+    r: number = 255;
 
     /**
      * Greenness of current color.
      */
-    G: number = 255;
+    g: number = 255;
 
     /**
      * Blueness of current color.
      */
-    B: number = 255;
+    b: number = 255;
 
     /**
      * Opacity of current color.
      */
-    A: number = 255;
-
-    /**
-     * Create instance of a `Color` from RGB values.
-     * @param R Redness of the color
-     * @param G Greenness of the color
-     * @param B Blueness of the color
-     * @param A Opacity of the color
-     */
-    constructor(R = 255, G = 255, B = 255, A = 255) {
-        this.R = R ?? 255;
-        this.G = G ?? 255;
-        this.B = B ?? 255;
-        this.A = A ?? 255;
-    }
+    a: number = 255;
 
     /**
      * Converts this color to string.
-     * @returns {string} a converted HEX string. DOES NOT INCLUDE #
+     * @returns the converted HEX string. DOES NOT INCLUDE #
      */
     toString(): string {
         let result =
-            Color._ClampAndPad(this.R) +
-            Color._ClampAndPad(this.G) +
-            Color._ClampAndPad(this.B);
-        if (this.A < 255) result += Color._ClampAndPad(this.A);
+            Color.clampAndPad(this.r) +
+            Color.clampAndPad(this.g) +
+            Color.clampAndPad(this.b);
+        if (this.a < 255) result += Color.clampAndPad(this.a);
 
         return result;
     }
 
     /**
      * Converts this color to number.
-     * @returns {number} a converted value
      */
     toNumber(): number {
         return parseInt(this.toString(), 16);
+    }
+
+    /**
+     * Create instance of a `Color` from RGB values.
+     * @param r Redness of the color
+     * @param g Greenness of the color
+     * @param b Blueness of the color
+     * @param a Opacity of the color
+     */
+    constructor(r = 255, g = 255, b = 255, a = 255) {
+        this.r = r ?? 255;
+        this.g = g ?? 255;
+        this.b = b ?? 255;
+        this.a = a ?? 255;
     }
 
     /**
@@ -63,7 +62,6 @@ export class Color {
      * @param hue Hue (0.0 ~ 360.0)
      * @param saturation Saturation (0.0 ~ 1.0)
      * @param value Value (0.0 ~ 1.0)
-     * @returns {Color}
      */
     static FromHSV(hue: number, saturation: number, value: number): Color {
         hue = hue ?? 0;
@@ -117,7 +115,7 @@ export class Color {
             // @ts-ignore
             colorData[k] = (colorData[k] + m) * 255;
         }
-        return Color.FromObject(colorData);
+        return Color.fromObject(colorData);
     }
 
     /**
@@ -125,7 +123,7 @@ export class Color {
      * @param num number to convert into color
      * @returns {Color}
      */
-    static FromNumber(num: number): Color {
+    static fromNumber(num: number): Color {
         num = Math.abs(num ?? 0);
         let _c;
         if (num >= 2 ** 24 && num < 2 ** 32) {
@@ -157,7 +155,7 @@ export class Color {
      * @param str string to convert into color (ex: '#FFFFFF', 'F00', 'FF')
      * @returns {Color}
      */
-    static FromString(str: string): Color {
+    static fromString(str: string): Color {
         const color = new Color();
 
         str = str?.replace("#", "") ?? "";
@@ -191,7 +189,7 @@ export class Color {
      * @param obj object to convert into color
      * @returns {Color}
      */
-    static FromObject(obj: any): Color {
+    static fromObject(obj: any): Color {
         let r = new Color();
         for (let k in obj ?? {}) {
             // @ts-ignore
@@ -206,13 +204,13 @@ export class Color {
             .padStart(2, "0");
     }
 
-    private static _InRangeOf(v: number, min: number, max: number): boolean {
+    private static inRangeOf(v: number, min: number, max: number): boolean {
         return min <= v && v <= max;
     }
 
-    private static _ParseAndClamp(v: string): number {
+    private static parseAndClamp(v: string): number {
         let x = parseInt(v, 16);
-        x = isNaN(x) ? 255 : Math.max(0, Math.min(x, 255));
+        x = isNaN(x) ? 255 : this.clamp(x, 0, 255);
         return x;
     }
 }

@@ -21,10 +21,14 @@ export class AngleData extends Array<number> {
      * @param twirled whether the planets are twirled
      * @returns relative angle between two tiles
      */
-    static GetRelativeAngle(prevAngle: number | [number, 999], thisAngle: number, twirled = false): number {
+    static getRelativeAngle(
+        prevAngle: number | [number, 999],
+        thisAngle: number,
+        twirled = false
+    ): number {
         // Make sure to do midspin calculations on previous angles
         if (Array.isArray(prevAngle)) {
-            prevAngle = this.GetRelativeMidspinAngle(prevAngle[0], thisAngle);
+            prevAngle = this.getRelativeMidspinAngle(prevAngle[0], thisAngle);
         }
 
         // If current tile is the first tile, reset previous angle and calculate as R tile
@@ -34,7 +38,7 @@ export class AngleData extends Array<number> {
             isFirstTile = true;
         }
 
-        // Return 0 if current tile is midspin 
+        // Return 0 if current tile is midspin
         if (thisAngle == 999) return 0;
 
         // Calculate angle between two angles
@@ -52,7 +56,11 @@ export class AngleData extends Array<number> {
      * @param twirled whether the planets are twirled
      * @returns relative angle after midspin tile
      */
-    private static GetRelativeMidspinAngle(prevAngle: number, nextAngle: number, twirled = false): number {
+    private static getRelativeMidspinAngle(
+        prevAngle: number,
+        nextAngle: number,
+        twirled = false
+    ): number {
         // Middle angle to append to result
         let midAngle: number,
             diff: number = Math.abs(prevAngle - nextAngle);

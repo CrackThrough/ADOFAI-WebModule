@@ -13,7 +13,7 @@ export class Level {
 
     /**
      * Converts this level's path.
-     * @param destination convert destination
+     * @param convertTo convert to pathData or angleData
      */
     ConvertPath(): void {}
 
@@ -31,7 +31,7 @@ export class Level {
                 this.ConvertPath();
             }
         } else if (!this.pathData) {
-            // Add pathData just in case
+            // Add empty pathData just in case
             this.pathData = [];
         }
 
@@ -73,8 +73,8 @@ export class Level {
      */
     SortAction(): this {
         // Sort by floor number and eventType
-        this.actions.sort((a, b) =>
-            a.floor - b.floor || a.eventType > b.eventType ? 1 : -1
+        this.actions.sort(
+            (a, b) => a.floor - b.floor || (a.eventType > b.eventType ? 1 : -1)
         );
 
         // Return the current instance
@@ -108,7 +108,7 @@ export class Level {
         separateCountdownTime: true,
         previewImage: "",
         previewIcon: "",
-        previewIconColor: Color.FromString("003f52"),
+        previewIconColor: Color.fromString("003f52"),
         previewSongStart: 0,
         previewSongDuration: 10,
         seizureWarning: false,
@@ -125,8 +125,8 @@ export class Level {
         hitsoundVolume: 100,
         countdownTicks: 4,
         trackColorType: "Single",
-        trackColor: Color.FromString("debb7b"),
-        secondaryTrackColor: Color.FromString("ffffff"),
+        trackColor: Color.fromString("debb7b"),
+        secondaryTrackColor: Color.fromString("ffffff"),
         trackColorAnimDuration: 2,
         trackColorPulse: "None",
         trackPulseLength: 10,
@@ -135,10 +135,10 @@ export class Level {
         beatsAhead: 3,
         trackDisappearAnimation: "None",
         beatsBehind: 4,
-        backgroundColor: Color.FromString("000000"),
+        backgroundColor: Color.fromString("000000"),
         showDefaultBGIfNoImage: true,
         bgImage: "",
-        bgImageColor: Color.FromString("ffffff"),
+        bgImageColor: Color.fromString("ffffff"),
         parallax: [100, 100],
         bgDisplayMode: "FitToScreen",
         lockRot: false,
@@ -233,11 +233,12 @@ export class Level {
                 if (action.eventType != "$UNKNOWN_ACTION") {
                     for (let k in a) {
                         if (!["floor", "_eventType", "eventType"].includes(k)) {
+                            // @ts-ignore
                             action[k] = a[k];
                         }
                     }
                 } else {
-                    // Store rawData
+                    // @ts-ignore Store the event value in rawData
                     action.rawData = a;
                 }
 

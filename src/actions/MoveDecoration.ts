@@ -9,7 +9,7 @@ export class MoveDecoration extends Action {
         public positionOffset: Position = [0, 0],
         public rotationOffset: number = 0,
         public scale: number = 100,
-        public color: Color = Color.FromString("ffffff"),
+        public color: Color = Color.fromString("ffffff"),
         public angleOffset: number = 0,
         public ease: Ease = "Linear",
         public eventTag: string = ""
