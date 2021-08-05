@@ -127,7 +127,7 @@ export class PathData {
      * Calculates relative angle between two tiles
      * @param prevTile previous tile(s) to get offset angle from
      * @param thisTile current tile to get actual angle from
-     * @param twirled if the planets are twirled
+     * @param twirled whether the planets are twirled
      * @returns relative angle between two tiles
      */
     static GetRelativeAngle(prevTile: PathData[] | PathData, thisTile: PathData, twirled = false): number {
@@ -152,7 +152,7 @@ export class PathData {
      * Calculates relative angle between two tiles using path codes
      * @param prevTile previous tile(s) to get offset angle from
      * @param thisTile current tile to get actual angle from
-     * @param twirled if the planets are twirled
+     * @param twirled whether the planets are twirled
      * @returns relative angle between two tiles
      */
     static GetRelativeAngleByCode(prevTile: string, thisTile: string, twirled = false): number {

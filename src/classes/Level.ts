@@ -1,5 +1,5 @@
 import type { Settings, JSONLevelStructure, PathCode } from "../typings";
-import { Action, Color, PathData } from "..";
+import { AngleData, Action, Color, PathData } from "..";
 import * as ALL_ACTIONS from "../actions";
 
 /**
@@ -7,10 +7,36 @@ import * as ALL_ACTIONS from "../actions";
  */
 export class Level {
     /**
+     * List of angles (replaces pathData).
+     */
+    angleData: AngleData | undefined;
+
+    /**
+     * Converts this level's path.
+     * @param destination convert destination
+     */
+    ConvertPath(): void {
+
+    }
+
+    /**
      * Exports this level into a json string which ADOFAI can read.
      * @param releaseNumber ADOFAI's release number to export with specific version
+     * @param useAngleData whether to use angleData instead of pathData when exporting
      */
-    Export(releaseNumber: number = 75): string {
+    Export(releaseNumber: number = 75, useAngleData = false): string {
+        // Convert pathData to angleData
+        // Only use angleData if releaseNumber is greater than 75 (the version right before mesh system is added)
+        if (releaseNumber > 75 && useAngleData) {
+            // If there is no angleData defined in the instance
+            if (!this.angleData) {
+                this.ConvertPath();
+            }
+        } else if (!this.pathData) {
+            // Add pathData just in case
+            this.pathData = [];
+        }
+
         return JSON.stringify(
             this,
             (key, value) => {
@@ -43,7 +69,32 @@ export class Level {
         );
     }
 
+    /**
+     * Sorts action by floor number and eventType.
+     * @returns current instance
+     */
     SortAction(): this {
+        // Sort by floor number
+        this.actions.sort((a, b) => a.floor - b.floor);
+
+        // Sort again by event name
+        for (let i = 0; i < this.actions.length; i++) {
+            let selectedFloor = this.actions[i].floor,
+                floorActions = this.actions
+                    .filter(x => x.floor = selectedFloor)
+                    .slice()
+                    .sort((a, b) => a.eventType < b.eventType ? -1 : 1);
+
+            // Replace current actions value
+            floorActions.forEach((a, j) => {
+                this.actions[i + j] = a;
+            });
+
+            // Add i by amount of actions to skip to the next element with different floor value
+            i += floorActions.length - 1;
+        }
+
+        // Return the current instance
         return this;
     }
 
@@ -54,7 +105,7 @@ export class Level {
      * @param actions level actions
      */
     constructor(
-        public pathData: PathData[] = new Array(10).fill(new PathData("R")),
+        public pathData: PathData[] | undefined = new Array(10).fill(new PathData("R")),
         public settings: Settings = Level.DEFAULT_SETTINGS,
         public actions: Action[] = []
     ) {}
@@ -144,22 +195,23 @@ export class Level {
             return strings.shift() ?? "";
         });
 
-        //
+        // Try to parse data from JSON
         let parsedLevelData: JSONLevelStructure | null = null;
         try {
             parsedLevelData = JSON.parse(fileContent) as JSONLevelStructure;
         } catch (err) {
-            throw new Error(
+            console.error(
                 "Could not parse the level successfully.\n\n" +
                     (err as Error).message
             );
         }
 
+        // Create instance of a Level
         let result = new Level();
 
+        // Return parsed level data if the data is available.
         if (parsedLevelData) {
-            // TODO: Add angleData support
-            let { pathData, angleData, settings, actions } = parsedLevelData;
+            let { angleData, pathData, settings, actions } = parsedLevelData;
 
             let newPathData: PathData[] = [],
                 newActions: Action[] = [];
@@ -170,9 +222,18 @@ export class Level {
                 newPathData.push(tile);
             });
 
-            // Replace pathData and settings
-            result.pathData = newPathData;
+            // Backup default pathData just in case
+            let defaultPathData = result.pathData;
+
+            // Replace angleData or pathData and settings
+            result.pathData = newPathData.length ? newPathData : undefined;
+            result.angleData = angleData?.length ? angleData : undefined;
             result.settings = settings;
+
+            // Use default pathData if no tile data is found
+            if (!result.pathData && !result.angleData) {
+                result.pathData = defaultPathData;
+            }
 
             // Append data to Actions array
             actions.forEach((a) => {
@@ -195,9 +256,11 @@ export class Level {
                     action.rawData = a;
                 }
 
+                // Append action data
                 newActions.push(action);
             });
 
+            // Replace actions
             result.actions = newActions;
         }
 

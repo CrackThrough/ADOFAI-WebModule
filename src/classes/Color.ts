@@ -4,27 +4,23 @@
 export class Color {
     /**
      * Redness of current color.
-     * @type {number}
      */
-    R = 255;
+    R: number = 255;
 
     /**
      * Greenness of current color.
-     * @type {number}
      */
-    G = 255;
+    G: number = 255;
 
     /**
      * Blueness of current color.
-     * @type {number}
      */
-    B = 255;
+    B: number = 255;
 
     /**
      * Opacity of current color.
-     * @type {number}
      */
-    A = 255;
+    A: number = 255;
 
     /**
      * Create instance of a `Color` from RGB values.
