@@ -1,5 +1,5 @@
 import { SpeedType } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class SetSpeed extends Action {
     constructor(

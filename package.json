@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "prepack": "tsc"
     },
     "repository": {
@@ -20,6 +20,7 @@
     "homepage": "https://github.com/CrackThrough/ADOFAI-WebModule#readme",
     "devDependencies": {
         "prettier": "^2.3.2",
+        "ts-node": "^10.1.0",
         "typescript": "^4.3.5"
     }
 }

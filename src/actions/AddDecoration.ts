@@ -1,5 +1,5 @@
 import { Position, DecoRelativeTo } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class AddDecoration extends Action {
     constructor(

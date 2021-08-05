@@ -1,5 +1,5 @@
 import { Filter } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class SetFilter extends Action {
     constructor(

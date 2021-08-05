@@ -1,5 +1,5 @@
 import { FloorRange, Position, Ease } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class MoveTrack extends Action {
     constructor(

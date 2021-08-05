@@ -1,5 +1,5 @@
 import { Hitsound } from "../typings";
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class SetHitsound extends Action {
     constructor(

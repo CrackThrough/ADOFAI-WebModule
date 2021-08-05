@@ -5,7 +5,7 @@ import {
     TrackAppearAnimation,
     TrackDisappearAnimation,
 } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class ChangeTrack extends Action {
     constructor(

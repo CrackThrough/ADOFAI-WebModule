@@ -1,4 +1,4 @@
-import { Action } from "..";
+import { Action } from "../classes";
 
 export class SetConditionalEvents extends Action {
     constructor(

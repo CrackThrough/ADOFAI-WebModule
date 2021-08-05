@@ -1,5 +1,5 @@
 import { Position, Ease } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class MoveDecoration extends Action {
     constructor(

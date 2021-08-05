@@ -1,5 +1,5 @@
 import type { Settings, JSONLevelStructure, PathCode } from "../typings";
-import { AngleData, Action, Color, PathData } from "..";
+import { AngleData, Action, Color, PathData } from ".";
 import * as ALL_ACTIONS from "../actions";
 
 /**
@@ -15,9 +15,7 @@ export class Level {
      * Converts this level's path.
      * @param destination convert destination
      */
-    ConvertPath(): void {
-
-    }
+    ConvertPath(): void {}
 
     /**
      * Exports this level into a json string which ADOFAI can read.
@@ -74,25 +72,10 @@ export class Level {
      * @returns current instance
      */
     SortAction(): this {
-        // Sort by floor number
-        this.actions.sort((a, b) => a.floor - b.floor);
-
-        // Sort again by event name
-        for (let i = 0; i < this.actions.length; i++) {
-            let selectedFloor = this.actions[i].floor,
-                floorActions = this.actions
-                    .filter(x => x.floor = selectedFloor)
-                    .slice()
-                    .sort((a, b) => a.eventType < b.eventType ? -1 : 1);
-
-            // Replace current actions value
-            floorActions.forEach((a, j) => {
-                this.actions[i + j] = a;
-            });
-
-            // Add i by amount of actions to skip to the next element with different floor value
-            i += floorActions.length - 1;
-        }
+        // Sort by floor number and eventType
+        this.actions.sort((a, b) =>
+            a.floor - b.floor || a.eventType > b.eventType ? 1 : -1
+        );
 
         // Return the current instance
         return this;
@@ -105,7 +88,9 @@ export class Level {
      * @param actions level actions
      */
     constructor(
-        public pathData: PathData[] | undefined = new Array(10).fill(new PathData("R")),
+        public pathData: PathData[] | undefined = new Array(10).fill(
+            new PathData("R")
+        ),
         public settings: Settings = Level.DEFAULT_SETTINGS,
         public actions: Action[] = []
     ) {}

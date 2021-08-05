@@ -1,5 +1,5 @@
 import { Plane } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class Flash extends Action {
     constructor(

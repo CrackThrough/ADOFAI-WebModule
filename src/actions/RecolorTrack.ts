@@ -4,7 +4,7 @@ import {
     TrackColorPulse,
     TrackStyle,
 } from "../typings";
-import { Action, Color } from "..";
+import { Action, Color } from "../classes";
 
 export class RecolorTrack extends Action {
     constructor(
