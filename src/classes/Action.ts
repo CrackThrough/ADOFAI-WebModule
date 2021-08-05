@@ -18,5 +18,8 @@ export abstract class Action {
      * @param floor floor index
      * @param _eventType type string of event
      */
-    constructor(public floor: number, private _eventType: EventType) {}
+    protected constructor(
+        public floor: number,
+        private _eventType: EventType
+    ) {}
 }
