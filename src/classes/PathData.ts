@@ -44,7 +44,7 @@ export class PathData {
         }
     }
 
-    static readonly TileDictionary: { [key in PathCode]: number } = {
+    static readonly TILE_DICTIONARY: { [key in PathCode]: number } = {
         // * NORMAL TILES
         W: 15,
         H: 30,
@@ -99,25 +99,25 @@ export class PathData {
     /**
      * Finds element inside the `PathData.TileDictionary`.
      * @param v the code or angle for finding element
-     * @returns {[PathCode, number, true?] | []} [PathCode, angle]
+     * @returns {[PathCode, number] | []} [PathCode, angle]
      */
     static findTileFromDict(
         v: PathCode | number
-    ): [PathCode, number, true?] | [] {
+    ): [PathCode, number] | [] {
         let result: [PathCode, number] = ["R", NaN];
 
         // Find w/ PathCode
         if (typeof v === "string") {
-            if (!this.TileDictionary[v]) return [];
+            if (!this.TILE_DICTIONARY[v]) return [];
             result[0] = v;
-            result[1] = this.TileDictionary[v];
+            result[1] = this.TILE_DICTIONARY[v];
             return result;
         }
 
         // Find w/ result number
-        let dictValues: number[] = Object.values(this.TileDictionary);
+        let dictValues: number[] = Object.values(this.TILE_DICTIONARY);
         if (dictValues.includes(v)) {
-            result[0] = Object.keys(this.TileDictionary)[
+            result[0] = Object.keys(this.TILE_DICTIONARY)[
                 dictValues.indexOf(v)
             ] as PathCode;
             result[1] = v;

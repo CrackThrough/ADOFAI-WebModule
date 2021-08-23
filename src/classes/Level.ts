@@ -12,11 +12,77 @@ export class Level {
     angleData: AngleData | undefined;
 
     /**
-     * Converts this level's path.
+     * Converts this level's path to other path storing system.
+     * 
+     * Note that angleData => pathData won't produce valid pathData at all.
+     * 
      * @param convertTo convert to pathData or angleData
      */
-    convertPath(convertTo: "pathData" | "angleData"): void {
-        // TODO: Write a code here
+    convertPath(convertTo: "pathData" | "angleData"): this {
+        switch (convertTo) {
+            case "pathData":
+                if (this.pathData) return this;
+
+                // Convert angleData to pathData
+                let pathData: PathData[] = [];
+                this.angleData?.forEach(a => {
+                    // Data to pass as parameter in constructor
+                    let data: string | number = "R";
+
+                    if (a == 999) {
+                        // Midspin
+                        data = '!';
+                    } else {
+                        // Other tiles
+                        a = (a + 180) % 360;
+                        if (a == 0) a = 360;
+
+                        data = a;
+                    }
+
+                    // Push actual pathData value
+                    pathData.push(new PathData(data as PathCode | number));
+                });
+
+                // Reset angleData
+                this.angleData = [];
+                break;
+            case "angleData":
+                if (this.angleData) return this;
+
+                // Convert pathData to angleData
+                let angleData: AngleData = [],
+                    relativeAngleStacks: {[key: string]: number} = {};
+                this.pathData?.forEach(p => {
+                    let angle: number = 0;
+                    if (!p.isAlwaysRelative) {
+                        // Calculate angle
+                        angle = (p.angle + 180) % 360;
+                        if (angle == 0) angle = 360;
+
+                        relativeAngleStacks = {};
+                    } else {
+                        // Get relative angle offset
+                        for (let k in relativeAngleStacks) {
+                            angle += PathData.ALWAYS_RELATIVE_TILE_OFFSETS[PathData.ALWAYS_RELATIVE_TILE_CODES.indexOf(k)] * relativeAngleStacks[k];
+                        }
+
+                        // Calculate angle
+                        angle = (angle + p.angle) % 360;
+
+                        // Append data in stacks
+                        if (relativeAngleStacks[p.code] == null) relativeAngleStacks[p.code] = 0;
+                        relativeAngleStacks[p.code]++;
+                    }
+                    angleData.push(angle);
+                });
+
+                // Reset pathData
+                this.pathData = [];
+                break;
+        }
+
+        return this;
     }
 
     /**
@@ -40,7 +106,7 @@ export class Level {
         return JSON.stringify(
             this,
             (key, value) => {
-                // TODO: Implement a feature to disable specific keys / values from being exported by game's release version
+                // TODO: Implement a feature to disable specific keys/values from being exported by game's release version
                 switch (releaseNumber) {
                     case 75:
                         break;
@@ -76,6 +142,8 @@ export class Level {
     sortActions(): this {
         // Sort by floor number and eventType
         this.actions.sort(
+            // Note that if the floors are the same, a.floor - b.floor will be 0
+            // Thus, it will return a.eventType > b.eventType thing instead
             (a, b) => a.floor - b.floor || (a.eventType > b.eventType ? 1 : -1)
         );
 
