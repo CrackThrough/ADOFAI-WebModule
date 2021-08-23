@@ -1,4 +1,4 @@
-import { Position, BGDisplayMode } from "../typings";
+import { Position, BGDisplayMode } from "../types";
 import { Action, Color } from "../classes";
 
 export class CustomBackground extends Action {

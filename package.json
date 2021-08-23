@@ -20,9 +20,14 @@
     },
     "homepage": "https://github.com/CrackThrough/ADOFAI-WebModule#readme",
     "devDependencies": {
+        "@types/walk": "^2.3.1",
+        "jest": "^27.0.6",
         "prettier": "^2.3.2",
         "ts-node": "^10.1.0",
         "typedoc": "^0.21.5",
         "typescript": "^4.3.5"
+    },
+    "dependencies": {
+        "walk": "^2.3.14"
     }
 }

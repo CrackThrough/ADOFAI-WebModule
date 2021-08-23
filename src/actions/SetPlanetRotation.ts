@@ -1,4 +1,4 @@
-import { Ease } from "../typings";
+import { Ease } from "../types";
 import { Action } from "../classes";
 
 export class SetPlanetRotation extends Action {

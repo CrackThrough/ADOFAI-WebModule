@@ -1,4 +1,4 @@
-import { EventType } from "../typings";
+import { EventType } from "../types";
 
 /**
  * Abstract class representing a single action(level event).

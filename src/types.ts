@@ -596,3 +596,5 @@ export type JSONLevelStructure = {
     settings: Settings;
     actions: JSONActionStructure[];
 };
+
+export type Operator = "+" | "-" | "*" | "/";

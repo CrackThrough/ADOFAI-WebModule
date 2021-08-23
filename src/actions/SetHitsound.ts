@@ -1,4 +1,4 @@
-import { Hitsound } from "../typings";
+import { Hitsound } from "../types";
 import { Action } from "../classes";
 
 export class SetHitsound extends Action {

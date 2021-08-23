@@ -1,4 +1,4 @@
-import { PathCode } from "../typings";
+import { PathCode } from "../types";
 
 /**
  * Class representing a single path tile.

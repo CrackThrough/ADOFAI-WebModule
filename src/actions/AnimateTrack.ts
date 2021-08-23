@@ -1,4 +1,4 @@
-import { TrackAppearAnimation, TrackDisappearAnimation } from "../typings";
+import { TrackAppearAnimation, TrackDisappearAnimation } from "../types";
 import { Action } from "../classes";
 
 export class AnimateTrack extends Action {
