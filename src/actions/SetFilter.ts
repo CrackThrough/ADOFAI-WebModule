@@ -1,4 +1,4 @@
-import { Filter } from "../typings";
+import { Filter } from "../types";
 import { Action } from "../classes";
 
 export class SetFilter extends Action {

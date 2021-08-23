@@ -3,7 +3,7 @@ import {
     TrackColorType,
     TrackColorPulse,
     TrackStyle,
-} from "../typings";
+} from "../types";
 import { Action, Color } from "../classes";
 
 export class RecolorTrack extends Action {

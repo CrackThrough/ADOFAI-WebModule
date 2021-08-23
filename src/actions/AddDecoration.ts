@@ -1,4 +1,4 @@
-import { Position, DecoRelativeTo } from "../typings";
+import { Position, DecoRelativeTo } from "../types";
 import { Action, Color } from "../classes";
 
 export class AddDecoration extends Action {

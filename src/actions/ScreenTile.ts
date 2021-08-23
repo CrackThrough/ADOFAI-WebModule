@@ -1,4 +1,4 @@
-import { Position } from "../typings";
+import { Position } from "../types";
 import { Action } from "../classes";
 
 export class ScreenTile extends Action {

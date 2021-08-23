@@ -1,4 +1,4 @@
-import { RelativeTo, Position, Ease } from "../typings";
+import { RelativeTo, Position, Ease } from "../types";
 import { Action } from "../classes";
 
 export class MoveCamera extends Action {

@@ -1,4 +1,4 @@
-import { Font, Position, DecoRelativeTo } from "../typings";
+import { Font, Position, DecoRelativeTo } from "../types";
 import { Action, Color } from "../classes";
 
 export class AddText extends Action {
@@ -13,7 +13,7 @@ export class AddText extends Action {
         public scale: number = 100,
         public color: Color = new Color(),
         public depth: number = 0,
-        public ta: string = ""
+        public tag: string = ""
     ) {
         super(floor, "AddText");
     }

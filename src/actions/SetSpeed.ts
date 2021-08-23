@@ -1,4 +1,4 @@
-import { SpeedType } from "../typings";
+import { SpeedType } from "../types";
 import { Action } from "../classes";
 
 export class SetSpeed extends Action {
