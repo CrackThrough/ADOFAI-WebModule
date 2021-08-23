@@ -1,4 +1,4 @@
-import type { Settings, JSONLevelStructure, PathCode } from "../typings";
+import type { Settings, JSONLevelStructure, PathCode } from "../types";
 import { AngleData, Action, Color, PathData } from ".";
 import * as ALL_ACTIONS from "../actions";
 
@@ -100,65 +100,67 @@ export class Level {
     /**
      * Default settings which ADOFAI provides
      */
-    static readonly DEFAULT_SETTINGS: Settings = {
-        version: 4,
-        artist: "Artist",
-        specialArtistType: "None",
-        artistPermission: "",
-        song: "Song",
-        author: "Author",
-        separateCountdownTime: true,
-        previewImage: "",
-        previewIcon: "",
-        previewIconColor: Color.fromString("003f52"),
-        previewSongStart: 0,
-        previewSongDuration: 10,
-        seizureWarning: false,
-        levelDesc: "Say something about your level!",
-        levelTags: "",
-        artistLinks: "",
-        difficulty: 1,
-        songFilename: "",
-        bpm: 100,
-        volume: 100,
-        offset: 0,
-        pitch: 100,
-        hitsound: "Kick",
-        hitsoundVolume: 100,
-        countdownTicks: 4,
-        trackColorType: "Single",
-        trackColor: Color.fromString("debb7b"),
-        secondaryTrackColor: Color.fromString("ffffff"),
-        trackColorAnimDuration: 2,
-        trackColorPulse: "None",
-        trackPulseLength: 10,
-        trackStyle: "Standard",
-        trackAnimation: "None",
-        beatsAhead: 3,
-        trackDisappearAnimation: "None",
-        beatsBehind: 4,
-        backgroundColor: Color.fromString("000000"),
-        showDefaultBGIfNoImage: true,
-        bgImage: "",
-        bgImageColor: Color.fromString("ffffff"),
-        parallax: [100, 100],
-        bgDisplayMode: "FitToScreen",
-        lockRot: false,
-        loopBG: false,
-        unscaledSize: 100,
-        relativeTo: "Player",
-        position: [0, 0],
-        rotation: 0,
-        zoom: 100,
-        bgVideo: "",
-        loopVideo: false,
-        vidOffset: 0,
-        floorIconOutlines: false,
-        stickToFloors: false,
-        planetEase: "Linear",
-        planetEaseParts: 1,
-        legacyFlash: false,
-    };
+    static get DEFAULT_SETTINGS(): Settings {
+        return {
+            version: 4,
+            artist: "Artist",
+            specialArtistType: "None",
+            artistPermission: "",
+            song: "Song",
+            author: "Author",
+            separateCountdownTime: true,
+            previewImage: "",
+            previewIcon: "",
+            previewIconColor: Color.fromString("003f52"),
+            previewSongStart: 0,
+            previewSongDuration: 10,
+            seizureWarning: false,
+            levelDesc: "Say something about your level!",
+            levelTags: "",
+            artistLinks: "",
+            difficulty: 1,
+            songFilename: "",
+            bpm: 100,
+            volume: 100,
+            offset: 0,
+            pitch: 100,
+            hitsound: "Kick",
+            hitsoundVolume: 100,
+            countdownTicks: 4,
+            trackColorType: "Single",
+            trackColor: Color.fromString("debb7b"),
+            secondaryTrackColor: Color.fromString("ffffff"),
+            trackColorAnimDuration: 2,
+            trackColorPulse: "None",
+            trackPulseLength: 10,
+            trackStyle: "Standard",
+            trackAnimation: "None",
+            beatsAhead: 3,
+            trackDisappearAnimation: "None",
+            beatsBehind: 4,
+            backgroundColor: Color.fromString("000000"),
+            showDefaultBGIfNoImage: true,
+            bgImage: "",
+            bgImageColor: Color.fromString("ffffff"),
+            parallax: [100, 100],
+            bgDisplayMode: "FitToScreen",
+            lockRot: false,
+            loopBG: false,
+            unscaledSize: 100,
+            relativeTo: "Player",
+            position: [0, 0],
+            rotation: 0,
+            zoom: 100,
+            bgVideo: "",
+            loopVideo: false,
+            vidOffset: 0,
+            floorIconOutlines: false,
+            stickToFloors: false,
+            planetEase: "Linear",
+            planetEaseParts: 1,
+            legacyFlash: false,
+        }
+    }
 
     /**
      *
@@ -170,14 +172,15 @@ export class Level {
         let strings = fileContent.match(/"([^"]|\")*"/g) ?? [];
 
         // Fix fileContent to be parsable with JSON.parse()
+        // (because ADOFAI's old json formatting was a complete mess)
         fileContent = fileContent
-            .replace(/"([^"]|\")*"/g, "__String__") // replace string to "__String__"
+            .replace(/"([^"]|\")*"/g, "__String__") // replace entire string to "__String__"
             .replace(/\s/g, "") // remove whitespace
             .replace(/,,/g, ",") // remove repeating comma
             .replace(/,}/g, "}") // remove trailing comma on curly brackets
             .replace(/,\]/g, "]"); // remove trailing comma on square brackets
 
-        // Revert original strings
+        // Revert original strings from "__String__"
         fileContent = fileContent.replace(/__String__/g, () => {
             return strings.shift() ?? "";
         });
