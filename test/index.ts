@@ -2,6 +2,9 @@ import { walk } from "walk";
 
 // Starting directory
 const TEST_DIR = ".\\test";
+const SKIP_DIRS = [
+    TEST_DIR + "\\modules"
+];
 
 // Logging timestamp format
 const LOG_TIME_FORMAT: Intl.DateTimeFormatOptions[] = [
@@ -49,8 +52,9 @@ walk(TEST_DIR).on("files", (base, fileStats, next) => {
 
     fileStats.forEach(fileStat => {
         // Ignore files
-        if (isFirstDirectory && fileStat.name === "index.js") return;
-        if (!fileStat.name.endsWith(".ts")) return;
+        if (isFirstDirectory && fileStat.name === "index.ts") return; // current file
+        if (SKIP_DIRS.includes(base)) return; // skip specific directories
+        if (!fileStat.name.endsWith(".ts")) return; // other file types
 
         // Load each test file
         const fileFullDirectory = base + "\\" + fileStat.name,

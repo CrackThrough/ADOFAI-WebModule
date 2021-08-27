@@ -1,8 +1,8 @@
 import { Level, Types } from "../../dist";
 
-// @ts-ignore Get last saved level
-let level: Level = global["__currentTestLevel"] as Level;
+let level: Level = new Level();
 
+// load from default settings
 let settings: Types.Settings = Level.DEFAULT_SETTINGS;
 settings.artist = "sussssy boi";
 settings.author = "uwu???????#@?#$?%";
@@ -13,5 +13,5 @@ settings.song = "testing is hard";
 
 level.settings = settings;
 
-console.log("Changed level settings");
-console.log(level.settings);
+console.log("Changed level settings:", level.settings);
+console.log("Default Settings:", Level.DEFAULT_SETTINGS);

@@ -396,6 +396,3 @@ currentAction = new Actions.Twirl(
 
 p();
 //#endregion
-
-// @ts-ignore Cache level in dirty way
-global["__currentTestLevel"] = level;
