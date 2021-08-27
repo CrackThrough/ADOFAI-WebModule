@@ -1,17 +1,44 @@
+import { Action } from "./Action";
+import { Twirl } from "../actions";
+
+//! WARNING: This class is not tested yet!!!
+
 /**
  * Class representing `angleData` section inside the level.
  */
 export class AngleData extends Array<number> {
     /**
-     * Create instance of `AngleData`.
-     * @param v the length of an array or elements to push inside
+     * Converts current array to list of relative angles
+     * @param actions list of actions to get twirls from
+     * @returns list of relative angles
      */
-    constructor(...v: number[]) {
-        if (typeof v[0] === "number") {
-            super(v[0]);
-        } else {
-            super(...v);
-        }
+    toAngleArray(actions: Action[] | undefined = undefined): number[] {
+        let result: number[] = []; // result to return
+        let twirled = false; // twirled status
+        let prev = 180; // previous angle
+
+        // Filter out except twirl events
+        let _actions = actions?.slice().filter(a => a.eventType === "Twirl");
+
+        this.forEach((e, i) => {
+            // Get the twirl event to toggle twirl status
+            let twirlEvent = _actions?.find(a => a.eventType === "Twirl" && a.floor === i) as Twirl | undefined;
+            if (twirlEvent && !twirlEvent.doubleTwirled) {
+                twirled = !twirled;
+            }
+
+            // The previous value in array
+            let arrPrev: number | [number, 999] = this[--i] ?? 180;
+
+            if (e === 999) {
+                e = this[i] ?? 180;
+                arrPrev ??= [prev ?? this[--i], 999];
+            }
+
+            prev = AngleData.getRelativeAngle(arrPrev, e, twirled);
+        });
+
+        return result;
     }
 
     /**
