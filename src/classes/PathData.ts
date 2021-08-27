@@ -1,19 +1,13 @@
+import { Twirl } from "../actions";
 import { PathCode } from "../types";
+import { Action } from "./Action";
+
+//! WARNING: This class is not tested yet!!!
 
 /**
  * Class representing a single path tile.
  */
 export class PathData {
-    /**
-     * The code of this tile.
-     */
-    code: PathCode = "R";
-
-    /**
-     * The absolute angle of this tile.
-     */
-    angle: number = NaN;
-
     /**
      * Whether this path instance is actually a valid value.
      */
@@ -34,16 +28,12 @@ export class PathData {
 
     /**
      * Create an instance of PathData from 'code' or 'angle'.
-     * @param v the angle or path code
+     * @param code The code of this tile.
+     * @param angle The absolute angle of this tile.
      */
-    constructor(v: PathCode | number) {
-        let [code, angle] = PathData.findTileFromDict(v);
-        if (code && angle) {
-            this.code = code;
-            this.angle = angle;
-        }
-    }
+    constructor(public code: PathCode = "R", public angle: number = 180) {}
 
+    //#region static readonly
     static readonly TILE_DICTIONARY: { [key in PathCode]: number } = {
         // * NORMAL TILES
         W: 15,
@@ -95,7 +85,44 @@ export class PathData {
         240, // 'j'
         300, // 'y'
     ];
+    //#endregion
 
+    //#region static
+    /**
+     * ! Everything is messed up asdvdscahdhgsdfasdhsfhfffsdja
+     * @param pathData 
+     * @param actions 
+     * @returns 
+     */
+    static toAngleArray(pathData: PathData[], actions: Action[] | undefined = undefined): number[] {
+        let result: number[] = []; // result to return
+        let twirled = false; // twirled status
+        let prev = 180; // previous angle
+
+        // Filter out except twirl events
+        let _actions = actions?.slice().filter(a => a.eventType === "Twirl");
+
+        pathData.forEach((e, i) => {
+            // Get the twirl event to toggle twirl status
+            let twirlEvent = _actions?.find(a => a.eventType === "Twirl" && a.floor === i) as Twirl | undefined;
+            if (twirlEvent && !twirlEvent.doubleTwirled) {
+                twirled = !twirled;
+            }
+
+            // The previous value in array
+            let arrPrev: number | [number, 999] = pathData[--i] ?? 180;
+
+            if (e.code === '!') {
+                e = pathData[i] ?? 180;
+                arrPrev ??= [prev ?? pathData[--i], 999];
+            }
+
+            prev = AngleData.getRelativeAngle(arrPrev, e, twirled);
+        });
+
+        return result;
+    }
+    
     /**
      * Finds element inside the `PathData.TileDictionary`.
      * @param v the code or angle for finding element
@@ -104,7 +131,7 @@ export class PathData {
     static findTileFromDict(
         v: PathCode | number
     ): [PathCode, number] | [] {
-        let result: [PathCode, number] = ["R", NaN];
+        let result: [PathCode, number] = ["R", 180];
 
         // Find w/ PathCode
         if (typeof v === "string") {
@@ -126,6 +153,45 @@ export class PathData {
 
         // Found nothing in dictionary
         return [];
+    }
+
+    /**
+     * Creates an instance of `PathData` by specific value.
+     * @param value value either `code` or `angle`
+     * @returns an instance of `PathData`
+     */
+    static createPath(value: PathCode | number): PathData {
+        let result = new PathData();
+
+        // Get data from dict
+        let [code, angle] = PathData.findTileFromDict(value);
+
+        // null check
+        if (code && angle) {
+            result.code = code;
+            result.angle = angle;
+        }
+
+        return result;
+    }
+
+    /**
+     * Creates a list of `PathData` instances.
+     * @param values list of values passable to `PathData.createPath`
+     * @returns list of `PathData` instances
+     */
+    static createPathList(values: (PathCode | number)[] | string): PathData[] {
+        let result: PathData[] = [];
+
+        // Convert string to PathCode[]
+        if (typeof values === "string") {
+            values = values.split("") as PathCode[];
+        }
+
+        // Push each created instances to result
+        values.forEach(v => result.push(this.createPath(v)));
+
+        return result;
     }
 
     /**
@@ -187,7 +253,9 @@ export class PathData {
 
         return result;
     }
+    //#endregion
 
+    //#region private static
     /**
      * Calculates special relative angle
      * @param tileCodes list of tile codes
@@ -315,4 +383,5 @@ export class PathData {
                 return 360;
         }
     }
+    //#endregion
 }
