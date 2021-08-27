@@ -33,7 +33,7 @@ export class Color {
      * @param operator operator to decide which operation to do
      * @param color other color instance
      */
-    OperateColor(operator: Operator, color: Color): this {
+    operateColor(operator: Operator, color: Color): this {
         Color.operate(operator, this, color, this);
         return this;
     }
@@ -46,7 +46,7 @@ export class Color {
      * @param b blue value
      * @param a alpha value
      */
-    OperateValue(operator: Operator, r: number, g: number, b: number, a = 0): this {
+    operateValue(operator: Operator, r: number, g: number, b: number, a = 0): this {
         Color.operate(operator, this, { r, g, b, a }, this);
         return this;
     }
@@ -252,7 +252,7 @@ export class Color {
      * @param color2 color instance to operate
      * @returns new instance without editing other instances
      */
-    static OperateColor(operator: Operator, color1: Color, color2: Color): Color {
+    static operateColor(operator: Operator, color1: Color, color2: Color): Color {
         return this.operate(operator, color1, color2);
     }
 
@@ -266,7 +266,7 @@ export class Color {
      * @param a alpha value
      * @returns new instance without editing other instances
      */
-    static OperateValue(operator: Operator, color: Color, r: number, g: number, b: number, a = 0): Color {
+    static operateValue(operator: Operator, color: Color, r: number, g: number, b: number, a = 0): Color {
         return this.operate(operator, color, { r, g, b, a });
     }
     //#endregion
