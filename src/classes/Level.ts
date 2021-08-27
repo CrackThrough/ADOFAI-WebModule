@@ -41,17 +41,17 @@ export class Level {
                     }
 
                     // Push actual pathData value
-                    pathData.push(new PathData(data as PathCode | number));
+                    pathData.push(PathData.createPath(data as PathCode | number));
                 });
 
                 // Reset angleData
-                this.angleData = [];
+                this.angleData = new AngleData();
                 break;
             case "angleData":
                 if (this.angleData) return this;
 
                 // Convert pathData to angleData
-                let angleData: AngleData = [],
+                let angleData = new AngleData(),
                     relativeAngleStacks: {[key: string]: number} = {};
                 this.pathData?.forEach(p => {
                     let angle: number = 0;
@@ -103,6 +103,20 @@ export class Level {
             this.pathData = [];
         }
 
+        /*
+         * Known problems:
+        
+        1. parallax should return [1, 1] but returns:
+            [
+                1,
+                1
+            ]
+        
+        2. _eventType should be printed as eventType
+        3. cannot test due to level being undefined
+        
+         */
+
         return JSON.stringify(
             this,
             (key, value) => {
@@ -115,6 +129,7 @@ export class Level {
                 }
 
                 // Export as string instead of actual boolean value
+                // (because that's how .adofai works)
                 if (typeof value === "boolean") {
                     return (value = value ? "Enabled" : "Disabled");
                 }
@@ -285,7 +300,7 @@ export class Level {
 
             // Replace angleData or pathData and settings
             result.pathData = newPathData.length ? newPathData : undefined;
-            result.angleData = angleData?.length ? angleData : undefined;
+            result.angleData = angleData?.length ? angleData as AngleData : undefined;
             result.settings = settings;
 
             // Use default pathData if no tile data is found
